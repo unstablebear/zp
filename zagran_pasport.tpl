@@ -1,3 +1,57 @@
+<script type="text/JavaScript">
+  function addRow(r, first_row_id) {
+  var root = r.parentNode.parentNode;//the root
+  root = root.getElementsByTagName('tr')[0];//the rows' collection
+  root = root.getElementsByTagName('td')[0];//the rows' collection
+  root = root.getElementsByTagName('table')[0];//the rows' collection
+
+  var allRows = root.getElementsByTagName('tr');//the rows' collection
+  var first_row = document.getElementById(first_row_id);
+  var first_inp = first_row.getElementsByTagName('input');
+  var cRow = first_row.cloneNode(true)//the clone of the 1st row
+  var cInp = cRow.getElementsByTagName('input');//the inputs' collection of the 1st row
+  for(var i=0;i < cInp.length;i++) {
+		  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+(allRows.length+1))
+		  cInp[i].value = '';
+
+		  }
+  var cSel = cRow.getElementsByTagName('a')[0];
+  cSel.setAttribute('name',cSel.getAttribute('name')+'_'+(allRows.length+1));//change the selecet's name
+  root = root.getElementsByTagName('tbody')[0];
+  root.appendChild(cRow);//appends the cloned row as a new row
+}
+
+function deleteRow(r, first_row_id) {
+  var root = r.parentNode.parentNode.parentNode.parentNode;//the root
+  alert(root.id);
+  root = root.getElementsByTagName('tbody')[0];
+  alert(root.tagName);
+  var allRows = root.getElementsByTagName('tr');
+
+  root.removeChild(r.parentNode.parentNode);
+
+  var first_row = document.getElementById(first_row_id);
+  var first_inp = first_row.getElementsByTagName('input');
+
+  var fl = false;							
+  for(var j = 0; j < allRows.length; j++) {
+    if(allRows[j] == first_row) {
+      fl = true;
+    }
+    if(fl) {
+      var cInp = allRows[j].getElementsByTagName('input');
+
+      for(var i=0;i < cInp.length;i++) {
+	 	  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+j)
+		  cInp[i].value = '';
+      }
+      
+    }
+  }							
+}
+
+</script>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20" align="left" valign="top"><img src="{THEME}/images/dlet_abl01.gif" width="20" height="30" alt="" /></td>
@@ -174,6 +228,49 @@
 	      <tr>
 	        <td><br/></td>
 	      </tr>
+	      <tr>
+	        <td colspan="2">
+		  <table width="600"  border="1" cellspacing="0" cellpadding="0">
+		    <tr>
+		      <td id="tbl_row">
+			<table id="job_tbl" width="600" border="0"  cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td colspan="2" class="f_input" style="width:100px;"><center><strong>ћес€ц и год</strong></center></td>
+			    <td colspan="2" class="f_input" style="width:250px;"></td>
+			    <td colspan="2" class="f_input" style="width:250px;"></td>
+			  </tr>
+			  <tr>
+			    <td class="f_input"><center><strong>поступ.</strong></center></td>
+			    <td class="f_input"><center><strong>увольн.</strong></center></td>
+			    <td class="f_input"><center><strong>ћесто работы и должность</strong></center></td>
+			    <td class="f_input"><center><strong>јдрес предпри€ти€</strong></center></td>
+			    <td class="f_input"></td>
+			    <td ></td>
+			  </tr>
+			  <tr id="job_tbl_row">
+			    <td width="191"><input type="text" name="textfield_a" class="f_input" style="width:50px;"/></td>
+			    <td width="191"><input type="text" name="textfield_b" class="f_input" style="width:50px;"/></td> 
+			    <td width="191"><input type="text" name="textfield_c" class="f_input" style="width:250px;"/></td>
+			    <td width="191"><input type="text" name="textfield_d" class="f_input" style="width:250px;"/></td> 
+			    <td width="20" class="abl221">
+			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'job_tbl_row')">
+			    </td>
+			    <td width="0">
+			      <a/>
+			    </td>
+			  </tr>
+			</table>
+		      </td>
+		    </tr>
+		    <tr id="btn_row">
+		      <td colspan="2" width="286">
+			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row')">
+		      </td> 
+		    </tr>
+		  </table>
+		</td>
+	      </tr>
+
 	    </table>
 	  </td>
 	</tr>
@@ -193,3 +290,4 @@
   </tr>
 </table>
 <br />
+
