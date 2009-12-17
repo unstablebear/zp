@@ -82,7 +82,7 @@ function deleteRow(r, first_row_id) {
 	    <table width="600" border="0" cellspacing="0" cellpadding="0">
 	      <tr>
 		<td>Ф.И.О. (полностью в именительном падеже)</td>
-		<td><input type="text" tabindex="1" maxlength="25" name="person_name" class="f_input" /></td>
+		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" /></td>
 	      </tr>
 	      <tr>
 	        <td><br/></td>
@@ -90,7 +90,7 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если ранее имели другие фамилии</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Фамилия, когда меняли и где</td>
-		<td><input type="text" tabindex="1" id="person_name_old" name="person_name_old" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_name_old" name="person_name_old" class="f_input" maxlength="35" ></td>
 	      </tr>
 	      <tr>
 	        <td><br/></td>
@@ -314,6 +314,11 @@ function deleteRow(r, first_row_id) {
 	    </table>
 	  </td>
 	</tr>
+        <tr>
+          <td width="130" height="25">&nbsp;</td>
+          <td><input name="send_btn" type="image" style="width:80px; height:20px; cursor:hand" 
+		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить" /></td>
+        </tr>
       </table>
     </td>
     <td width="20" align="right" valign="top" class="abl33"><img src="{THEME}/images/spacer.gif" width="20" height="1" alt="" /></td>
