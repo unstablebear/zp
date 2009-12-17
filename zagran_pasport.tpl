@@ -23,31 +23,31 @@
 
 function deleteRow(r, first_row_id) {
   var root = r.parentNode.parentNode.parentNode.parentNode;//the root
-  alert(root.id);
   root = root.getElementsByTagName('tbody')[0];
-  alert(root.tagName);
   var allRows = root.getElementsByTagName('tr');
 
-  root.removeChild(r.parentNode.parentNode);
-
-  var first_row = document.getElementById(first_row_id);
-  var first_inp = first_row.getElementsByTagName('input');
-
-  var fl = false;							
-  for(var j = 0; j < allRows.length; j++) {
-    if(allRows[j] == first_row) {
-      fl = true;
-    }
-    if(fl) {
-      var cInp = allRows[j].getElementsByTagName('input');
-
-      for(var i=0;i < cInp.length;i++) {
-	 	  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+j)
-		  cInp[i].value = '';
+  if(allRows.length > 3)
+  {					      
+    root.removeChild(r.parentNode.parentNode);
+  
+    var first_row = document.getElementById(first_row_id);
+    var first_inp = first_row.getElementsByTagName('input');
+  
+    var fl = false;							
+    for(var j = 0; j < allRows.length; j++) {
+      if(allRows[j] == first_row) {
+        fl = true;
       }
-      
-    }
-  }							
+      if(fl) {
+        var cInp = allRows[j].getElementsByTagName('input');
+  
+        for(var i=0;i < cInp.length;i++) {
+  	 	  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+j)
+  		  cInp[i].value = '';
+        }
+      }
+    }							
+  }
 }
 
 </script>
@@ -230,10 +230,10 @@ function deleteRow(r, first_row_id) {
 	      </tr>
 	      <tr>
 	        <td colspan="2">
-		  <table width="600"  border="1" cellspacing="0" cellpadding="0">
+		  <table width="100%"  border="1" cellspacing="0" cellpadding="0">
 		    <tr>
 		      <td id="tbl_row">
-			<table id="job_tbl" width="600" border="0"  cellspacing="0" cellpadding="0">
+			<table id="job_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
 			  <tr>
 			    <td colspan="2" class="f_input" style="width:100px;"><center><strong>Месяц и год</strong></center></td>
 			    <td colspan="2" class="f_input" style="width:250px;"></td>
@@ -250,10 +250,10 @@ function deleteRow(r, first_row_id) {
 			  <tr id="job_tbl_row">
 			    <td width="191"><input type="text" name="textfield_a" class="f_input" style="width:50px;"/></td>
 			    <td width="191"><input type="text" name="textfield_b" class="f_input" style="width:50px;"/></td> 
-			    <td width="191"><input type="text" name="textfield_c" class="f_input" style="width:250px;"/></td>
-			    <td width="191"><input type="text" name="textfield_d" class="f_input" style="width:250px;"/></td> 
-			    <td width="20" class="abl221">
-			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'job_tbl_row')">
+			    <td width="191"><input type="text" name="textfield_c" class="f_input" style="width:235px;"/></td>
+			    <td width="191"><input type="text" name="textfield_d" class="f_input" style="width:235px;"/></td> 
+			    <td width="20" class="abl221" style="width:20px;">
+			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'job_tbl_row')" style="width:20px;">
 			    </td>
 			    <td width="0">
 			      <a/>
@@ -265,6 +265,46 @@ function deleteRow(r, first_row_id) {
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
 			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row')">
+		      </td> 
+		    </tr>
+		  </table>
+		</td>
+	      </tr>
+	      <tr>
+		<td><br/></td>
+	      </tr>
+	      <tr>
+	        <td colspan="2">
+		  <table width="100%"  border="1" cellspacing="0" cellpadding="0">
+		    <tr>
+		      <td id="tbl_row">
+			<table id="child_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
+			  <tr>
+			    <td colspan="2" class="f_input" style="width:550px;"><center><strong>Сведения о детях</strong></center></td>
+			    <td colspan="2" class="f_input" style="width:50px;"></td>
+			  </tr>
+			  <tr>
+			    <td class="f_input"><center><strong>Ф.И.О. ребенка</strong></center></td>
+			    <td class="f_input"><center><strong>Число, месяц, год и место рождения</strong></center></td>
+			    <td class="f_input"></td>
+			    <td ></td>
+			  </tr>
+			  <tr id="child_tbl_row">
+			    <td width="191"><input type="text" name="textfield_a" class="f_input" style="width:275px;"/></td>
+			    <td width="191"><input type="text" name="textfield_b" class="f_input" style="width:275px;"/></td> 
+			    <td width="20" class="abl221" style="width:20px;">
+			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'child_tbl_row')">
+			    </td>
+			    <td width="0">
+			      <a/>
+			    </td>
+			  </tr>
+			</table>
+		      </td>
+		    </tr>
+		    <tr id="btn_row">
+		      <td colspan="2" width="286">
+			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row')">
 		      </td> 
 		    </tr>
 		  </table>
