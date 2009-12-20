@@ -38,19 +38,37 @@ if( isset( $_POST['send'] ) ) {
 
 // ---------------------------------------------------------
 
-// set font
-    $pdf->SetFont('dejavusans', '', 10);
-
-// add a page
     $pdf->AddPage();
+    $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
 
-// print a line using Cell()
+    $pdf->Rect(16, 12, 25, 13, 'D', array('all' => $style));
+    $pdf->Rect(41, 12, 25, 13, 'D', array('all' => $style));
 
-    $pdf->Cell(57, 0, iconv("cp1251", "utf-8", '1. Фамилия, имя, отчество'), 0, 0, 'L');
+    $pdf->SetFont('dejavusans', 'IB', 12);
+    $pdf->Text(90, 17, iconv("cp1251", "utf-8", '                         ОЗП              '), 0);
 
-    $pdf->SetFont('dejavusans', 'U', 12);
-    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name']), 44)), 0, 1, 'L');
-    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']), 91)), 0, 1, 'L');
+    $pdf->SetFont('dejavusans', 'B', 10);
+    $pdf->Text(57, 33, iconv("cp1251", "utf-8", 'ЗАЯВЛЕНИЕ О ВЫДАЧЕ ПАСПОРТА'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(170, 27, iconv("cp1251", "utf-8", 'место для'), 0);
+    $pdf->Text(168, 31, iconv("cp1251", "utf-8", 'фотографии'), 0);
+
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 45, iconv("cp1251", "utf-8", '1. Фамилия, имя, отчество'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->Text(65, 45, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name']), 44)), 0);
+    $pdf->Line(65, 46, 160, 46, $style);
+
+    $pdf->Text(16, 53, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']), 91)), 0);
+    $pdf->Line(16, 54, 160, 54, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(30, 57, iconv("cp1251", "utf-8", 'если ранее имели другие фамилию, имя, отчество укажите их, когда меняли и где'), 0);
+
+
 //    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']) .
 //            ', ' . trim($_POST['person_birthday']), 93)), 0, 1, 'L');
 // ---------------------------------------------------------
