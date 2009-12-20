@@ -54,7 +54,6 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Text(170, 27, iconv("cp1251", "utf-8", 'место для'), 0);
     $pdf->Text(168, 31, iconv("cp1251", "utf-8", 'фотографии'), 0);
 
-
     $pdf->SetFont('dejavusans', '', 9);
     $pdf->Text(16, 45, iconv("cp1251", "utf-8", '1. Фамилия, имя, отчество'), 0);
 
@@ -68,10 +67,33 @@ if( isset( $_POST['send'] ) ) {
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(30, 57, iconv("cp1251", "utf-8", 'если ранее имели другие фамилию, имя, отчество укажите их, когда меняли и где'), 0);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 64, iconv("cp1251", "utf-8", '2. Число, месяц, год рождения'), 0);
 
-//    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']) .
-//            ', ' . trim($_POST['person_birthday']), 93)), 0, 1, 'L');
-// ---------------------------------------------------------
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(72, 60);
+    $pdf->Cell(92, 0, iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 0, 1, 'C');
+    $pdf->Line(72, 65, 160, 65, $style);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 69, iconv("cp1251", "utf-8", '3. Пол'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(30, 66);
+    $pdf->Cell(28, 0, iconv("cp1251", "utf-8", trim($_POST['person_sex'])), 0, 1, 'C');
+    $pdf->Line(30, 71, 60, 71, $style);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 79, iconv("cp1251", "utf-8", '4. Место рождения'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(50, 75);
+    $pdf->Cell(150, 0, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])), 0, 1, 'L');
+    $pdf->Line(50, 80, 195, 80, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(92, 83, iconv("cp1251", "utf-8", 'республика, край, область, населённый пункт'), 0);
+
 
 //Close and output PDF document
     $pdf->Output('example_002.pdf', 'I');
