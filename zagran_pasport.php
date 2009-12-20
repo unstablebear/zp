@@ -94,9 +94,62 @@ if( isset( $_POST['send'] ) ) {
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(92, 83, iconv("cp1251", "utf-8", 'республика, край, область, населённый пункт'), 0);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 88, iconv("cp1251", "utf-8", '5. Место жительства (регистрации)'), 0);
 
-//Close and output PDF document
-    $pdf->Output('example_002.pdf', 'I');
+    $line1 = "";
+    $line2 = "";
+    $token = strtok($_POST['person_address'], " ");
+    while($token != false) {
+      if(strlen($line1) + strlen($token) < 45) {
+	if(strlen($line1) > 0) {
+	  $line1 = $line1 . ' ';
+	}
+	$line1 = $line1 . $token;
+      } else {
+	if(strlen($line2) > 0) {
+	  $line2 = $line2 . ' ';
+	}
+	$line2 = $line2 . $token;
+      }
+      $token = strtok(" ");
+    }
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(78, 85);
+    $pdf->Cell(120, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'L');
+    $pdf->Line(78, 90, 195, 90, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(105, 93, iconv("cp1251", "utf-8", 'республика, край, область, населённый пункт'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->Text(16, 101, iconv("cp1251", "utf-8", $line2), 0);
+    $pdf->Line(16, 102, 195, 102, $style);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(16, 110, iconv("cp1251", "utf-8", '6. Гражданство'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(45, 107);
+    $pdf->Cell(77, 0, iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 0, 1, 'C');
+    $pdf->Line(45, 112, 122, 112, $style);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(122, 110, iconv("cp1251", "utf-8", 'Если одновременно имеете гражданство'), 0);
+    $pdf->Text(16, 115, iconv("cp1251", "utf-8", 'другого государства, указывается какого именно'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(107, 112);
+    $other_citizenship = iconv("cp1251", "utf-8", trim($_POST['person_citizenship_other']));
+    if(strlen(trim($other_citizenship)) == 0) {
+      $other_citizenship = iconv("cp1251", "utf-8", 'НЕ ИМЕЮ');
+    }
+    $pdf->Cell(92, 0, $other_citizenship, 0, 1, 'C');
+    $pdf->Line(107, 117, 195, 117, $style);
+
+
+    $pdf->Output('zp.pdf', 'I');
 
 }
 
