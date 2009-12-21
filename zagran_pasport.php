@@ -275,6 +275,21 @@ if( isset( $_POST['send'] ) ) {
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(65, 194.5, iconv("cp1251", "utf-8", 'Если да, то по линии какой организации и в каком году'), 0);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 201, iconv("cp1251", "utf-8", '11. Имеете ли Вы договорные, контрактные обязательства, препятствующие выезду за границу?'), 0);
+
+    $obl_info = trim($_POST['obligations_info']);
+    if (strlen($obl_info) == 0) {
+      $obl_info = 'Не имею';
+    }
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(14, 202);
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $obl_info), 0, 1, 'C');
+    $pdf->Line(14, 207, 195, 207, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(58, 209.5, iconv("cp1251", "utf-8", 'Если да, то по линии какой организации и в каком году оформлены'), 0);
+
     $pdf->Output('zp.pdf', 'I');
 
 }
