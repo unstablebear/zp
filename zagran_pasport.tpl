@@ -1,24 +1,26 @@
 <script type="text/JavaScript">
-  function addRow(r, first_row_id) {
+  function addRow(r, first_row_id, max_count) {
   var root = r.parentNode.parentNode;//the root
   root = root.getElementsByTagName('tr')[0];//the rows' collection
   root = root.getElementsByTagName('td')[0];//the rows' collection
   root = root.getElementsByTagName('table')[0];//the rows' collection
 
   var allRows = root.getElementsByTagName('tr');//the rows' collection
-  var first_row = document.getElementById(first_row_id);
-  var first_inp = first_row.getElementsByTagName('input');
-  var cRow = first_row.cloneNode(true)//the clone of the 1st row
-  var cInp = cRow.getElementsByTagName('input');//the inputs' collection of the 1st row
-  for(var i=0;i < cInp.length;i++) {
-		  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+(allRows.length+1))
+  if (allRows.length < max_count) {
+    var first_row = document.getElementById(first_row_id);
+    var first_inp = first_row.getElementsByTagName('input');
+    var cRow = first_row.cloneNode(true)//the clone of the 1st row
+    var cInp = cRow.getElementsByTagName('input');//the inputs' collection of the 1st row
+    for(var i=0;i < cInp.length;i++) {
+	  	  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+(allRows.length+1))
 		  cInp[i].value = '';
 
 		  }
-  var cSel = cRow.getElementsByTagName('a')[0];
-  cSel.setAttribute('name',cSel.getAttribute('name')+'_'+(allRows.length+1));//change the selecet's name
-  root = root.getElementsByTagName('tbody')[0];
-  root.appendChild(cRow);//appends the cloned row as a new row
+    var cSel = cRow.getElementsByTagName('a')[0];
+    cSel.setAttribute('name',cSel.getAttribute('name')+'_'+(allRows.length+1));//change the selecet's name
+    root = root.getElementsByTagName('tbody')[0];
+    root.appendChild(cRow);//appends the cloned row as a new row
+  }
 }
 
 function deleteRow(r, first_row_id) {
@@ -264,7 +266,7 @@ function deleteRow(r, first_row_id) {
 		    </tr>
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
-			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row')">
+			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row', 12)">
 		      </td> 
 		    </tr>
 		  </table>
@@ -290,8 +292,8 @@ function deleteRow(r, first_row_id) {
 			    <td ></td>
 			  </tr>
 			  <tr id="child_tbl_row">
-			    <td width="191"><input type="text" name="textfield_a" class="f_input" style="width:275px;"/></td>
-			    <td width="191"><input type="text" name="textfield_b" class="f_input" style="width:275px;"/></td> 
+			    <td width="191"><input type="text" name="child_name" class="f_input" style="width:275px;"/></td>
+			    <td width="191"><input type="text" name="child_birthday" class="f_input" style="width:275px;"/></td> 
 			    <td width="20" class="abl221" style="width:20px;">
 			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'child_tbl_row')">
 			    </td>
@@ -304,7 +306,7 @@ function deleteRow(r, first_row_id) {
 		    </tr>
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
-			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row')">
+			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 6)">
 		      </td> 
 		    </tr>
 		  </table>

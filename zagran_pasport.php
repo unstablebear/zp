@@ -322,11 +322,24 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Line(14, 271, 195, 271, $style);
     $pdf->Line(14, 275.5, 195, 275.5, $style);
 
-    $pdf->Line(96.5, 244, 96.5, 275.5, $style);
-    $pdf->Line(96.5, 244, 96.5, 275.5, $style);
+    $pdf->Line(104, 244, 104, 275.5, $style);
     $pdf->Line(14, 244, 14, 275.5, $style);
     $pdf->Line(195, 244, 195, 275.5, $style);
 
+    $pdf->Text(39, 247.5, iconv("cp1251", "utf-8", '‘амили€, им€, отчество'), 0);
+    $pdf->Text(120, 247.5, iconv("cp1251", "utf-8", '„исло, мес€ц, год и место рождени€'), 0);
+
+    if($_POST['child_name']) {
+      $pdf->Text(15, 252, iconv("cp1251", "utf-8", $_POST['child_name']), 0);
+      $pdf->Text(105, 252, iconv("cp1251", "utf-8", $_POST['child_birthday']), 0);
+    }
+
+    for($i = 4; $i < 9; $i++) {
+      if($_POST['child_name' . '_' . $i]) {
+	$pdf->Text(15, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_name' . '_' . $i]), 0);
+	$pdf->Text(105, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_birthday' . '_' . $i]), 0);
+      }
+    }
 
     $pdf->Output('zp.pdf', 'I');
 
