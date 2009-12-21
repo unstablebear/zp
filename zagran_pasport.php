@@ -102,7 +102,7 @@ if( isset( $_POST['send'] ) ) {
     $line1_full = false;
     $token = strtok($_POST['person_address'], " ");
     while($token != false) {
-      if(strlen($line1) + strlen($token) < 45 && !$line1_full) {
+      if(strlen($line1) + strlen($token) < 50 && !$line1_full) {
 	if(strlen($line1) > 0) {
 	  $line1 = $line1 . ' ';
 	}
@@ -233,6 +233,22 @@ if( isset( $_POST['send'] ) ) {
 
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(73, 164.5, iconv("cp1251", "utf-8", 'ƒл€ проживани€ за границей (в какой стране)'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 170, iconv("cp1251", "utf-8", '9. ѕолучение паспорта:        первичное, взамен использованного, испорченного, утраченного'), 0);
+
+    if($_POST['type_status'] == 'взамен использованного') {
+      $pdf->Line(82, 171, 123, 171, $style);      
+    } else if($_POST['type_status'] == 'взамен испорченного') {
+      $pdf->Line(126, 171, 149, 171, $style);
+    } else if($_POST['type_status'] == 'взамен утраченного') {
+      $pdf->Line(151, 171, 173, 171, $style);
+    } else {
+      $pdf->Line(62, 171, 80, 171, $style);      
+    }
+
+    $pdf->SetXY(14, 171);
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", '(нужное подчеркнуть).'), 0, 1, 'C');
 
     $pdf->Output('zp.pdf', 'I');
 
