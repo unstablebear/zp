@@ -41,34 +41,34 @@ if( isset( $_POST['send'] ) ) {
     $pdf->AddPage();
     $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
 
-    $pdf->Rect(16, 12, 25, 13, 'D', array('all' => $style));
-    $pdf->Rect(41, 12, 25, 13, 'D', array('all' => $style));
+    $pdf->Rect(14, 12, 25, 13, 'D', array('all' => $style));
+    $pdf->Rect(39, 12, 25, 13, 'D', array('all' => $style));
 
     $pdf->SetFont('dejavusans', 'IB', 12);
-    $pdf->Text(90, 17, iconv("cp1251", "utf-8", '                         ОЗП              '), 0);
+    $pdf->Text(90, 18, iconv("cp1251", "utf-8", '                         ОЗП              '), 0);
 
     $pdf->SetFont('dejavusans', 'B', 10);
     $pdf->Text(57, 33, iconv("cp1251", "utf-8", 'ЗАЯВЛЕНИЕ О ВЫДАЧЕ ПАСПОРТА'), 0);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(170, 27, iconv("cp1251", "utf-8", 'место для'), 0);
-    $pdf->Text(168, 31, iconv("cp1251", "utf-8", 'фотографии'), 0);
+    $pdf->Text(170, 30, iconv("cp1251", "utf-8", 'место для'), 0);
+    $pdf->Text(168, 34, iconv("cp1251", "utf-8", 'фотографии'), 0);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 45, iconv("cp1251", "utf-8", '1. Фамилия, имя, отчество'), 0);
+    $pdf->Text(14, 45, iconv("cp1251", "utf-8", '1. Фамилия, имя, отчество'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->Text(65, 45, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name']), 44)), 0);
     $pdf->Line(65, 46, 160, 46, $style);
 
-    $pdf->Text(16, 53, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']), 91)), 0);
-    $pdf->Line(16, 54, 160, 54, $style);
+    $pdf->Text(14, 53, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']), 91)), 0);
+    $pdf->Line(14, 54, 160, 54, $style);
 
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(30, 57, iconv("cp1251", "utf-8", 'если ранее имели другие фамилию, имя, отчество укажите их, когда меняли и где'), 0);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 64, iconv("cp1251", "utf-8", '2. Число, месяц, год рождения'), 0);
+    $pdf->Text(14, 64, iconv("cp1251", "utf-8", '2. Число, месяц, год рождения'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(72, 60);
@@ -76,7 +76,7 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Line(72, 65, 160, 65, $style);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 69, iconv("cp1251", "utf-8", '3. Пол'), 0);
+    $pdf->Text(14, 69, iconv("cp1251", "utf-8", '3. Пол'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(30, 66);
@@ -84,7 +84,7 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Line(30, 71, 60, 71, $style);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 79, iconv("cp1251", "utf-8", '4. Место рождения'), 0);
+    $pdf->Text(14, 79, iconv("cp1251", "utf-8", '4. Место рождения'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(50, 75);
@@ -95,7 +95,7 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Text(92, 83, iconv("cp1251", "utf-8", 'республика, край, область, населённый пункт'), 0);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 88, iconv("cp1251", "utf-8", '5. Место жительства (регистрации)'), 0);
+    $pdf->Text(14, 88, iconv("cp1251", "utf-8", '5. Место жительства (регистрации)'), 0);
 
     $line1 = "";
     $line2 = "";
@@ -124,11 +124,11 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Text(105, 93, iconv("cp1251", "utf-8", 'республика, край, область, населённый пункт'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
-    $pdf->Text(16, 101, iconv("cp1251", "utf-8", $line2), 0);
-    $pdf->Line(16, 102, 195, 102, $style);
+    $pdf->Text(14, 101, iconv("cp1251", "utf-8", $line2), 0);
+    $pdf->Line(14, 102, 195, 102, $style);
 
     $pdf->SetFont('dejavusans', '', 9);
-    $pdf->Text(16, 110, iconv("cp1251", "utf-8", '6. Гражданство'), 0);
+    $pdf->Text(14, 110, iconv("cp1251", "utf-8", '6. Гражданство'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(45, 107);
@@ -137,7 +137,7 @@ if( isset( $_POST['send'] ) ) {
 
     $pdf->SetFont('dejavusans', '', 9);
     $pdf->Text(122, 110, iconv("cp1251", "utf-8", 'Если одновременно имеете гражданство'), 0);
-    $pdf->Text(16, 115, iconv("cp1251", "utf-8", 'другого государства, указывается какого именно'), 0);
+    $pdf->Text(14, 115, iconv("cp1251", "utf-8", 'другого государства, указывается какого именно'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(107, 112);
@@ -148,6 +148,58 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Cell(92, 0, $other_citizenship, 0, 1, 'C');
     $pdf->Line(107, 117, 195, 117, $style);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 122, iconv("cp1251", 
+			      "utf-8", '7. Основной документ, удостоверяющий личность (паспорт) гражданина Российской Федерации:'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(23, 129, iconv("cp1251", "utf-8", 'серия'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(33, 125);
+    $pdf->Cell(30, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])), 0, 1, 'C');
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(63, 129, iconv("cp1251", "utf-8", 'номер'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(75, 125);
+    $pdf->Cell(34, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])), 0, 1, 'C');
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(107, 129, iconv("cp1251", "utf-8", 'выдан'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(119, 125);
+    $pdf->Cell(78, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_date'])), 0, 1, 'C');
+
+    $line1 = "";
+    $line2 = "";
+    $token = strtok($_POST['person_passport_org'], " ");
+    while($token != false) {
+      if(strlen($line1) + strlen($token) < 60) {
+	if(strlen($line1) > 0) {
+	  $line1 = $line1 . ' ';
+	}
+	$line1 = $line1 . $token;
+      } else {
+	if(strlen($line2) > 0) {
+	  $line2 = $line2 . ' ';
+	}
+	$line2 = $line2 . $token;
+      }
+      $token = strtok(" ");
+    }
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(14, 131);
+    $pdf->Cell(184, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'C');
+    $pdf->Line(14, 136, 195, 136, $style);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(14, 137);
+    $pdf->Cell(184, 0, iconv("cp1251", "utf-8", $line2), 0, 1, 'C');
+    $pdf->Line(14, 142, 195, 142, $style);
 
     $pdf->Output('zp.pdf', 'I');
 
