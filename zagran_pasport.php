@@ -309,6 +309,25 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Cell(17, 0, iconv("cp1251", "utf-8", $_POST['criminal_status']), 0, 1, 'C');
     $pdf->Line(180, 231, 195, 231, $style);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 237.5, iconv("cp1251", "utf-8", '14. Прошу внести в паспорт сведения о моих детях, гражданах Российской Федерации, в возрасте до 14 лет'), 0);
+    $pdf->Text(14, 241.5, iconv("cp1251", "utf-8", 'Прошу выдать паспорта моим детям (ненужное зачеркнуть)'), 0);
+
+    $pdf->Line(14, 244, 195, 244, $style);
+    $pdf->Line(14, 248.5, 195, 248.5, $style);
+    $pdf->Line(14, 253, 195, 253, $style);
+    $pdf->Line(14, 257.5, 195, 257.5, $style);
+    $pdf->Line(14, 262, 195, 262, $style);
+    $pdf->Line(14, 266.5, 195, 266.5, $style);
+    $pdf->Line(14, 271, 195, 271, $style);
+    $pdf->Line(14, 275.5, 195, 275.5, $style);
+
+    $pdf->Line(96.5, 244, 96.5, 275.5, $style);
+    $pdf->Line(96.5, 244, 96.5, 275.5, $style);
+    $pdf->Line(14, 244, 14, 275.5, $style);
+    $pdf->Line(195, 244, 195, 275.5, $style);
+
+
     $pdf->Output('zp.pdf', 'I');
 
 }
