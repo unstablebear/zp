@@ -401,11 +401,41 @@ TBL;
     $tbl .= '</table>';
 
     $pdf->writeHTML($tbl, true, false, false, false, '');
-
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", 
+    
+    $y = $pdf->getY();
+    $pdf->SetXY(16, $y - 3);
+    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 
 			    'Сведения, указанные в заявлении, сверены с основным документом, удостоверяющим личность гражданина'), 
 	       0, 1, 'L');
+    $pdf->SetX(14);
+    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 'Российской федерации, военным билетом и трудовой книжкой.'), 0, 1, 'L');
 
+    $pdf->SetFont('dejavusans', '', 10);
+    $pdf->SetXY(14, $y + 11);
+    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", '"_______" __________ 20    года'), 0, 1, 'L');
+    $pdf->Line(76, $y + 16, 195, $y + 16, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(93.5, $y + 18, iconv("cp1251", "utf-8", 'подпись, фамилия руководителя или начальника кадрового'), 0);
+    $pdf->Text(93.4, $y + 20.5, iconv("cp1251", "utf-8", 'аппарата предприятия, учреждения, организации, телефон'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->SetXY(14, $y + 29);
+    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 
+			   '16. Имею паспорт (заграничный) серии   __________ номер  ___________________  , выданный'), 0, 1, 'L');
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(85, $y + 28);
+    $pdf->Cell(15, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 0, 1, 'C');
+
+    $pdf->SetXY(113, $y + 28);
+    $pdf->Cell(32, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 0, 1, 'C');
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->SetXY(14, $y + 35);
+    $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 
+			   '"_________"_________________   20    года _________________________________________________________________________'), 
+	       0, 1, 'L');
 
     $pdf->Output('zp.pdf', 'I');
 
