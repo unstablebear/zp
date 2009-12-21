@@ -97,7 +97,7 @@ function deleteRow(r, first_row_id) {
 	      </tr>
               <tr>
 		<td width="300" height="25">Дата рождения</td>
-		<td><input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input"  maxlength="10" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Пол<td>
@@ -108,15 +108,15 @@ function deleteRow(r, first_row_id) {
               </tr>
 	      <tr>
 		<td width="300" height="25">Место рождения</td>
-		<td><input type="text" tabindex="1" id="person_birth_address" name="person_birth_address" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_birth_address" name="person_birth_address" class="f_input" maxlength="70" ></td>
 	      </tr>
 	      <tr>
 		<td width="300" height="25">Место жительства (регистрации)</td>
-		<td><input type="text" tabindex="1" id="person_address" name="person_address" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_address" name="person_address" class="f_input" maxlength="70" ></td>
 	      </tr>
               <tr>
 		<td width="300" height="25">Гражданство</td>
-		<td><input type="text" tabindex="1" id="person_citizenship" name="person_citizenship" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_citizenship" name="person_citizenship" class="f_input" maxlength="30" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -124,7 +124,7 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если одновременно имеете гражданство другого государства</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Государство</td>
-		<td><input type="text" tabindex="1" id="person_citizenship_other" name="person_citizenship_other" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_citizenship_other" name="person_citizenship_other" class="f_input" maxlength="30" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -132,19 +132,19 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Реквизиты паспорта гражданина РФ</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Серия</td>
-		<td><input type="text" tabindex="1" id="person_passport_ser" name="person_passport_ser" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_passport_ser" name="person_passport_ser" class="f_input" maxlength="4" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Номер</td>
-		<td><input type="text" tabindex="1" id="person_passport_num" name="person_passport_num" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_passport_num" name="person_passport_num" class="f_input" maxlength="6" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Дата выдачи</td>
-		<td><input type="text" tabindex="1" id="person_passport_date" name="person_passport_date" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_passport_date" name="person_passport_date" class="f_input" maxlength="10" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Кем выдан</td>
-		<td><input type="text" tabindex="1" id="person_passport_org" name="person_passport_org" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_passport_org" name="person_passport_org" class="f_input" maxlength="100" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -152,7 +152,7 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если цель получения - постоянное проживание</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Страна</td>
-		<td><input type="text" tabindex="1" id="purpose_country" name="purpose_country" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="purpose_country" name="purpose_country" class="f_input" maxlength="30"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -211,19 +211,19 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Реквизиты имеющегося заграничного паспорта (если есть)</strong></td></tr>
               <tr>
 		<td width="300" height="25">Серия</td>
-		<td><input type="text" tabindex="1" id="person_old_passport_ser" name="person_old_passport_ser" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_old_passport_ser" name="person_old_passport_ser" class="f_input" maxlength="4" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Номер</td>
-		<td><input type="text" tabindex="1" id="person_old_passport_num" name="person_old_passport_num" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_old_passport_num" name="person_old_passport_num" class="f_input" maxlength="6" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Дата выдачи</td>
-		<td><input type="text" tabindex="1" id="person_old_passport_date" name="person_old_passport_date" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_old_passport_date" name="person_old_passport_date" class="f_input" maxlength="10" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Кем выдан</td>
-		<td><input type="text" tabindex="1" id="person_old_passport_org" name="person_old_passport_org" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="person_old_passport_org" name="person_old_passport_org" class="f_input" maxlength="100" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>

@@ -99,14 +99,17 @@ if( isset( $_POST['send'] ) ) {
 
     $line1 = "";
     $line2 = "";
+    $line1_full = false;
     $token = strtok($_POST['person_address'], " ");
     while($token != false) {
-      if(strlen($line1) + strlen($token) < 45) {
+      if(strlen($line1) + strlen($token) < 45 && !$line1_full) {
 	if(strlen($line1) > 0) {
 	  $line1 = $line1 . ' ';
 	}
 	$line1 = $line1 . $token;
       } else {
+	if(!$line1_full)
+	  $line1_full = true;
 	if(strlen($line2) > 0) {
 	  $line2 = $line2 . ' ';
 	}
@@ -175,14 +178,17 @@ if( isset( $_POST['send'] ) ) {
 
     $line1 = "";
     $line2 = "";
+    $line1_full = false;
     $token = strtok($_POST['person_passport_org'], " ");
     while($token != false) {
-      if(strlen($line1) + strlen($token) < 60) {
+      if(strlen($line1) + strlen($token) < 70 && !$line1_full) {
 	if(strlen($line1) > 0) {
 	  $line1 = $line1 . ' ';
 	}
 	$line1 = $line1 . $token;
       } else {
+	if(!$line1_full)
+	  $line1_full = true;
 	if(strlen($line2) > 0) {
 	  $line2 = $line2 . ' ';
 	}
@@ -193,13 +199,37 @@ if( isset( $_POST['send'] ) ) {
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(14, 131);
-    $pdf->Cell(184, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'C');
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'C');
     $pdf->Line(14, 136, 195, 136, $style);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(14, 137);
-    $pdf->Cell(184, 0, iconv("cp1251", "utf-8", $line2), 0, 1, 'C');
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $line2), 0, 1, 'C');
     $pdf->Line(14, 142, 195, 142, $style);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 150, iconv("cp1251", "utf-8", '8. Цель получения паспорта'), 0);
+
+    $purpose = '';
+    $purpose_country = trim($_POST['purpose_country']);
+    if (strlen($purpose_country) == 0) {
+      $purpose = 'Для временных выездов';
+    } else {
+      $purpose_country = 'Для проживания за границей в стране ' . $purpose_country;
+    }
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(65, 146);
+    $pdf->Cell(130, 0, iconv("cp1251", "utf-8", $purpose), 0, 1, 'C');
+    $pdf->Line(65, 151, 195, 151, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(107, 153.5, iconv("cp1251", "utf-8", 'Для временных выездов за границу'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(14, 156);
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $purpose_country), 0, 1, 'C');
+    $pdf->Line(14, 161, 195, 161, $style);
 
     $pdf->Output('zp.pdf', 'I');
 
