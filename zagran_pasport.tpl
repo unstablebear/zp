@@ -306,7 +306,7 @@ function deleteRow(r, first_row_id) {
 		    </tr>
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
-			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 6)">
+			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 8)">
 		      </td> 
 		    </tr>
 		  </table>
