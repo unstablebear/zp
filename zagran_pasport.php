@@ -301,6 +301,14 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Cell(90, 0, iconv("cp1251", "utf-8", $_POST['military_status']), 0, 1, 'C');
     $pdf->Line(105, 224, 195, 224, $style);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 230, iconv("cp1251", "utf-8", '13. Не осуждены ли Вы за совершение преступления либо привлечены в качестве обвиняемого?'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(179, 226);
+    $pdf->Cell(17, 0, iconv("cp1251", "utf-8", $_POST['criminal_status']), 0, 1, 'C');
+    $pdf->Line(180, 231, 195, 231, $style);
+
     $pdf->Output('zp.pdf', 'I');
 
 }
