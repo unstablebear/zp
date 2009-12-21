@@ -290,6 +290,17 @@ if( isset( $_POST['send'] ) ) {
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(58, 209.5, iconv("cp1251", "utf-8", 'Если да, то по линии какой организации и в каком году оформлены'), 0);
 
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 217, iconv("cp1251", "utf-8", '12. Не призваны ли Вы на военную службу или не направлены ли на альтернативную гражданскую'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(19, 223, iconv("cp1251", "utf-8", 'службу? (для мужчин в возрасте от 18 до 27 лет)'), 0);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(104, 219);
+    $pdf->Cell(90, 0, iconv("cp1251", "utf-8", $_POST['military_status']), 0, 1, 'C');
+    $pdf->Line(105, 224, 195, 224, $style);
+
     $pdf->Output('zp.pdf', 'I');
 
 }
