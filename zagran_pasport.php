@@ -341,6 +341,68 @@ if( isset( $_POST['send'] ) ) {
       }
     }
 
+    $pdf->AddPage();
+    $pdf->Text(15, 17, iconv("cp1251", "utf-8", 
+			     '15. Выписка из трудовой книжки о трудовой деятельности за последние 10 лет (включая учёбу в учебных'), 0);
+    $pdf->Text(15, 21, iconv("cp1251", "utf-8", 'заведениях и военную службу):'), 0);
+
+    $pdf->Line(14, 25, 195, 25, $style);
+    $pdf->Line(14, 37, 195, 37, $style);
+    $pdf->Line(51, 25, 51, 37, $style);
+    $pdf->Line(148, 25, 148, 37, $style);
+    $pdf->Line(14, 29, 51, 29, $style);
+    $pdf->Line(32.5, 29, 32.5, 37, $style);
+
+    $pdf->SetFont('dejavusans', '', 7.5);
+    $pdf->Text(24.5, 28, iconv("cp1251", "utf-8", 'Месяц и год'), 0);
+
+    $pdf->Text(52, 28, iconv("cp1251", "utf-8", 'Должность и место работы с указанием министерства (ведомства),'), 0);
+    $pdf->Text(53, 32, iconv("cp1251", "utf-8", 'без сокращения, в том числе номер войсковой части, вида и рода'), 0);
+    $pdf->Text(82, 36, iconv("cp1251", "utf-8", 'войск вооруженных сил'), 0);
+
+    $pdf->Text(152, 28, iconv("cp1251", "utf-8", 'Местонахождение (адрес)'), 0);
+    $pdf->Text(152, 32, iconv("cp1251", "utf-8", 'предприятия, учреждения,'), 0);
+    $pdf->Text(150, 36, iconv("cp1251", "utf-8", 'организации, войсковой части'), 0);
+
+    $pdf->Text(14, 33.5, iconv("cp1251", "utf-8", 'поступления'), 0);
+    $pdf->Text(33.5, 33.5, iconv("cp1251", "utf-8", 'увольнения'), 0);
+
+    $pdf->SetFont('dejavusans', '', 8.5);
+    $pdf->SetXY(14, 37);
+    $tbl = '<table cellspacing="0" cellpadding="1" border="1">';
+
+    $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from']);
+    $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to']);
+    $j_name = iconv('cp1251', 'utf-8', $_POST['job_name']);
+    $j_address = iconv('cp1251', 'utf-8', $_POST['job_address']);
+    $tbl .= <<<TBL
+      <tr>
+      <td width="52.5" align="center" valign="middle">{$j_date_from}</td>
+      <td width="52.5" align="center" valign="middle">{$j_date_to}</td>
+      <td width="275">{$j_name}</td>
+      <td width="133">{$j_address}</td>
+      </tr>
+TBL;
+
+    for($i = 4; $i < 15; $i++) {
+        $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
+        $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
+        $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
+        $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
+        $tbl .= <<<TBL
+	  <tr>
+	  <td width="52.5" align="center" valign="middle">{$j_date_from}</td>
+          <td width="52.5" align="center" valign="middle">{$j_date_to}</td>
+	  <td width="275">{$j_name}</td>
+          <td width="133">{$j_address}</td>
+          </tr>
+TBL;
+    }
+    $tbl .= '</table>';
+
+
+
+    $pdf->writeHTML($tbl, true, false, false, false, '');
     $pdf->Output('zp.pdf', 'I');
 
 }

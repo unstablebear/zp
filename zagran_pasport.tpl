@@ -237,9 +237,9 @@ function deleteRow(r, first_row_id) {
 		      <td id="tbl_row">
 			<table id="job_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
 			  <tr>
-			    <td colspan="2" class="f_input" style="width:100px;"><center><strong>Месяц и год</strong></center></td>
-			    <td colspan="2" class="f_input" style="width:250px;"></td>
-			    <td colspan="2" class="f_input" style="width:250px;"></td>
+			    <td colspan="2" class="f_input" style="width:120px;"><center><strong>Месяц и год</strong></center></td>
+			    <td colspan="2" class="f_input" style="width:240px;"></td>
+			    <td colspan="2" class="f_input" style="width:240px;"></td>
 			  </tr>
 			  <tr>
 			    <td class="f_input"><center><strong>поступ.</strong></center></td>
@@ -250,12 +250,12 @@ function deleteRow(r, first_row_id) {
 			    <td ></td>
 			  </tr>
 			  <tr id="job_tbl_row">
-			    <td width="191"><input type="text" name="textfield_a" class="f_input" style="width:50px;"/></td>
-			    <td width="191"><input type="text" name="textfield_b" class="f_input" style="width:50px;"/></td> 
-			    <td width="191"><input type="text" name="textfield_c" class="f_input" style="width:235px;"/></td>
-			    <td width="191"><input type="text" name="textfield_d" class="f_input" style="width:235px;"/></td> 
+			    <td width="191"><input type="text" name="job_date_from" class="f_input" style="width:60px;"/></td>
+			    <td width="191"><input type="text" name="job_date_to" class="f_input" style="width:60px;"/></td> 
+			    <td width="191"><input type="text" name="job_name" class="f_input" style="width:225px;"/></td>
+			    <td width="191"><input type="text" name="job_address" class="f_input" style="width:225px;"/></td> 
 			    <td width="20" class="abl221" style="width:20px;">
-			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'job_tbl_row')" style="width:20px;">
+			      <input name="button" type="button" value="" onclick="deleteRow(this, 'job_tbl_row')" style="width:20px;">
 			    </td>
 			    <td width="0">
 			      <a/>
@@ -266,7 +266,7 @@ function deleteRow(r, first_row_id) {
 		    </tr>
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
-			<input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row', 12)">
+			<input name="button" type="button" value="" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row', 14)">
 		      </td> 
 		    </tr>
 		  </table>
