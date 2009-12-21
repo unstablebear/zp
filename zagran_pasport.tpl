@@ -174,7 +174,7 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если был оформлен допуск к секретным сведениям</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">По линии какой организации и в каком году</td>
-		<td><input type="text" tabindex="1" id="secret_access_info" name="secret_access_info" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="secret_access_info" name="secret_access_info" class="f_input" maxlength="70"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -182,7 +182,7 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если есть договорные обязательства, препятствующие выездуx</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">По линии какой организации и в каком году</td>
-		<td><input type="text" tabindex="1" id="obligations_info" name="obligations_info" class="f_input"></td>
+		<td><input type="text" tabindex="1" id="obligations_info" name="obligations_info" class="f_input" maxlength="70"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>

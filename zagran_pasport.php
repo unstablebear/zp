@@ -244,11 +244,36 @@ if( isset( $_POST['send'] ) ) {
     } else if($_POST['type_status'] == 'взамен утраченного') {
       $pdf->Line(151, 171, 173, 171, $style);
     } else {
-      $pdf->Line(62, 171, 80, 171, $style);      
+      $pdf->Line(62, 171, 80, 171, $style);
     }
 
     $pdf->SetXY(14, 171);
     $pdf->Cell(180, 0, iconv("cp1251", "utf-8", '(нужное подчеркнуть).'), 0, 1, 'C');
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 178, iconv("cp1251", "utf-8", '10. Был ли на Вас за период работы (учёбы, службы) оформлен допуск к сведениям особой важности или'), 0);
+
+    $pdf->SetFont('dejavusans', '', 9);
+    $pdf->Text(14, 186, iconv("cp1251", "utf-8", 'совершенно секретным сведениям, отнесенным к государственной тайне?'), 0);
+
+    $secret_acces_info = trim($_POST['secret_access_info']);
+    $has_secrets = 'да';
+    if(strlen($secret_acces_info) == 0) {
+      $has_secrets = 'нет';
+    }
+    
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(145, 182);
+    $pdf->Cell(50, 0, iconv("cp1251", "utf-8", $has_secrets), 0, 1, 'C');
+    $pdf->Line(145, 187, 195, 187, $style);
+
+    $pdf->SetFont('dejavusans', '', 12);
+    $pdf->SetXY(14, 187);
+    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $_POST['secret_access_info']), 0, 1, 'C');
+    $pdf->Line(14, 192, 195, 192, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(65, 194.5, iconv("cp1251", "utf-8", 'Если да, то по линии какой организации и в каком году'), 0);
 
     $pdf->Output('zp.pdf', 'I');
 
