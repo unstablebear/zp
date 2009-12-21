@@ -224,12 +224,15 @@ if( isset( $_POST['send'] ) ) {
     $pdf->Line(65, 151, 195, 151, $style);
 
     $pdf->SetFont('dejavusans', 'I', 7.5);
-    $pdf->Text(107, 153.5, iconv("cp1251", "utf-8", 'Для временных выездов за границу'), 0);
+    $pdf->Text(105, 153.5, iconv("cp1251", "utf-8", 'Для временных выездов за границу'), 0);
 
     $pdf->SetFont('dejavusans', '', 12);
     $pdf->SetXY(14, 156);
     $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $purpose_country), 0, 1, 'C');
     $pdf->Line(14, 161, 195, 161, $style);
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(73, 164.5, iconv("cp1251", "utf-8", 'Для проживания за границей (в какой стране)'), 0);
 
     $pdf->Output('zp.pdf', 'I');
 
