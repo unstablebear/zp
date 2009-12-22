@@ -503,11 +503,37 @@ TBL;
     if($_POST['email_addr']) {
 
       $to = $_POST['email_addr'];
-      $from = "robot@zagranpassport.com";
+      $from = "miroznak@yandex.ru";
+
       $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
       $message = iconv("cp1251", "utf-8", "Спасибо за то что пользуетесь http://zagranpassport.com/");
       
-      $separator = md5(time());
+      require_once "Mail.php";
+			
+      $host = "smtp.yandex.ru";
+      $username = "miroznak";
+      $password = "";
+
+      $body = "Hi,\n\nHow are you?";      
+
+      $headers = array ('From' => $from,
+			'To' => $to,
+			'Subject' => $subject);
+      $smtp = Mail::factory('smtp',
+			    array ('host' => $host,
+				   'auth' => true,
+				   'username' => $username,
+				   'password' => $password));
+
+      $mail = $smtp->send($to, $headers, $body);
+
+      if (PEAR::isError($mail)) {
+	echo("<p>" . $mail->getMessage() . "</p>");
+      } else {
+	echo("<p>Message successfully sent!</p>");
+      }
+
+      /*      $separator = md5(time());
       
       $eol = PHP_EOL;
       
@@ -541,7 +567,7 @@ TBL;
       $headers .= "--".$separator."--";
     
       // send message
-      mail($to, $subject, "", $headers);
+      mail($to, $subject, "", $headers);*/
 
     }
 
