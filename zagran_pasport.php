@@ -463,6 +463,8 @@ TBL;
     $pdf->SetFont('dejavusans', 'I', 7.5);
     $pdf->Text(128, $y + 41, iconv("cp1251", "utf-8", 'Кем выдан'), 0);
 
+    $pdf->SetFont('dejavusans', 'B', 9);
+    $pdf->Text(14, $y + 43, iconv("cp1251", "utf-8", 'Я предупрежден, что сообщение ложных сведений в заявлении или представление поддельных'), 0);
 
     $pdf->Output('zp.pdf', 'I');
 
