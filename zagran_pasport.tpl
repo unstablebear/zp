@@ -318,6 +318,10 @@ function deleteRow(r, first_row_id) {
 	</tr>
         <tr>
           <td width="130" height="25">&nbsp;</td>
+          <td>Если нужно отправить по e-mail укажите адрес&nbsp;<input name="email_addr" type="text" class="f_input"/></td>
+        </tr>
+        <tr>
+          <td width="130" height="25">&nbsp;</td>
           <td><input name="send_btn" type="image" style="width:80px; height:20px; cursor:hand" 
 		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить" /></td>
         </tr>

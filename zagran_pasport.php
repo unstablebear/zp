@@ -1,4 +1,7 @@
 <?php
+
+ini_set("memory_limit","120M");
+
 if( ! defined( 'DATALIFEENGINE' ) ) {
     die( "Hacking attempt!" );
 }
@@ -497,13 +500,59 @@ TBL;
     $pdf->Line(125, $y + 97, 195, $y + 97, $style);
     $pdf->Line(125, $y + 101, 195, $y + 101, $style);
 
-    $pdf->Output('zp.pdf', 'I');
+    if($_POST['email_addr']) {
 
-}
+      $to = $_POST['email_addr'];
+      $from = "robot@zagranpassport.com";
+      $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
+      $message = iconv("cp1251", "utf-8", "Спасибо за то что пользуетесь http://zagranpassport.com/");
+      
+      $separator = md5(time());
+      
+      $eol = PHP_EOL;
+      
+      // attachment name
+      $filename = "anketa.pdf";
+      
+      // encode data (puts attachment in proper format)
+      $pdfdoc = $pdf->Output("", "S");
+      $yyy = base64_encode($pdfdoc);
+      $attachment = chunk_split($yyy);
+      
+      // main header (multipart mandatory)
+      $headers = "From: ".$from.$eol;
+      $headers .= "MIME-Version: 1.0".$eol;
+      $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"".$eol.$eol;
+      $headers .= "Content-Transfer-Encoding: 7bit".$eol;
+      $headers .= "This is a MIME encoded message.".$eol.$eol;
+      
+      // message
+      $headers .= "--".$separator.$eol;
+      $headers .= "Content-Type: text/html; charset=\"UTF-8\"".$eol;
+      $headers .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
+      $headers .= $message.$eol.$eol;
+      
+      // attachment
+      $headers .= "--".$separator.$eol;
+      $headers .= "Content-Type: application/octet-stream; name=\"".$filename."\"".$eol;
+      $headers .= "Content-Transfer-Encoding: base64".$eol;
+      $headers .= "Content-Disposition: attachment".$eol.$eol;
+      $headers .= $attachment.$eol.$eol;
+      $headers .= "--".$separator."--";
+    
+      // send message
+      mail($to, $subject, "", $headers);
+
+    } else {
+
+      $pdfdoc = $pdf->Output("", "I");
+
+    } 
+ }
 
 $tpl->load_template( 'zagran_pasport.tpl' );
 $tpl->copy_template = "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
-        "<input name=\"send\" type=\"hidden\" value=\"send\" />
+  "<input name=\"send\" type=\"hidden\" value=\"send\" />
 </form>";
 
 $tpl->compile( 'content' );
