@@ -424,18 +424,45 @@ TBL;
     $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 
 			   '16. »мею паспорт (заграничный) серии   __________ номер  ___________________  , выданный'), 0, 1, 'L');
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(85, $y + 28);
+    $pdf->SetFont('dejavusans', 'B', 9);
+    $pdf->SetXY(85, $y + 29);
     $pdf->Cell(15, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 0, 1, 'C');
 
-    $pdf->SetXY(113, $y + 28);
+    $pdf->SetXY(113, $y + 29);
     $pdf->Cell(32, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 0, 1, 'C');
 
+    
     $pdf->SetFont('dejavusans', '', 9);
     $pdf->SetXY(14, $y + 35);
     $pdf->Cell(0, 0, iconv("cp1251", "utf-8", 
-			   '"_________"_________________   20    года _________________________________________________________________________'), 
+			   '"_________"_________________          года _________________________________________________________________________'), 
 	       0, 1, 'L');
+
+
+    $pop_day = strtok($_POST['person_old_passport_date'], '.');
+    $pop_month = strtok('.');
+    $pop_year = strtok('.');
+
+    if (!$pop_year) {
+      $pop_year = '20';
+    }
+
+    $monthes = array ( "01" => "€нвар€", "02" => "феврал€", "03" => "марта", "04" => "апрел€", "05" => "ма€", "06" => "июн€", "07" => "июл€",
+		       "08" => "августа", "09" => "сент€бр€", "10" => "окт€бр€", "11" => "но€бр€", "12" => "декабр€");
+
+    $pdf->SetFont('dejavusans', 'B', 9);
+    $pdf->SetXY(17, $y + 35);
+    $pdf->Cell(14, 0, iconv("cp1251", "utf-8", $pop_day), 0, 1, 'C');
+    $pdf->SetXY(30, $y + 35);
+    $pdf->Cell(32, 0, iconv("cp1251", "utf-8", $monthes[$pop_month]), 0, 1, 'C');
+    $pdf->SetXY(54, $y + 35);
+    $pdf->Cell(20, 0, iconv("cp1251", "utf-8", $pop_year), 0, 1, 'C');
+    $pdf->SetXY(78, $y + 35);
+    $pdf->Cell(115, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 0, 1, 'C');
+
+    $pdf->SetFont('dejavusans', 'I', 7.5);
+    $pdf->Text(128, $y + 41, iconv("cp1251", "utf-8", ' ем выдан'), 0);
+
 
     $pdf->Output('zp.pdf', 'I');
 
