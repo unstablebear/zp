@@ -15,10 +15,10 @@ if( isset( $_POST['send'] ) ) {
 
 // set document information
     $pdf->SetCreator(PDF_CREATOR);
-    $pdf->SetAuthor('Nicola Asuni');
-    $pdf->SetTitle('TCPDF Example 002');
-    $pdf->SetSubject('TCPDF Tutorial');
-    $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+    $pdf->SetAuthor('unstablebear');
+    $pdf->SetTitle('anketa na zagran pasport');
+    $pdf->SetSubject('');
+    $pdf->SetKeywords('anketa na zagran pasport');
 
 // remove default header/footer
     $pdf->setPrintHeader(false);
@@ -543,11 +543,11 @@ TBL;
       // send message
       mail($to, $subject, "", $headers);
 
-    } else {
+    }
 
-      $pdfdoc = $pdf->Output("", "I");
+    //  $pdfdoc = $pdf->Output("", "I");
 
-    } 
+     
  }
 
 $tpl->load_template( 'zagran_pasport.tpl' );

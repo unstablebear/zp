@@ -84,7 +84,7 @@ function deleteRow(r, first_row_id) {
 	    <table width="600" border="0" cellspacing="0" cellpadding="0">
 	      <tr>
 		<td>Ф.И.О. (полностью в именительном падеже)</td>
-		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" /></td>
+		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" onChange="javascript:this.value=this.value.toUpperCase();"/></td>
 	      </tr>
 	      <tr>
 	        <td><br/></td>
@@ -92,7 +92,8 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если ранее имели другие фамилии</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Фамилия, когда меняли и где</td>
-		<td><input type="text" tabindex="1" id="person_name_old" name="person_name_old" class="f_input" maxlength="35" ></td>
+		<td><input type="text" tabindex="1" id="person_name_old" name="person_name_old" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="35" ></td>
 	      </tr>
 	      <tr>
 	        <td><br/></td>
@@ -110,15 +111,18 @@ function deleteRow(r, first_row_id) {
               </tr>
 	      <tr>
 		<td width="300" height="25">Место рождения</td>
-		<td><input type="text" tabindex="1" id="person_birth_address" name="person_birth_address" class="f_input" maxlength="70" ></td>
+		<td><input type="text" tabindex="1" id="person_birth_address" name="person_birth_address" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="70" ></td>
 	      </tr>
 	      <tr>
 		<td width="300" height="25">Место жительства (регистрации)</td>
-		<td><input type="text" tabindex="1" id="person_address" name="person_address" class="f_input" maxlength="70" ></td>
+		<td><input type="text" tabindex="1" id="person_address" name="person_address" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="70" ></td>
 	      </tr>
               <tr>
 		<td width="300" height="25">Гражданство</td>
-		<td><input type="text" tabindex="1" id="person_citizenship" name="person_citizenship" class="f_input" maxlength="30" ></td>
+		<td><input type="text" tabindex="1" id="person_citizenship" name="person_citizenship" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="30" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -126,7 +130,8 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если одновременно имеете гражданство другого государства</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Государство</td>
-		<td><input type="text" tabindex="1" id="person_citizenship_other" name="person_citizenship_other" class="f_input" maxlength="30" ></td>
+		<td><input type="text" tabindex="1" id="person_citizenship_other" name="person_citizenship_other" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="30" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -146,7 +151,8 @@ function deleteRow(r, first_row_id) {
               </tr>
               <tr>
 		<td width="300" height="25">Кем выдан</td>
-		<td><input type="text" tabindex="1" id="person_passport_org" name="person_passport_org" class="f_input" maxlength="100" ></td>
+		<td><input type="text" tabindex="1" id="person_passport_org" name="person_passport_org" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="100" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -154,7 +160,8 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если цель получения - постоянное проживание</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">Страна</td>
-		<td><input type="text" tabindex="1" id="purpose_country" name="purpose_country" class="f_input" maxlength="30"></td>
+		<td><input type="text" tabindex="1" id="purpose_country" name="purpose_country" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="30"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -176,7 +183,8 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если был оформлен допуск к секретным сведениям</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">По линии какой организации и в каком году</td>
-		<td><input type="text" tabindex="1" id="secret_access_info" name="secret_access_info" class="f_input" maxlength="70"></td>
+		<td><input type="text" tabindex="1" id="secret_access_info" name="secret_access_info" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="70"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -184,7 +192,8 @@ function deleteRow(r, first_row_id) {
 	      <tr><td colspan="2"><strong>Если есть договорные обязательства, препятствующие выездуx</strong></td></tr>
 	      <tr>
 		<td width="300" height="25">По линии какой организации и в каком году</td>
-		<td><input type="text" tabindex="1" id="obligations_info" name="obligations_info" class="f_input" maxlength="70"></td>
+		<td><input type="text" tabindex="1" id="obligations_info" name="obligations_info" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="70"></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -225,7 +234,8 @@ function deleteRow(r, first_row_id) {
               </tr>
               <tr>
 		<td width="300" height="25">Кем выдан</td>
-		<td><input type="text" tabindex="1" id="person_old_passport_org" name="person_old_passport_org" class="f_input" maxlength="100" ></td>
+		<td><input type="text" tabindex="1" id="person_old_passport_org" name="person_old_passport_org" class="f_input"
+			   onChange="javascript:this.value=this.value.toUpperCase();" maxlength="100" ></td>
               </tr>
 	      <tr>
 	        <td><br/></td>
@@ -252,8 +262,10 @@ function deleteRow(r, first_row_id) {
 			  <tr id="job_tbl_row">
 			    <td width="191"><input type="text" name="job_date_from" class="f_input" style="width:60px;"/></td>
 			    <td width="191"><input type="text" name="job_date_to" class="f_input" style="width:60px;"/></td> 
-			    <td width="191"><input type="text" name="job_name" class="f_input" style="width:225px;"/></td>
-			    <td width="191"><input type="text" name="job_address" class="f_input" style="width:225px;"/></td> 
+			    <td width="191"><input type="text" name="job_name" class="f_input"
+						   onChange="javascript:this.value=this.value.toUpperCase();" style="width:225px;"/></td>
+			    <td width="191"><input type="text" name="job_address" class="f_input"
+						   onChange="javascript:this.value=this.value.toUpperCase();" style="width:225px;"/></td> 
 			    <td width="20" class="abl221" style="width:20px;">
 			      <input name="button" type="button" value="" onclick="deleteRow(this, 'job_tbl_row')" style="width:20px;">
 			    </td>
@@ -292,7 +304,8 @@ function deleteRow(r, first_row_id) {
 			    <td ></td>
 			  </tr>
 			  <tr id="child_tbl_row">
-			    <td width="191"><input type="text" name="child_name" class="f_input" style="width:275px;"/></td>
+			    <td width="191"><input type="text" name="child_name" class="f_input"
+						   onChange="javascript:this.value=this.value.toUpperCase();" style="width:275px;"/></td>
 			    <td width="191"><input type="text" name="child_birthday" class="f_input" style="width:275px;"/></td> 
 			    <td width="20" class="abl221" style="width:20px;">
 			      <input name="button" type="button" value="-" onclick="deleteRow(this, 'child_tbl_row')">
