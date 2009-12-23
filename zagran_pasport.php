@@ -500,71 +500,25 @@ TBL;
     $pdf->Line(125, $y + 97, 195, $y + 97, $style);
     $pdf->Line(125, $y + 101, 195, $y + 101, $style);
 
+    $filename = "anketa.pdf";
+
     if($_POST['email_addr']) {
 
-      require_once "Mail.php";
-      require_once('Mail/mime.php');
-
-      $pdfdoc = $pdf->Output("", "S");
-
       $to = $_POST['email_addr'];
-      $from = "miroznak@yandex.ru";
-      $host = "smtp.yandex.ru";
-      $username = "miroznak";
-      $password = "pt37m82r";
+      $from = "bot@zagranpasport.ru";
+      $host = $config['smtp_host'];
+      $username = $config['smtp_user'];
+      $password = $config['smtp_pass'];
 
+      $message = iconv("cp1251", "utf-8", "http://zagranpassport.com/");
       $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
-      $htmlMessage = <<<PDFMAIL
-	<html>
-	<body bgcolor="#ffffff">
-	<p>
-	{iconv("cp1251", "utf-8", "Спасибо за то что пользуетесь http://zagranpassport.com/")}
-        </p>
-	</body>
-	</html>
-PDFMAIL;
-      
-      $mime = new Mail_Mime(); 
 
-      $mime->setHtmlBody($htmlMessage); 
-
-      $mime->addAttachment($pdfdoc, 'application/pdf', 'zp_anketa.pdf', false, 'base64');
-
-      $body = $mime->get();
-
-      $headers = array ('From' => $from,
-			'To' => $to,
-			'Subject' => $subject);
-
-      $hdrs = $mime->headers($headers); 
-
-      $mail = &Mail::factory('mail');
-
-      $smtp = Mail::factory('smtp',
-			    array ('host' => $host,
-				   'auth' => true,
-				   'username' => $username,
-				   'password' => $password));
-      
-      $mail = $smtp->send($to, $hdrs, $body); 
-
-      //      $mail = $smtp->send($to, $headers, $body);
-
-      if (PEAR::isError($mail)) {
-	echo("<p>" . $mail->getMessage() . "</p>");
-      } else {
-	echo("<p>Message successfully sent!</p>");
-      }
-
-      /*      $separator = md5(time());
+      $separator = md5(time());
       
       $eol = PHP_EOL;
       
-      // attachment name
-      $filename = "anketa.pdf";
-      
       // encode data (puts attachment in proper format)
-      $pdfdoc = $pdf->Output("", "S");
+      $pdfdoc = $pdf->Output($filename, "S");
       $yyy = base64_encode($pdfdoc);
       $attachment = chunk_split($yyy);
       
@@ -590,11 +544,11 @@ PDFMAIL;
       $headers .= "--".$separator."--";
     
       // send message
-      mail($to, $subject, "", $headers);*/
+      mail($to, $subject, "", $headers);
 
+    } else {
+      $pdfdoc = $pdf->Output($filename, "I");
     }
-
-    $pdfdoc = $pdf->Output("zp_anketa.pdf", "I");
 
      
  }
