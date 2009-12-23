@@ -84,7 +84,7 @@ function deleteRow(r, first_row_id) {
 	    <table width="600" border="0" cellspacing="0" cellpadding="0">
 	      <tr>
 		<td>Ф.И.О. (полностью в именительном падеже)</td>
-		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" onChange="javascript:this.value=this.value.toUpperCase();"/></td>
+		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" onKeyUp="javascript:this.value=this.value.toUpperCase();"/></td>
 	      </tr>
 	      <tr>
 	        <td><br/></td>

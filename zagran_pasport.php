@@ -502,30 +502,53 @@ TBL;
 
     if($_POST['email_addr']) {
 
+      require_once "Mail.php";
+      require_once('Mail/mime.php');
+
+      $pdfdoc = $pdf->Output("", "S");
+
       $to = $_POST['email_addr'];
       $from = "miroznak@yandex.ru";
-
-      $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
-      $message = iconv("cp1251", "utf-8", "Спасибо за то что пользуетесь http://zagranpassport.com/");
-      
-      require_once "Mail.php";
-			
       $host = "smtp.yandex.ru";
       $username = "miroznak";
-      $password = "";
+      $password = "pt37m82r";
 
-      $body = "Hi,\n\nHow are you?";      
+      $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
+      $htmlMessage = <<<PDFMAIL
+	<html>
+	<body bgcolor="#ffffff">
+	<p>
+	{iconv("cp1251", "utf-8", "Спасибо за то что пользуетесь http://zagranpassport.com/")}
+        </p>
+	</body>
+	</html>
+PDFMAIL;
+      
+      $mime = new Mail_Mime(); 
+
+      $mime->setHtmlBody($htmlMessage); 
+
+      $mime->addAttachment($pdfdoc, 'application/pdf', 'zp_anketa.pdf', false, 'base64');
+
+      $body = $mime->get();
 
       $headers = array ('From' => $from,
 			'To' => $to,
 			'Subject' => $subject);
+
+      $hdrs = $mime->headers($headers); 
+
+      $mail = &Mail::factory('mail');
+
       $smtp = Mail::factory('smtp',
 			    array ('host' => $host,
 				   'auth' => true,
 				   'username' => $username,
 				   'password' => $password));
+      
+      $mail = $smtp->send($to, $hdrs, $body); 
 
-      $mail = $smtp->send($to, $headers, $body);
+      //      $mail = $smtp->send($to, $headers, $body);
 
       if (PEAR::isError($mail)) {
 	echo("<p>" . $mail->getMessage() . "</p>");
@@ -571,7 +594,7 @@ TBL;
 
     }
 
-    //  $pdfdoc = $pdf->Output("", "I");
+    $pdfdoc = $pdf->Output("zp_anketa.pdf", "I");
 
      
  }
