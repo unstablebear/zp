@@ -1,3 +1,4 @@
+
 <script type="text/JavaScript">
   function addRow(r, first_row_id, max_count) {
   var root = r.parentNode.parentNode;//the root
@@ -21,6 +22,7 @@
     root = root.getElementsByTagName('tbody')[0];
     root.appendChild(cRow);//appends the cloned row as a new row
   }
+		       
 }
 
 function deleteRow(r, first_row_id) {
@@ -100,7 +102,11 @@ function deleteRow(r, first_row_id) {
 	      </tr>
               <tr>
 		<td width="300" height="25">Дата рождения</td>
-		<td><input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input"  maxlength="10" ></td>
+		<td><div class="date_input">
+		    <input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input" maxlength="10" >
+		    </div>
+		</td>
+		<!--td><input id="person_birthday" value=""></td-->
               </tr>
               <tr>
 		<td width="300" height="25">Пол<td>
@@ -260,7 +266,11 @@ function deleteRow(r, first_row_id) {
 			    <td ></td>
 			  </tr>
 			  <tr id="job_tbl_row">
-			    <td width="191"><input type="text" name="job_date_from" class="f_input" style="width:60px;"/></td>
+			    <td width="191">
+			      <div class="date_input">
+				<input type="text" name="job_date_from" class="f_input" style="width:60px;"/>
+			      </div>
+			    </td>
 			    <td width="191"><input type="text" name="job_date_to" class="f_input" style="width:60px;"/></td> 
 			    <td width="191"><input type="text" name="job_name" class="f_input"
 						   onChange="javascript:this.value=this.value.toUpperCase();" style="width:225px;"/></td>
@@ -354,4 +364,16 @@ function deleteRow(r, first_row_id) {
   </tr>
 </table>
 <br />
+
+<script type="text/javascript">
+
+$(function()
+{
+$('div.date_input .f_input').datePicker({
+createButton:false,
+clickInput:true
+});
+});
+
+</script>
 

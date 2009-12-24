@@ -553,8 +553,17 @@ TBL;
      
  }
 
+$js = <<<HTML
+
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/date.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery.datePicker-2.1.2.js"></script>
+<link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
+
+HTML;
+
 $tpl->load_template( 'zagran_pasport.tpl' );
-$tpl->copy_template = "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
+$tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
   "<input name=\"send\" type=\"hidden\" value=\"send\" />
 </form>";
 
