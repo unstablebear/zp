@@ -369,10 +369,11 @@ function deleteRow(r, first_row_id) {
 
 $(function()
 {
-$('div.date_input .f_input').datePicker({
-createButton:false,
-clickInput:true
-});
+  $('div.date_input .f_input').datePicker({
+    createButton:false,
+    clickInput:true
+  });
+  $('div.date_input .f_input').attr('style','text-align:center;');
 });
 
 </script>
