@@ -567,6 +567,8 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
   "<input name=\"send\" type=\"hidden\" value=\"send\" />
 </form>";
 
+$tpl->set('{skin}', $config['skin']);
+
 $tpl->compile( 'content' );
 
 
