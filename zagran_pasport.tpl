@@ -2,7 +2,37 @@
 <script type="text/JavaScript">
 
 function addRow(r, first_row_id, max_count) {
-  var root = r.parentNode.parentNode;//the root
+   var tbl = document.getElementById('job_tbl');
+   var lastRow = tbl.rows.length;
+   // if there's no header row in the table, then iteration = lastRow + 1
+   var iteration = lastRow;
+   var row = tbl.insertRow(lastRow);
+  
+   // left cell
+   var cellLeft = row.insertCell(0);
+   var textNode = document.createTextNode(iteration);
+   cellLeft.appendChild(textNode);
+  
+   // right cell
+   var cellRight = row.insertCell(1);
+   var el = document.createElement('input');
+   el.type = 'text';
+   el.name = 'txtRow' + iteration;
+   el.id = 'txtRow' + iteration;
+   el.size = 40;
+  
+   el.onkeypress = keyPressTest;
+   cellRight.appendChild(el);
+  
+   // select cell
+   var cellRightSel = row.insertCell(2);
+   var sel = document.createElement('select');
+   sel.name = 'selRow' + iteration;
+   sel.options[0] = new Option('text zero', 'value0');
+   sel.options[1] = new Option('text one', 'value1');
+   cellRightSel.appendChild(sel);
+
+   /*  var root = r.parentNode.parentNode;//the root
   root = root.getElementsByTagName('tr')[0];//the rows' collection
   root = root.getElementsByTagName('td')[0];//the rows' collection
   root = root.getElementsByTagName('table')[0];//the rows' collection
@@ -36,7 +66,7 @@ function addRow(r, first_row_id, max_count) {
     $('div.date_input .f_input').attr('style','text-align:center;');
     $('div.date_input_6 .f_input').attr('style','width:70px;text-align:center;');
 
-  }
+    }*/
 		       
 }
 
