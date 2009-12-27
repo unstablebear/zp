@@ -1,105 +1,76 @@
 
 <script type="text/JavaScript">
+   function addRowToJobTable() {
+   
+   var newRow = document.getElementById("job_tbl").insertRow(-1);
+   var idx = newRow.rowIndex - 3;
 
-function addRow(r, first_row_id, max_count) {
-   var tbl = document.getElementById('job_tbl');
-   var lastRow = tbl.rows.length;
-   // if there's no header row in the table, then iteration = lastRow + 1
-   var iteration = lastRow;
-   var row = tbl.insertRow(lastRow);
-  
-   // left cell
-   var cellLeft = row.insertCell(0);
-   var textNode = document.createTextNode(iteration);
-   cellLeft.appendChild(textNode);
-  
-   // right cell
-   var cellRight = row.insertCell(1);
-   var el = document.createElement('input');
-   el.type = 'text';
-   el.name = 'txtRow' + iteration;
-   el.id = 'txtRow' + iteration;
-   el.size = 40;
-  
-   el.onkeypress = keyPressTest;
-   cellRight.appendChild(el);
-  
-   // select cell
-   var cellRightSel = row.insertCell(2);
-   var sel = document.createElement('select');
-   sel.name = 'selRow' + iteration;
-   sel.options[0] = new Option('text zero', 'value0');
-   sel.options[1] = new Option('text one', 'value1');
-   cellRightSel.appendChild(sel);
+   var oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<div class="date_input_6"><input type="text" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;/></div>';
+    
+   oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<div class="date_input_6"><input type="text" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;/></div>';
+    
+   oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" class="f_input" style="width:214px;"/>';   
 
-   /*  var root = r.parentNode.parentNode;//the root
-  root = root.getElementsByTagName('tr')[0];//the rows' collection
-  root = root.getElementsByTagName('td')[0];//the rows' collection
-  root = root.getElementsByTagName('table')[0];//the rows' collection
+   oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" class="f_input" style="width:214px;"/>';   
 
-  var allRows = root.getElementsByTagName('tr');//the rows' collection
-  if (allRows.length < max_count) {
-    var first_row = document.getElementById(first_row_id);
-    var first_inp = first_row.getElementsByTagName('input');
-    var cRow = first_row.cloneNode(true)//the clone of the 1st row
-    var cInp = cRow.getElementsByTagName('input');//the inputs' collection of the 1st row
-    for(var i=0;i < cInp.length;i++) {
-	  	  cInp[i].setAttribute('name',first_inp[i].getAttribute('name')+'_'+(allRows.length+1))
-		  cInp[i].value = '';
+   oCell = newRow.insertCell(-1);
+   oCell.className = "f_input";
+   oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;" onclick="removeRow(this, 0);"/>';   
+   /*   oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<a style="width:0px;"/>';   */
 
-		  }
-    var cSel = cRow.getElementsByTagName('a')[0];
-    cSel.setAttribute('name',cSel.getAttribute('name')+'_'+(allRows.length+1));//change the selecet's name
-    root = root.getElementsByTagName('tbody')[0];
-    root.appendChild(cRow);//appends the cloned row as a new row
 
-    $('div.date_input .f_input').datePicker({
-      createButton:false,
-      clickInput:true
-    });
+ }
 
-    $('div.date_input_6 .f_input').datePicker({
-      createButton:false,
-      clickInput:true
-    });
+   function addRowToChildTable() {
 
-    $('div.date_input .f_input').attr('style','text-align:center;');
-    $('div.date_input_6 .f_input').attr('style','width:70px;text-align:center;');
+   var newRow = document.getElementById("child_tbl").insertRow(-1);
+   var idx = newRow.rowIndex - 3;
+   
+   var oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<input type="text" name="child_name" class="f_input" style="width:287px;"/>';
+   //   oCell.setAttribute('style', 'width:288px;');
+   oCell = newRow.insertCell(-1);
+   oCell.innerHTML = '<input type="text" name="child_birthday" class="f_input" style="width:287px;"/>';
+   //   oCell.setAttribute('style', 'width:288px;');
+   oCell = newRow.insertCell(-1);
+   oCell.className = 'f_input';
+   oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." onclick="removeRow(this, 1)" style="width:16px;"/>';
+   //   oCell.setAttribute('style', 'width:16px;');
+   /*   oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<a/>';*/
+ }
 
-    }*/
-		       
-}
 
-function deleteRow(r, first_row_id) {
-  var root = r.parentNode.parentNode.parentNode.parentNode;//the root
-  root = root.getElementsByTagName('tbody')[0];
-  var allRows = root.getElementsByTagName('tr');
+   function removeRow(src, tbl_name_idx) {
+     var tbl_name = '';
+     if(tbl_name_idx == 0) {
+       tbl_name = 'job_tbl';
+     } else {
+       tbl_name = 'child_tbl';
+     }
 
-  if(allRows.length > 3)
-  {			
+     var oRow = src.parentNode.parentNode;  
+     var allRows = oRow.parentNode.getElementsByTagName('tr');     
+     document.getElementById(tbl_name).deleteRow(oRow.rowIndex);
 
-    root.removeChild(r.parentNode.parentNode);
-  
-    var first_row = document.getElementById(first_row_id);
-    var first_inp = first_row.getElementsByTagName('img');
-  
-    var fl = false;	
-    for(var j = 0; j < allRows.length; j++) {
-      if(allRows[j] == first_row) {
-        fl = true;
+     var idx = 0;
+     for(var i = 0; i < allRows.length; i++) {
+        var cInp = allRows[i].getElementsByTagName('input');
+	if(cInp.length > 0) {
+	  for(var j = 0; j < cInp.length; j++) {
+	    var i_name = cInp[j].getAttribute('name');
+	    cInp[j].setAttribute('name', i_name.substr(0, i_name.lastIndexOf('_')) + '_' + idx);
+	  }
+	  idx++;
+	}
       }
-      if(fl) {
-        var cInp = allRows[j].getElementsByTagName('img');
-  
-        for(var i=j + 1;i < cInp.length;i++) {
-  	 	  cInp[i].setAttribute('name',first_row.getAttribute('name')+'_'+j);
-  		  cInp[i].value = '';
-        }
-	break;
-      }
-    }
-  }
-}
+
+   }
 
 </script>
 
@@ -309,40 +280,16 @@ function deleteRow(r, first_row_id) {
 		      <td id="tbl_row">
 			<table id="job_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
 			  <tr>
-			    <td colspan="2" class="f_input" style="width:140px;"><center><strong>Месяц и год</strong></center></td>
-			    <td colspan="2" class="f_input" style="width:230px;"></td>
-			    <td colspan="2" class="f_input" style="width:230px;"></td>
+			    <td colspan="2" class="f_input" style="width:144px;"><center><strong>Месяц и год</strong></center></td>
+			    <td colspan="2" class="f_input" style="width:439px;"></td>
+			    <td colspan="2" class="f_input" style="width:17px;"></td>
 			  </tr>
 			  <tr>
-			    <td class="f_input"><center><strong>поступ.</strong></center></td>
-			    <td class="f_input"><center><strong>увольн.</strong></center></td>
-			    <td class="f_input"><center><strong>Место работы и должность</strong></center></td>
-			    <td class="f_input"><center><strong>Адрес предприятия</strong></center></td>
-			    <td class="f_input"></td>
-			    <td ></td>
-			  </tr>
-			  <tr id="job_tbl_row">
-			    <td width="191">
-			      <div class="date_input_6">
-				<input type="text" name="job_date_from" class="f_input" />
-			      </div>
-			    </td>
-			    <td width="191">
-			      <div class="date_input_6">
-				<input type="text" name="job_date_to" class="f_input" />
-			      </div>
-			    </td> 
-			    <td width="191"><input type="text" name="job_name" class="f_input"
-						    style="width:225px;"/></td>
-			    <td width="191"><input type="text" name="job_address" class="f_input"
-						    style="width:225px;"/></td> 
-			    <td width="20" class="f_input" style="width:20px;">
-			      <img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." onclick="deleteRow(this, 'job_tbl_row')"/>
-			      <!--input name="button" type="image" src="templates/{skin}/dleimages/minus_fav.gif" value="" onclick="deleteRow(this, 'job_tbl_row')" -->
-			    </td>
-			    <td width="0">
-			      <a/>
-			    </td>
+			    <td class="f_input" style="width:72px;"><center><strong>поступ.</strong></center></td>
+			    <td class="f_input" style="width:72px;"><center><strong>увольн.</strong></center></td>
+			    <td class="f_input" style="width:218px;"><center><strong>Место работы и должность</strong></center></td>
+			    <td class="f_input" style="width:217px;"><center><strong>Адрес предприятия</strong></center></td>
+			    <td class="f_input" style="width:17px;"></td>
 			  </tr>
 			</table>
 		      </td>
@@ -350,8 +297,8 @@ function deleteRow(r, first_row_id) {
 		    <tr id="btn_row">
 		      <td colspan="2" width="286">
 			<img src="templates/{skin}/dleimages/plus_fav.gif" 
-			     align="left" alt="Добавить строку" onclick="addRow(this.parentNode.parentNode, 'job_tbl_row', 14)"/>
-			&nbsp;<span onclick="addRow(this.parentNode.parentNode, 'job_tbl_row', 14)">Добавить строку</span>
+			     align="left" alt="Добавить строку" onclick="addRowToJobTable();"/>
+			&nbsp;<span onclick="addRowToJobTable();">Добавить строку</span>
 		      </td> 
 		    </tr>
 		  </table>
@@ -367,36 +314,23 @@ function deleteRow(r, first_row_id) {
 		      <td id="tbl_row">
 			<table id="child_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
 			  <tr>
-			    <td colspan="2" class="f_input" style="width:580px;"><center><strong>Сведения о детях</strong></center></td>
-			    <td colspan="2" class="f_input" style="width:20px;"></td>
+			    <td colspan="2" class="f_input" style="width:584px;"><center><strong>Сведения о детях</strong></center></td>
+			    <td colspan="2" class="f_input" style="width:16px;"></td>
 			  </tr>
 			  <tr>
-			    <td class="f_input"><center><strong>Ф.И.О. ребенка</strong></center></td>
-			    <td class="f_input"><center><strong>Число, месяц, год и место рождения</strong></center></td>
-			    <td class="f_input"></td>
+			    <td class="f_input" style="width:292px;"><center><strong>Ф.И.О. ребенка</strong></center></td>
+			    <td class="f_input" style="width:292px;"><center><strong>Число, месяц, год и место рождения</strong></center></td>
+			    <td class="f_input" style="width:16px;"></td>
 			    <td ></td>
-			  </tr>
-			  <tr id="child_tbl_row">
-			    <td width="290"><input type="text" name="child_name" class="f_input" style="width:297px;"/></td>
-			    <td width="290"><input type="text" name="child_birthday" class="f_input" style="width:297px;"/></td> 
-			    <td width="20" class="f_input" style="width:20px;">
-			      <img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." onclick="deleteRow(this, 'child_tbl_row')"/>
-
-			      <!--input name="button" type="button" value="-" onclick="deleteRow(this, 'child_tbl_row')"-->
-			    </td>
-			    <td width="0">
-			      <a/>
-			    </td>
-			  </tr>
+			  </tr-->
 			</table>
 		      </td>
 		    </tr>
 		    <tr id="btn_row">
-		      <td colspan="2" width="286">
+		      <td colspan="2">
 			<img src="templates/{skin}/dleimages/plus_fav.gif" 
-			     align="left" alt="Добавить строку" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 8)"/>
-			&nbsp;<span onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 8)">Добавить строку</span>
-			<!--input name="button" type="button" value="+" onclick="addRow(this.parentNode.parentNode, 'child_tbl_row', 8)"-->
+			     align="left" alt="Добавить строку" onclick="addRowToChildTable();"/>
+			&nbsp;<span onclick="addRowToChildTable();">Добавить строку</span>
 		      </td> 
 		    </tr>
 		  </table>
