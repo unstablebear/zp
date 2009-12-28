@@ -3,13 +3,15 @@
    function addRowToJobTable() {
    
    var newRow = document.getElementById("job_tbl").insertRow(-1);
-   var idx = newRow.rowIndex - 3;
+   var idx = newRow.rowIndex - 2;
 
    var oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<div class="date_input_6"><input type="text" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;/></div>';
+   oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
+   $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
     
    oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<div class="date_input_6"><input type="text" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;/></div>';
+   oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
+   $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
     
    oCell = newRow.insertCell(-1);
    oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" class="f_input" style="width:214px;"/>';   
@@ -20,16 +22,19 @@
    oCell = newRow.insertCell(-1);
    oCell.className = "f_input";
    oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;" onclick="removeRow(this, 0);"/>';   
-   /*   oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<a style="width:0px;"/>';   */
 
+   if(idx == 0) {
+     var today = new Date();
+     today.setFullYear(today.getFullYear() - 10);
+     $('#job_date_from_0').val((today.getMonth() + 1) + '.' + today.getFullYear());
+   }
 
  }
 
    function addRowToChildTable() {
 
    var newRow = document.getElementById("child_tbl").insertRow(-1);
-   var idx = newRow.rowIndex - 3;
+   var idx = newRow.rowIndex - 2;
    
    var oCell = newRow.insertCell(-1);
    oCell.innerHTML = '<input type="text" name="child_name" class="f_input" style="width:287px;"/>';
@@ -120,11 +125,7 @@
 	      </tr>
               <tr>
 		<td width="300" height="25">Дата рождения</td>
-		<td><div class="date_input">
-		    <input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input" maxlength="10" >
-		    </div>
-		</td>
-		<!--td><input id="person_birthday" value=""></td-->
+		<td><input type="text" tabindex="1" id="person_birthday" name="person_birthday" class="f_input" maxlength="10" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Пол<td>
@@ -171,11 +172,7 @@
               </tr>
               <tr>
 		<td width="300" height="25">Дата выдачи</td>
-		<td>
-		  <div class="date_input">
-		    <input type="text" tabindex="1" id="person_passport_date" name="person_passport_date" class="f_input" maxlength="10" >
-		  </div>
-		</td>
+		<td><input type="text" tabindex="1" id="person_passport_date" name="person_passport_date" class="f_input" maxlength="10" ></td>
               </tr>
               <tr>
 		<td width="300" height="25">Кем выдан</td>
@@ -258,11 +255,7 @@
               </tr>
               <tr>
 		<td width="300" height="25">Дата выдачи</td>
-		<td>
-		  <div class="date_input">
-		    <input type="text" tabindex="1" id="person_old_passport_date" name="person_old_passport_date" 
-			   class="f_input" maxlength="10" >
-		  </div>
+		<td><input type="text" tabindex="1" id="person_old_passport_date" name="person_old_passport_date" class="f_input" maxlength="10" ></div>
 		</td>
               </tr>
               <tr>
@@ -371,20 +364,31 @@
 $(function()
 {
 
-  $('div.date_input .f_input').datePicker({
+  $('#person_birthday').datePicker({
+    startDate: '01.01.1900',
+    endDate: '31.12.2200',
     createButton:false,
     clickInput:true
   });
+  $('#person_birthday').attr('style','text-align:center;');
 
-  $('div.date_input_6 .f_input').datePicker({
+  $('#person_passport_date').datePicker({
+    startDate: '01.01.1900',
+    endDate: '31.12.2200',
     createButton:false,
     clickInput:true
   });
+  $('#person_passport_date').attr('style','text-align:center;');
+
+  $('#person_old_passport_date').datePicker({
+    startDate: '01.01.1900',
+    endDate: '31.12.2200',
+    createButton:false,
+    clickInput:true
+  });
+  $('#person_old_passport_date').attr('style','text-align:center;');
 
   $('.f_input').attr('onKeyUp','javascript:this.value=this.value.toUpperCase();');
-
-  $('div.date_input .f_input').attr('style','text-align:center;');
-  $('div.date_input_6 .f_input').attr('style','width:70px;text-align:center;');
 
 });
 

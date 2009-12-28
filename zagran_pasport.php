@@ -559,6 +559,7 @@ $js = <<<HTML
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/date.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery.datePicker-2.1.2.js"></script>
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
+<script src="{$config['http_home_url']}engine/jquery/jquery.maskedinput-1.2.2.min.js" type="text/javascript"></script>
 
 HTML;
 
