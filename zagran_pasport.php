@@ -6,7 +6,17 @@ if( ! defined( 'DATALIFEENGINE' ) ) {
     die( "Hacking attempt!" );
 }
 
-if( isset( $_POST['send'] ) ) {
+$im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
+$font_file = "/{$config['http_home_url']}/engine/modules/pdf_forms/DejaVuSans.ttf";
+
+// Draw the text 'PHP Manual' using font size 13
+imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", 'PHP Мануал'));
+imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
+
+imagejpeg($im, '/tmp/img01.jpg');
+imagedestroy($im);
+
+if( isset( $_POST['send'] ) && false) {
 
     require_once ENGINE_DIR . '/modules/tcpdf/config/lang/eng.php';
     require_once ENGINE_DIR . '/modules/tcpdf/tcpdf.php';
