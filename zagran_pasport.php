@@ -50,7 +50,7 @@ if( isset( $_POST['send'] ) ) {
     $pdf->SetFont('dejavusans', 'IB', 12);
     $pdf->Text(90, 18, iconv("cp1251", "utf-8", '                         ÎÇÏ              '), 0);
 
-    $pdf->SetFont('dejavusans', 'B', 10);
+    $pdf->SetFont('Helvetica', 'B', 10);
     $pdf->Text(57, 33, iconv("cp1251", "utf-8", 'ÇÀßÂËÅÍÈÅ Î ÂÛÄÀ×Å ÏÀÑÏÎĞÒÀ'), 0);
 
     $pdf->SetFont('dejavusans', '', 9);
