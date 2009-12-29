@@ -6,17 +6,17 @@ if( ! defined( 'DATALIFEENGINE' ) ) {
     die( "Hacking attempt!" );
 }
 
-$im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
-$font_file = "/{$config['http_home_url']}/engine/modules/pdf_forms/DejaVuSans.ttf";
+/*$im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
+$font_file = "/var/www/engine/modules/pdf_forms/DejaVuSans.ttf";
 
 // Draw the text 'PHP Manual' using font size 13
 imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", 'PHP Мануал'));
 imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
 
 imagejpeg($im, '/tmp/img01.jpg');
-imagedestroy($im);
+imagedestroy($im);*/
 
-if( isset( $_POST['send'] ) && false) {
+if( isset( $_POST['send'] )) {
 
     require_once ENGINE_DIR . '/modules/tcpdf/config/lang/eng.php';
     require_once ENGINE_DIR . '/modules/tcpdf/tcpdf.php';
@@ -38,20 +38,28 @@ if( isset( $_POST['send'] ) && false) {
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 //set margins
-    $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+    $pdf->SetMargins(0, 0, PDF_MARGIN_RIGHT);
+		     //PDF_MARGIN_LEFT, 0, PDF_MARGIN_RIGHT);
+    //PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
 
 //set auto page breaks
     $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-    $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+//    $pdf->setImageScale(1);
+			//PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
     $pdf->setLanguageArray($l);
 
 // ---------------------------------------------------------
 
+    $pdf->setJPEGQuality(100);
+    $pdf->Image("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg", 0, 0, 210, 295, '', 
+		'', '', true, 150, '', false, false, 0, false, false);
+
     $pdf->AddPage();
+
     $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
 
     $pdf->Rect(14, 12, 25, 13, 'D', array('all' => $style));

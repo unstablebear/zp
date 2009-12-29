@@ -241,6 +241,15 @@
                   </select>
 		</td>
               </tr>
+              <tr>
+		<td width="300" height="25">Не уклоняетесь ли Вы от исполнения судебных обязательств</td>
+		<td>
+                  <select name="judicial_obligations" id="judicial_obligations" tabindex="1" class="f_select" style="height:20px;width:303px;">
+                    <option value="Нет">Нет</option>
+                    <option value="Да">Да</option>
+                  </select>
+		</td>
+              </tr>
 	      <tr>
 	        <td><br/></td>
 	      </tr>
@@ -292,38 +301,6 @@
 			<img src="templates/{skin}/dleimages/plus_fav.gif" 
 			     align="left" alt="Добавить строку" onclick="addRowToJobTable();"/>
 			&nbsp;<span onclick="addRowToJobTable();">Добавить строку</span>
-		      </td> 
-		    </tr>
-		  </table>
-		</td>
-	      </tr>
-	      <tr>
-		<td><br/></td>
-	      </tr>
-	      <tr>
-	        <td colspan="2">
-		  <table width="100%"  border="1" cellspacing="0" cellpadding="0">
-		    <tr>
-		      <td id="tbl_row">
-			<table id="child_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
-			  <tr>
-			    <td colspan="2" class="f_input" style="width:584px;"><center><strong>Сведения о детях</strong></center></td>
-			    <td colspan="2" class="f_input" style="width:16px;"></td>
-			  </tr>
-			  <tr>
-			    <td class="f_input" style="width:292px;"><center><strong>Ф.И.О. ребенка</strong></center></td>
-			    <td class="f_input" style="width:292px;"><center><strong>Число, месяц, год и место рождения</strong></center></td>
-			    <td class="f_input" style="width:16px;"></td>
-			    <td ></td>
-			  </tr-->
-			</table>
-		      </td>
-		    </tr>
-		    <tr id="btn_row">
-		      <td colspan="2">
-			<img src="templates/{skin}/dleimages/plus_fav.gif" 
-			     align="left" alt="Добавить строку" onclick="addRowToChildTable();"/>
-			&nbsp;<span onclick="addRowToChildTable();">Добавить строку</span>
 		      </td> 
 		    </tr>
 		  </table>
