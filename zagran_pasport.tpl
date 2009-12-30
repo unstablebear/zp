@@ -31,26 +31,6 @@
 
  }
 
-   function addRowToChildTable() {
-
-   var newRow = document.getElementById("child_tbl").insertRow(-1);
-   var idx = newRow.rowIndex - 2;
-   
-   var oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="child_name" class="f_input" style="width:287px;"/>';
-   //   oCell.setAttribute('style', 'width:288px;');
-   oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="child_birthday" class="f_input" style="width:287px;"/>';
-   //   oCell.setAttribute('style', 'width:288px;');
-   oCell = newRow.insertCell(-1);
-   oCell.className = 'f_input';
-   oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." onclick="removeRow(this, 1)" style="width:16px;"/>';
-   //   oCell.setAttribute('style', 'width:16px;');
-   /*   oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<a/>';*/
- }
-
-
    function removeRow(src, tbl_name_idx) {
      var tbl_name = '';
      if(tbl_name_idx == 0) {

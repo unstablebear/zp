@@ -63,30 +63,21 @@ if( isset( $_POST['send'] )) {
     $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
 
     $pdf->SetFont('times', '', 16);
-    $pn = iconv("cp1251", "utf-8","ччч");
-    $pdf->TextField('nickname', 105, 6, array(), array('v'=>$pn), 55, 38.5);
+    $pdf->TextField('person_name', 105, 6, array(), 
+		    array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name'])), 'Q'=>1), 55, 38.5);
 
     
-      //iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name']), 44));
-    //    $pdf->TextField('personname', 50, 5, array(), array('v'=>$nickName));
+    $pdf->TextField('person_name_old', 148, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name_old'])), 'Q'=>1), 
+		    13, 45.5);
 
+    $pdf->TextField('person_birthday', 91, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 'Q'=>1)
+		    , 61, 55);
 
-    //iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name']), 44))
+    $pdf->TextField('person_sex', 30, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_sex'])), 'Q'=>1), 
+		    164.5, 55);
 
-    $pdf->Text(14, 53, iconv("cp1251", "utf-8", str_pad(trim($_POST['person_name_old']), 91)), 0);
-
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(72, 60);
-    $pdf->Cell(92, 0, iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 0, 1, 'C');
-
-    $pdf->SetFont('helvetica', '', 12);
-    $pdf->SetXY(30, 66);
-    $pdf->Cell(28, 0, iconv("cp1251", "utf-8", trim($_POST['person_sex'])), 0, 1, 'C');
-
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(50, 75);
-    $pdf->Cell(150, 0, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])), 0, 1, 'L');
-    $pdf->Line(50, 80, 195, 80, $style);
+    $pdf->TextField('person_birth_address', 150, 5, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])),
+								   'q'=>1), 44.5, 62);
 
     $line1 = "";
     $line2 = "";
@@ -109,36 +100,27 @@ if( isset( $_POST['send'] )) {
       $token = strtok(" ");
     }
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(78, 85);
-    $pdf->Cell(120, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'L');
+    $pdf->TextField('person_address1', 126, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line1), 'q'=>1), 69, 71)  ;
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->Text(14, 101, iconv("cp1251", "utf-8", $line2), 0);
+    $pdf->TextField('person_address2', 183, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line2), 'q'=>1), 12, 79.7);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(45, 107);
-    $pdf->Cell(77, 0, iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 0, 1, 'C');
+    $pdf->TextField('person_citizenship', 82, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 'q'=>1), 
+		    38, 87.7);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(107, 112);
     $other_citizenship = iconv("cp1251", "utf-8", trim($_POST['person_citizenship_other']));
     if(strlen(trim($other_citizenship)) == 0) {
       $other_citizenship = iconv("cp1251", "utf-8", 'НЕ ИМЕЮ');
     }
-    $pdf->Cell(92, 0, $other_citizenship, 0, 1, 'C');
+    $pdf->TextField('person_citizenship_other', 103, 5, array(), array('v'=>$other_citizenship, 'q'=>1), 92, 95);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(33, 125);
-    $pdf->Cell(30, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])), 0, 1, 'C');
+    $pdf->TextField('person_passport_ser', 28, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])),
+								 'q'=>1), 27, 105);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(75, 125);
-    $pdf->Cell(34, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])), 0, 1, 'C');
+    $pdf->TextField('person_passport_num', 32, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])),
+								 'q'=>1), 66.5, 105);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(119, 125);
-    $pdf->Cell(78, 0, iconv("cp1251", "utf-8", trim($_POST['person_passport_date'])), 0, 1, 'C');
+    $pdf->TextField('person_passport_date', 78, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_date'])),
+								  'q'=>1), 130, 105);
 
     $line1 = "";
     $line2 = "";
@@ -161,12 +143,8 @@ if( isset( $_POST['send'] )) {
       $token = strtok(" ");
     }
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(14, 131);
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $line1), 0, 1, 'C');
+    $pdf->TextField('person_passport_org', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line1), 'q'=>1), 12.5, 112);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(14, 137);
     $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $line2), 0, 1, 'C');
 
     $purpose = '';
@@ -177,15 +155,13 @@ if( isset( $_POST['send'] )) {
       $purpose_country = 'Для проживания за границей в стране ' . $purpose_country;
     }
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(65, 146);
-    $pdf->Cell(130, 0, iconv("cp1251", "utf-8", $purpose), 0, 1, 'C');
+    $pdf->TextField('purpose', 138, 5, array(), array('v'=>iconv("cp1251", "utf-8", $purpose), 'q'=>1), 57, 120);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(14, 156);
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $purpose_country), 0, 1, 'C');
+    $pdf->TextField('purpose_country', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $purpose_country), 'q'=>1), 12.5, 126);
 
-    if($_POST['type_status'] == 'взамен использованного') {
+    $pdf->TextField('type_status', 146, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['type_status']), 'q'=>1), 49, 134.5);
+
+    /*    if($_POST['type_status'] == 'взамен использованного') {
       $pdf->Line(82, 171, 123, 171, $style);      
     } else if($_POST['type_status'] == 'взамен испорченного') {
       $pdf->Line(126, 171, 149, 171, $style);
@@ -193,7 +169,7 @@ if( isset( $_POST['send'] )) {
       $pdf->Line(151, 171, 173, 171, $style);
     } else {
       $pdf->Line(62, 171, 80, 171, $style);
-    }
+      }*/
 
     $secret_acces_info = trim($_POST['secret_access_info']);
     $has_secrets = 'да';
@@ -201,24 +177,18 @@ if( isset( $_POST['send'] )) {
       $has_secrets = 'нет';
     }
     
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(145, 182);
-    $pdf->Cell(50, 0, iconv("cp1251", "utf-8", $has_secrets), 0, 1, 'C');
+    $pdf->TextField('has_secrets', 63, 5, array(), array('v'=>iconv("cp1251", "utf-8", $has_secrets), 'q'=>1), 132, 147.5);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(14, 187);
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $_POST['secret_access_info']), 0, 1, 'C');
+    $pdf->TextField('secret_access_info', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['secret_access_info']), 'q'=>1), 
+		    12.5, 153.5);
 
     $obl_info = trim($_POST['obligations_info']);
     if (strlen($obl_info) == 0) {
-      $obl_info = 'Не имею';
+      $pdf->TextField('obl_info', 40, 6, array(), array('v'=>iconv("cp1251", "utf-8", 'Не имею'), 'q'=>1), 155, 161.5);
     }
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(14, 202);
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $obl_info), 0, 1, 'C');
+    $pdf->TextField('obligations_info', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $obl_info), 'q'=>1), 12.5, 168.5);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(104, 219);
+
     $pdf->Cell(90, 0, iconv("cp1251", "utf-8", $_POST['military_status']), 0, 1, 'C');
 
     $pdf->SetFont('dejavusans', '', 12);
