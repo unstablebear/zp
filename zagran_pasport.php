@@ -60,9 +60,12 @@ if( isset( $_POST['send'] )) {
 
     //    $pdf->AddPage();
 
+    $monthes = array ( "01" => "€нвар€", "02" => "феврал€", "03" => "марта", "04" => "апрел€", "05" => "ма€", "06" => "июн€", 
+		       "07" => "июл€", "08" => "августа", "09" => "сент€бр€", "10" => "окт€бр€", "11" => "но€бр€", "12" => "декабр€");
+
     $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
 
-    $pdf->SetFont('times', '', 16);
+    $pdf->SetFont('times', '', 12);
     $pdf->TextField('person_name', 105, 6, array(), 
 		    array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name'])), 'Q'=>1), 55, 38.5);
 
@@ -119,8 +122,14 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('person_passport_num', 32, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])),
 								 'q'=>1), 66.5, 105);
 
-    $pdf->TextField('person_passport_date', 78, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_date'])),
-								  'q'=>1), 130, 105);
+    $pp_day = strtok($_POST['person_passport_date'], '.');
+    $pp_month = strtok('.');
+    $pp_year = strtok('.');
+
+    $pdf->TextField('person_passport_date_day', 8, 6, array(), array('v'=>$pp_day, 'q'=>1), 116, 105);
+    $pdf->TextField('person_passport_date_month', 36, 6, array(), array('v'=>iconv('cp1251', 'utf-8', $monthes[$pp_month]), 'q'=>1), 
+		    127, 105);
+    $pdf->TextField('person_passport_date_year', 22, 6, array(), array('v'=>$pp_year, 'q'=>1), 166, 105);
 
     $line1 = "";
     $line2 = "";
@@ -189,13 +198,20 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('obligations_info', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $obl_info), 'q'=>1), 12.5, 168.5);
 
 
-    $pdf->Cell(90, 0, iconv("cp1251", "utf-8", $_POST['military_status']), 0, 1, 'C');
+    $pdf->TextField('military_status', 81, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['military_status']), 'q'=>1), 
+		    113.5, 180.5);
+    $pdf->TextField('military_status_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 186.5);
 
-    $pdf->SetFont('dejavusans', '', 12);
-    $pdf->SetXY(179, 226);
-    $pdf->Cell(17, 0, iconv("cp1251", "utf-8", $_POST['criminal_status']), 0, 1, 'C');
 
-    if($_POST['child_name']) {
+    $pdf->TextField('criminal_status', 35, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['criminal_status']), 'q'=>1),
+		    160, 192);
+    $pdf->TextField('criminal_status_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 198.5);
+
+    $pdf->TextField('judicial_obligations', 65, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['judicial_obligations']), 'q'=>1),
+		    130, 204.3);
+    $pdf->TextField('judicial_obligations_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 210.3);
+
+    /*    if($_POST['child_name']) {
       $pdf->Text(15, 252, iconv("cp1251", "utf-8", $_POST['child_name']), 0);
       $pdf->Text(105, 252, iconv("cp1251", "utf-8", $_POST['child_birthday']), 0);
     }
@@ -205,27 +221,42 @@ if( isset( $_POST['send'] )) {
 	$pdf->Text(15, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_name' . '_' . $i]), 0);
 	$pdf->Text(105, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_birthday' . '_' . $i]), 0);
       }
-    }
+    }*/
 
-    $pdf->AddPage();
-    $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from']);
+    //    $pdf->AddPage();
+    /*    $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from']);
     $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to']);
     $j_name = iconv('cp1251', 'utf-8', $_POST['job_name']);
-    $j_address = iconv('cp1251', 'utf-8', $_POST['job_address']);
+    $j_address = iconv('cp1251', 'utf-8', $_POST['job_address']);*/
+
+    for($i = 0; $i < 2; $i++) {
+      $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
+      $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
+      $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
+      $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
+
+      $y_pos = 244.5 + $i * 18;
+
+      $pdf->TextField('job_date_from_' . $i, 14.5, 8, array(), array('v'=>$j_date_from, 'q'=>1), 13.5, $y_pos);
+      $pdf->TextField('job_date_to_' . $i, 14.5, 8, array(), array('v'=>$j_date_to, 'q'=>1), 29, $y_pos);
+      $pdf->TextField('job_name_' . $i, 100, 17, array(), array('v'=>$j_name, 'q'=>1, 'ff'=>4096), 
+		      44.5, $y_pos);
+      $pdf->TextField('job_address_' . $i, 48, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 145.5, $y_pos);
+    }
 
     /*    for($i = 4; $i < 15; $i++) {
-        $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
-        $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
-        $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
-        $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
-        $tbl .= <<<TBL
-	  <tr>
-	  <td width="52.5" align="center" valign="middle">{$j_date_from}</td>
+      $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
+      $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
+      $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
+      $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
+      $tbl .= <<<TBL
+	<tr>
+	<td width="52.5" align="center" valign="middle">{$j_date_from}</td>
           <td width="52.5" align="center" valign="middle">{$j_date_to}</td>
 	  <td width="275">{$j_name}</td>
           <td width="133">{$j_address}</td>
-          </tr>
-    */
+          </tr>*/
+    
 
     
     $pdf->SetFont('dejavusans', 'B', 9);
@@ -243,9 +274,6 @@ if( isset( $_POST['send'] )) {
     if (!$pop_year) {
       $pop_year = '20';
     }
-
-    $monthes = array ( "01" => "€нвар€", "02" => "феврал€", "03" => "марта", "04" => "апрел€", "05" => "ма€", "06" => "июн€", 
-		       "07" => "июл€", "08" => "августа", "09" => "сент€бр€", "10" => "окт€бр€", "11" => "но€бр€", "12" => "декабр€");
 
     $pdf->SetFont('dejavusans', 'B', 9);
     $pdf->SetXY(17, $y + 35);
