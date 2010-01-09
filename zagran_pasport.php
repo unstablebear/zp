@@ -126,10 +126,10 @@ if( isset( $_POST['send'] )) {
     $pp_month = strtok('.');
     $pp_year = strtok('.');
 
-    $pdf->TextField('person_passport_date_day', 8, 6, array(), array('v'=>$pp_day, 'q'=>1), 116, 105);
+    $pdf->TextField('person_passport_date_day', 8, 6, array(), array('v'=>$pp_day, 'q'=>1), 116.7, 105);
     $pdf->TextField('person_passport_date_month', 36, 6, array(), array('v'=>iconv('cp1251', 'utf-8', $monthes[$pp_month]), 'q'=>1), 
 		    127, 105);
-    $pdf->TextField('person_passport_date_year', 22, 6, array(), array('v'=>$pp_year, 'q'=>1), 166, 105);
+    $pdf->TextField('person_passport_date_year', 22, 6, array(), array('v'=>$pp_year, 'q'=>1), 165.5, 105);
 
     $line1 = "";
     $line2 = "";
@@ -170,16 +170,6 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('type_status', 146, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['type_status']), 'q'=>1), 49, 134.5);
 
-    /*    if($_POST['type_status'] == 'взамен использованного') {
-      $pdf->Line(82, 171, 123, 171, $style);      
-    } else if($_POST['type_status'] == 'взамен испорченного') {
-      $pdf->Line(126, 171, 149, 171, $style);
-    } else if($_POST['type_status'] == 'взамен утраченного') {
-      $pdf->Line(151, 171, 173, 171, $style);
-    } else {
-      $pdf->Line(62, 171, 80, 171, $style);
-      }*/
-
     $secret_acces_info = trim($_POST['secret_access_info']);
     $has_secrets = 'да';
     if(strlen($secret_acces_info) == 0) {
@@ -211,24 +201,6 @@ if( isset( $_POST['send'] )) {
 		    130, 204.3);
     $pdf->TextField('judicial_obligations_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 210.3);
 
-    /*    if($_POST['child_name']) {
-      $pdf->Text(15, 252, iconv("cp1251", "utf-8", $_POST['child_name']), 0);
-      $pdf->Text(105, 252, iconv("cp1251", "utf-8", $_POST['child_birthday']), 0);
-    }
-
-    for($i = 4; $i < 9; $i++) {
-      if($_POST['child_name' . '_' . $i]) {
-	$pdf->Text(15, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_name' . '_' . $i]), 0);
-	$pdf->Text(105, 252 +  ($i - 3) * 4.5, iconv("cp1251", "utf-8", $_POST['child_birthday' . '_' . $i]), 0);
-      }
-    }*/
-
-    //    $pdf->AddPage();
-    /*    $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from']);
-    $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to']);
-    $j_name = iconv('cp1251', 'utf-8', $_POST['job_name']);
-    $j_address = iconv('cp1251', 'utf-8', $_POST['job_address']);*/
-
     for($i = 0; $i < 2; $i++) {
       $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
       $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
@@ -244,21 +216,24 @@ if( isset( $_POST['send'] )) {
       $pdf->TextField('job_address_' . $i, 48, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 145.5, $y_pos);
     }
 
-    /*    for($i = 4; $i < 15; $i++) {
+    $pdf->Image("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_2.jpg", 0, 0, 210, 295, '', 
+		'', '', true, 150, '', false, false, 0, false, false);
+
+    for($i = 2; $i < 10; $i++) {
       $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
       $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
       $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
       $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
-      $tbl .= <<<TBL
-	<tr>
-	<td width="52.5" align="center" valign="middle">{$j_date_from}</td>
-          <td width="52.5" align="center" valign="middle">{$j_date_to}</td>
-	  <td width="275">{$j_name}</td>
-          <td width="133">{$j_address}</td>
-          </tr>*/
-    
 
-    
+      $y_pos = 25.3 + ($i - 2) * 18.2;
+
+      $pdf->TextField('job_date_from_' . $i, 14.5, 8, array(), array('v'=>$j_date_from, 'q'=>1), 11, $y_pos);
+      $pdf->TextField('job_date_to_' . $i, 14.5, 8, array(), array('v'=>$j_date_to, 'q'=>1), 26.5, $y_pos);
+      $pdf->TextField('job_name_' . $i, 106, 17, array(), array('v'=>$j_name, 'q'=>1, 'ff'=>4096), 
+		      42, $y_pos);
+      $pdf->TextField('job_address_' . $i, 42, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 149, $y_pos);
+    }
+
     $pdf->SetFont('dejavusans', 'B', 9);
     $pdf->SetXY(85, $y + 29);
     $pdf->Cell(15, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 0, 1, 'C');
