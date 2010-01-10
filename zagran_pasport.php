@@ -6,18 +6,9 @@ if( ! defined( 'DATALIFEENGINE' ) ) {
     die( "Hacking attempt!" );
 }
 
-/*$im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
-$font_file = "/var/www/engine/modules/pdf_forms/DejaVuSans.ttf";
-
-// Draw the text 'PHP Manual' using font size 13
-imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", 'PHP Мануал'));
-imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
-
-imagejpeg($im, '/tmp/img01.jpg');
-imagedestroy($im);*/
-
 if( isset( $_POST['send'] )) {
 
+  if( $_POST['pdf_or_jpeg'] == 1 ) {
     require_once ENGINE_DIR . '/modules/tcpdf/config/lang/eng.php';
     require_once ENGINE_DIR . '/modules/tcpdf/tcpdf.php';
 
@@ -57,8 +48,6 @@ if( isset( $_POST['send'] )) {
     $pdf->setJPEGQuality(100);
     $pdf->Image("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg", 0, 0, 210, 295, '', 
 		'', '', true, 150, '', false, false, 0, false, false);
-
-    //    $pdf->AddPage();
 
     $monthes = array ( "01" => "января", "02" => "февраля", "03" => "марта", "04" => "апреля", "05" => "мая", "06" => "июня", 
 		       "07" => "июля", "08" => "августа", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
@@ -239,8 +228,6 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('kadr_chief_3', 11, 6, array(), array('v'=>'', 'q'=>1), 55.5, 181);
     $pdf->TextField('kadr_chief_4', 119, 6, array(), array('v'=>'', 'q'=>1), 73.5, 181);
 
-    /*    $pdf->SetFont('dejavusans', 'B', 9);
-     $pdf->SetXY(85, $y + 29);*/
     $pdf->TextField('person_old_passport_ser', 36, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 
 								     'q'=>1), 74.5, 194.3);
 
@@ -321,6 +308,20 @@ if( isset( $_POST['send'] )) {
       $pdfdoc = $pdf->Output($filename, "I");
     }
 
+  } else {
+    
+    $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
+    $font_file = realpath("./engine/modules/pdf_forms/DejaVuSans.ttf");
+    
+    imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", ''));
+    imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
+    
+    $first_page = '/tmp/img01.jpg';
+    imagejpeg($im, $first_page);
+    imagedestroy($im);
+    //    unlink($first_page);
+
+  }
      
  }
 

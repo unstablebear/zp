@@ -286,7 +286,9 @@
 		  </table>
 		</td>
 	      </tr>
-
+	      <tr>
+	        <td><br/></td>
+	      </tr>
 	    </table>
 	  </td>
 	</tr>
@@ -294,6 +296,16 @@
           <td width="130" height="25">&nbsp;</td>
           <td>Если нужно отправить по e-mail укажите адрес&nbsp;<input name="email_addr" type="text" class="f_input"/></td>
         </tr>
+	<tr>
+          <td width="130" height="25">&nbsp;</td>
+	  <td>
+	    <table>
+	      <tr>
+		<td><input type="radio" value="1" checked="checked" name="pdf_or_jpeg"/>Форма PDF</td>
+		<td><input type="radio" value="2" name="pdf_or_jpeg"/>Изображение(JPEG)</td>
+	      </tr>
+	    </table>
+	  </td>
         <tr>
           <td width="130" height="25">&nbsp;</td>
           <td><input name="send_btn" type="image" style="width:80px; height:20px; cursor:hand" 
