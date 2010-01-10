@@ -236,7 +236,7 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('kadr_chief_1', 9, 6, array(), array('v'=>'', 'q'=>1), 12.5, 181);
     $pdf->TextField('kadr_chief_2', 26, 6, array(), array('v'=>'', 'q'=>1), 23.5, 181);
-    $pdf->TextField('kadr_chief_3', 9, 6, array(), array('v'=>'', 'q'=>1), 56.5, 181);
+    $pdf->TextField('kadr_chief_3', 11, 6, array(), array('v'=>'', 'q'=>1), 55.5, 181);
     $pdf->TextField('kadr_chief_4', 119, 6, array(), array('v'=>'', 'q'=>1), 73.5, 181);
 
     /*    $pdf->SetFont('dejavusans', 'B', 9);
@@ -263,11 +263,11 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('today_1', 9, 5, array(), array('v'=>'', 'q'=>1), 12.5, 230.7);
     $pdf->TextField('today_2', 26, 5, array(), array('v'=>'', 'q'=>1), 23.5, 230.7);
-    $pdf->TextField('today_3', 9, 5, array(), array('v'=>'', 'q'=>1), 56.5, 230.7);
+    $pdf->TextField('today_3', 11, 5, array(), array('v'=>'', 'q'=>1), 55.5, 230.7);
 
     $pdf->TextField('giving_date_1', 9, 5, array(), array('v'=>'', 'q'=>1), 53.5, 239.3);
     $pdf->TextField('giving_date_2', 25, 5, array(), array('v'=>'', 'q'=>1), 64.5, 239.3);
-    $pdf->TextField('giving_date_3', 9, 5, array(), array('v'=>'', 'q'=>1), 95.5, 239.3);
+    $pdf->TextField('giving_date_3', 11, 5, array(), array('v'=>'', 'q'=>1), 94.5, 239.3);
 
     $pdf->TextField('reg_number', 55, 5, array(), array('v'=>'', 'q'=>1), 51, 245.3);
 

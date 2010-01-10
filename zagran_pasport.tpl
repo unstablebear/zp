@@ -14,10 +14,10 @@
    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
     
    oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" class="f_input" style="width:214px;"/>';   
+   oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" class="f_input" style="width:213px;"/>';   
 
    oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" class="f_input" style="width:214px;"/>';   
+   oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" class="f_input" style="width:211px;"/>';   
 
    oCell = newRow.insertCell(-1);
    oCell.className = "f_input";
