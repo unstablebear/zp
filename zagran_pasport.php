@@ -234,14 +234,19 @@ if( isset( $_POST['send'] )) {
       $pdf->TextField('job_address_' . $i, 42, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 149, $y_pos);
     }
 
-    $pdf->SetFont('dejavusans', 'B', 9);
-    $pdf->SetXY(85, $y + 29);
-    $pdf->Cell(15, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 0, 1, 'C');
+    $pdf->TextField('kadr_chief_1', 9, 6, array(), array('v'=>'', 'q'=>1), 12.5, 181);
+    $pdf->TextField('kadr_chief_2', 26, 6, array(), array('v'=>'', 'q'=>1), 23.5, 181);
+    $pdf->TextField('kadr_chief_3', 9, 6, array(), array('v'=>'', 'q'=>1), 56.5, 181);
+    $pdf->TextField('kadr_chief_4', 119, 6, array(), array('v'=>'', 'q'=>1), 73.5, 181);
 
-    $pdf->SetXY(113, $y + 29);
-    $pdf->Cell(32, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 0, 1, 'C');
+    /*    $pdf->SetFont('dejavusans', 'B', 9);
+     $pdf->SetXY(85, $y + 29);*/
+    $pdf->TextField('person_old_passport_ser', 36, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 
+								     'q'=>1), 74.5, 194.3);
 
-    
+    $pdf->TextField('person_old_passport_num', 40, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 
+								     'q'=>1), 122, 194.3);
+
     $pop_day = strtok($_POST['person_old_passport_date'], '.');
     $pop_month = strtok('.');
     $pop_year = strtok('.');
@@ -250,15 +255,11 @@ if( isset( $_POST['send'] )) {
       $pop_year = '20';
     }
 
-    $pdf->SetFont('dejavusans', 'B', 9);
-    $pdf->SetXY(17, $y + 35);
-    $pdf->Cell(14, 0, iconv("cp1251", "utf-8", $pop_day), 0, 1, 'C');
-    $pdf->SetXY(30, $y + 35);
-    $pdf->Cell(32, 0, iconv("cp1251", "utf-8", $monthes[$pop_month]), 0, 1, 'C');
-    $pdf->SetXY(54, $y + 35);
-    $pdf->Cell(20, 0, iconv("cp1251", "utf-8", $pop_year), 0, 1, 'C');
-    $pdf->SetXY(78, $y + 35);
-    $pdf->Cell(115, 0, iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 0, 1, 'C');
+    $pdf->TextField('pop_date_1', 9, 5, array(), array('v'=>$pop_day, 'q'=>1), 12.5, 201.4);
+    $pdf->TextField('pop_date_2', 26, 5, array(), array('v'=>iconv("cp1251", "utf-8", $pop_month), 'q'=>1), 23.5, 201.4);
+    $pdf->TextField('pop_date_3', 9, 5, array(), array('v'=>$pop_year, 'q'=>1), 56.5, 201.4);
+    $pdf->TextField('pop_date_4', 119, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 
+							 'q'=>1), 73.5, 201.4);
 
     $filename = "anketa.pdf";
 
