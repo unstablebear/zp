@@ -8,7 +8,11 @@ if( ! defined( 'DATALIFEENGINE' ) ) {
 
 if( isset( $_POST['send'] )) {
 
+  $monthes = array ( "01" => "января", "02" => "февраля", "03" => "марта", "04" => "апреля", "05" => "мая", "06" => "июня", 
+		     "07" => "июля", "08" => "августа", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
+
   if( $_POST['pdf_or_jpeg'] == 1 ) {
+
     require_once ENGINE_DIR . '/modules/tcpdf/config/lang/eng.php';
     require_once ENGINE_DIR . '/modules/tcpdf/tcpdf.php';
 
@@ -49,15 +53,10 @@ if( isset( $_POST['send'] )) {
     $pdf->Image("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg", 0, 0, 210, 295, '', 
 		'', '', true, 150, '', false, false, 0, false, false);
 
-    $monthes = array ( "01" => "января", "02" => "февраля", "03" => "марта", "04" => "апреля", "05" => "мая", "06" => "июня", 
-		       "07" => "июля", "08" => "августа", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
-
-    $style = array('width' => 0.3, 'cap' => 'butt', 'join' => 'miter', 'dash' => '', 'phase' => 0, 'color' => array(0, 0, 0));
-
     $pdf->SetFont('times', '', 12);
+
     $pdf->TextField('person_name', 105, 6, array(), 
 		    array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name'])), 'Q'=>1), 55, 38.5);
-
     
     $pdf->TextField('person_name_old', 148, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name_old'])), 'Q'=>1), 
 		    13, 45.5);
@@ -142,8 +141,6 @@ if( isset( $_POST['send'] )) {
     }
 
     $pdf->TextField('person_passport_org', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line1), 'q'=>1), 12.5, 112);
-
-    $pdf->Cell(180, 0, iconv("cp1251", "utf-8", $line2), 0, 1, 'C');
 
     $purpose = '';
     $purpose_country = trim($_POST['purpose_country']);
@@ -313,9 +310,140 @@ if( isset( $_POST['send'] )) {
     $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
     $font_file = realpath("./engine/modules/pdf_forms/DejaVuSans.ttf");
     
-    imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", ''));
-    imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
+    /*    imagefttext($im, 13, 0, 105, 55, $black, $font_file, iconv("cp1251", "utf-8", ''));
+     imagefttext($im, 13, 0, 50, 75, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));*/
+    //55, 38.5
     
+// 5.27, 5.67
+
+    imagefttext($im, 13, 0, 290, 225, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name'])));
+    imagefttext($im, 13, 0, 68, 265, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name_old'])));
+    imagefttext($im, 13, 0, 321, 312, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birthday'])));
+    imagefttext($im, 13, 0, 867, 312, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_sex'])));
+    imagefttext($im, 13, 0, 235, 352, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])));
+    
+    $line1 = "";
+    $line2 = "";
+    $line1_full = false;
+    $token = strtok($_POST['person_address'], " ");
+    while($token != false) {
+      if(strlen($line1) + strlen($token) < 50 && !$line1_full) {
+	if(strlen($line1) > 0) {
+	  $line1 = $line1 . ' ';
+	}
+	$line1 = $line1 . $token;
+      } else {
+	if(!$line1_full)
+	  $line1_full = true;
+	if(strlen($line2) > 0) {
+	  $line2 = $line2 . ' ';
+	}
+	$line2 = $line2 . $token;
+      }
+      $token = strtok(" ");
+    }
+
+    imagefttext($im, 13, 0, 364, 403, $black, $font_file, iconv("cp1251", "utf-8", $line1));
+
+    imagefttext($im, 13, 0, 63, 452, $black, $font_file, iconv("cp1251", "utf-8", $line2));
+
+    imagefttext($im, 13, 0, 200, 497, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])));
+
+    $other_citizenship = iconv("cp1251", "utf-8", trim($_POST['person_citizenship_other']));
+    if(strlen(trim($other_citizenship)) == 0) {
+      $other_citizenship = iconv("cp1251", "utf-8", 'НЕ ИМЕЮ');
+    }
+    imagefttext($im, 13, 0, 485, 539, $black, $font_file, $other_citizenship);
+
+    imagefttext($im, 13, 0, 142, 596, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])));
+
+    imagefttext($im, 13, 0, 350, 596, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])));
+
+    $pp_day = strtok($_POST['person_passport_date'], '.');
+    $pp_month = strtok('.');
+    $pp_year = strtok('.');
+
+    imagefttext($im, 13, 0, 615, 596, $black, $font_file, $pp_day);
+    imagefttext($im, 13, 0, 669, 596, $black, $font_file, iconv('cp1251', 'utf-8', $monthes[$pp_month]));
+    imagefttext($im, 13, 0, 872, 596, $black, $font_file, $pp_year);
+
+    $line1 = "";
+    $line2 = "";
+    $line1_full = false;
+    $token = strtok($_POST['person_passport_org'], " ");
+    while($token != false) {
+      if(strlen($line1) + strlen($token) < 70 && !$line1_full) {
+	if(strlen($line1) > 0) {
+	  $line1 = $line1 . ' ';
+	}
+	$line1 = $line1 . $token;
+      } else {
+	if(!$line1_full)
+	  $line1_full = true;
+	if(strlen($line2) > 0) {
+	  $line2 = $line2 . ' ';
+	}
+	$line2 = $line2 . $token;
+      }
+      $token = strtok(" ");
+    }
+
+    imagefttext($im, 13, 0, 66, 635, $black, $font_file, iconv("cp1251", "utf-8", $line1));
+
+    $purpose = '';
+    $purpose_country = trim($_POST['purpose_country']);
+    if (strlen($purpose_country) == 0) {
+      $purpose = 'Для временных выездов';
+    } else {
+      $purpose_country = 'Для проживания за границей в стране ' . $purpose_country;
+    }
+
+    imagefttext($im, 13, 0, 300, 681, $black, $font_file, iconv("cp1251", "utf-8", $purpose));
+
+    imagefttext($im, 13, 0, 66, 715, $black, $font_file, iconv("cp1251", "utf-8", $purpose_country));
+
+    imagefttext($im, 13, 0, 258, 763, $black, $font_file, iconv("cp1251", "utf-8", $_POST['type_status']));
+
+    $secret_acces_info = trim($_POST['secret_access_info']);
+    $has_secrets = 'да';
+    if(strlen($secret_acces_info) == 0) {
+      $has_secrets = 'нет';
+    }
+    
+    imagefttext($im, 13, 0, 696, 837, $black, $font_file, iconv("cp1251", "utf-8", $has_secrets));
+
+    imagefttext($im, 13, 0, 66, 871, $black, $font_file, iconv("cp1251", "utf-8", $_POST['secret_access_info']));
+
+    $obl_info = trim($_POST['obligations_info']);
+    if (strlen($obl_info) == 0) {
+      imagefttext($im, 13, 0, 817, 916, $black, $font_file, iconv("cp1251", "utf-8", 'Не имею'));
+    }
+    imagefttext($im, 13, 0, 66, 956, $black, $font_file, iconv("cp1251", "utf-8", $obl_info));
+
+    imagefttext($im, 13, 0, 598, 1024, $black, $font_file, iconv("cp1251", "utf-8", $_POST['military_status']));
+    imagefttext($im, 13, 0, 66, 1058, $black, $font_file, '');
+
+    imagefttext($im, 13, 0, 843, 1089, $black, $font_file, iconv("cp1251", "utf-8", $_POST['criminal_status']));
+    imagefttext($im, 13, 0, 66, 1126, $black, $font_file, '');
+
+    imagefttext($im, 13, 0, 685, 1159, $black, $font_file, iconv("cp1251", "utf-8", $_POST['judicial_obligations']));
+    imagefttext($im, 13, 0, 66, 1193, $black, $font_file, '');
+
+    for($i = 0; $i < 2; $i++) {
+      $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
+      $j_date_to = iconv('cp1251', 'utf-8', $_POST['job_date_to_' . $i]);
+      $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
+      $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
+
+      $y_pos = 1387 + $i * 102;
+
+      imagefttext($im, 13, 0, 71, $y_pos, $black, $font_file, $j_date_from);
+      imagefttext($im, 13, 0, 153, $y_pos, $black, $font_file, $j_date_to);
+      imagefttext($im, 13, 0, 527, $y_pos, $black, $font_file, $j_name);
+      imagefttext($im, 13, 0, 767, $y_pos, $black, $font_file, $j_address);
+    }
+
+
     $first_page = '/tmp/img01.jpg';
     imagejpeg($im, $first_page);
     imagedestroy($im);
