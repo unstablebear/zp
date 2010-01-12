@@ -455,10 +455,21 @@ if( isset( $_POST['send'] )) {
 
 $js = <<<HTML
 
-<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery-1.3.2.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/date.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery.datePicker-2.1.2.js"></script>
+
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.core.js"></script> 
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.draggable.js"></script>
+<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.resizable.js"></script>
+<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.dialog.js"></script>
+<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.core.js"></script>
+<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.highlight.js"></script>
+<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/external/bgiframe/jquery.bgiframe.js"></script>
+<link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/jquery_ui/themes/base/ui.all.css" type="text/css" />
+
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
+
 <script src="{$config['http_home_url']}engine/jquery/jquery.maskedinput-1.2.2.min.js" type="text/javascript"></script>
 
 HTML;

@@ -59,6 +59,10 @@
 
 </script>
 
+<div id="dialog" title="Example dialog">
+  <p>Some text that you want to display to the user.</p>
+</div>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20" align="left" valign="top"><img src="{THEME}/images/dlet_abl01.gif" width="20" height="30" alt="" /></td>
@@ -308,8 +312,14 @@
 	  </td>
         <tr>
           <td width="130" height="25">&nbsp;</td>
-          <td><input name="send_btn" type="image" style="width:80px; height:20px; cursor:hand" 
-		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить" /></td>
+          <!--td><input name="send_btn" type="image" style="width:80px; height:20px; cursor:hand" 
+		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить PDF" /></td-->
+	  <td><table>
+	    <tr>
+              <td><input name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
+              <td><a id="send_jpeg_btn">Отправить JPEG</a></td>	      
+	    </tr>
+	  </table></td>
         </tr>
       </table>
     </td>
@@ -358,6 +368,16 @@ $(function()
   $('#person_old_passport_date').attr('style','text-align:center;');
 
   $('.f_input').attr('onKeyUp','javascript:this.value=this.value.toUpperCase();');
+
+
+    $.ui.dialog.defaults.bgiframe = true;
+        $('#dialog').dialog({
+            autoOpen: false
+        });
+        $('#send_jpeg_btn').click(function() {
+            $('#dialog').dialog('open');
+        });
+
 
 });
 

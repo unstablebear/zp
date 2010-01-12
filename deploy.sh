@@ -5,5 +5,6 @@ cp -a ./tcpdf /var/www/engine/modules
 cp -a ./pdf_forms /var/www/engine/modules
 #cp ./jquery-1.3.2.min.js /var/www/engine
 #cp ./jquery.datePicker-2.1.2.js /var/www/engine
+rm -rf /var/www/engine/jquery
 cp -R ./jquery /var/www/engine
 #service apache2 restart
