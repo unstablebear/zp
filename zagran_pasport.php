@@ -59,19 +59,14 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('person_name', 105, 6, array(), 
 		    array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name'])), 'Q'=>1), 55, 38.5);
-    
     $pdf->TextField('person_name_old', 148, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_name_old'])), 'Q'=>1), 
 		    13, 45.5);
-
     $pdf->TextField('person_birthday', 91, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 'Q'=>1)
 		    , 61, 55);
-
     $pdf->TextField('person_sex', 30, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_sex'])), 'Q'=>1), 
 		    164.5, 55);
-
     $pdf->TextField('person_birth_address', 150, 5, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])),
 								   'q'=>1), 44.5, 62);
-
     $line1 = "";
     $line2 = "";
     $line1_full = false;
@@ -94,9 +89,7 @@ if( isset( $_POST['send'] )) {
     }
 
     $pdf->TextField('person_address1', 126, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line1), 'q'=>1), 69, 71)  ;
-
     $pdf->TextField('person_address2', 183, 5, array(), array('v'=>iconv("cp1251", "utf-8", $line2), 'q'=>1), 12, 79.7);
-
     $pdf->TextField('person_citizenship', 82, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 'q'=>1), 
 		    38, 87.7);
 
@@ -105,13 +98,10 @@ if( isset( $_POST['send'] )) {
       $other_citizenship = iconv("cp1251", "utf-8", 'ÍÅ ÈÌÅÞ');
     }
     $pdf->TextField('person_citizenship_other', 103, 5, array(), array('v'=>$other_citizenship, 'q'=>1), 92, 95);
-
     $pdf->TextField('person_passport_ser', 28, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])),
 								 'q'=>1), 27, 105);
-
     $pdf->TextField('person_passport_num', 32, 6, array(), array('v'=>iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])),
 								 'q'=>1), 66.5, 105);
-
     $pp_day = strtok($_POST['person_passport_date'], '.');
     $pp_month = strtok('.');
     $pp_year = strtok('.');
@@ -153,9 +143,7 @@ if( isset( $_POST['send'] )) {
     }
 
     $pdf->TextField('purpose', 138, 5, array(), array('v'=>iconv("cp1251", "utf-8", $purpose), 'q'=>1), 57, 120);
-
     $pdf->TextField('purpose_country', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $purpose_country), 'q'=>1), 12.5, 126);
-
     $pdf->TextField('type_status', 146, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['type_status']), 'q'=>1), 49, 134.5);
 
     $secret_acces_info = trim($_POST['secret_access_info']);
@@ -165,7 +153,6 @@ if( isset( $_POST['send'] )) {
     }
     
     $pdf->TextField('has_secrets', 63, 5, array(), array('v'=>iconv("cp1251", "utf-8", $has_secrets), 'q'=>1), 132, 147.5);
-
     $pdf->TextField('secret_access_info', 182, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['secret_access_info']), 'q'=>1), 
 		    12.5, 153.5);
 
@@ -184,7 +171,6 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('criminal_status', 35, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['criminal_status']), 'q'=>1),
 		    160, 192);
     $pdf->TextField('criminal_status_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 198.5);
-
     $pdf->TextField('judicial_obligations', 65, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['judicial_obligations']), 'q'=>1),
 		    130, 204.3);
     $pdf->TextField('judicial_obligations_2', 182, 5, array(), array('v'=>'', 'q'=>1), 12.5, 210.3);
@@ -231,7 +217,6 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('person_old_passport_ser', 36, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 
 								     'q'=>1), 74.5, 194.3);
-
     $pdf->TextField('person_old_passport_num', 40, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 
 								     'q'=>1), 122, 194.3);
 
@@ -248,7 +233,6 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('pop_date_3', 9, 5, array(), array('v'=>$pop_year, 'q'=>1), 56.5, 201.4);
     $pdf->TextField('pop_date_4', 119, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 
 							 'q'=>1), 73.5, 201.4);
-
     $pdf->TextField('today_1', 9, 5, array(), array('v'=>'', 'q'=>1), 12.5, 230.7);
     $pdf->TextField('today_2', 26, 5, array(), array('v'=>'', 'q'=>1), 23.5, 230.7);
     $pdf->TextField('today_3', 11, 5, array(), array('v'=>'', 'q'=>1), 55.5, 230.7);
@@ -413,13 +397,10 @@ if( isset( $_POST['send'] )) {
       txtCenter($im, 13, 0, 817, 872, $black, $font_file, iconv("cp1251", "utf-8", 'Íå èìåþ'), 211);
     }
     txtCenter($im, 13, 0, 66, 906, $black, $font_file, iconv("cp1251", "utf-8", $obl_info), 960);
-
     txtCenter($im, 13, 0, 598, 1024, $black, $font_file, iconv("cp1251", "utf-8", $_POST['military_status']), 427);
     txtCenter($im, 13, 0, 66, 1058, $black, $font_file, '', 100);
-
     txtCenter($im, 13, 0, 843, 1089, $black, $font_file, iconv("cp1251", "utf-8", $_POST['criminal_status']), 185);
     txtCenter($im, 13, 0, 66, 1126, $black, $font_file, '', 100);
-
     txtCenter($im, 13, 0, 685, 1159, $black, $font_file, iconv("cp1251", "utf-8", $_POST['judicial_obligations']), 343);
     txtCenter($im, 13, 0, 66, 1193, $black, $font_file, '', 100);
 
@@ -511,11 +492,11 @@ $js = <<<HTML
 
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.core.js"></script> 
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.draggable.js"></script>
-<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.resizable.js"></script>
-<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.dialog.js"></script>
-<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.core.js"></script>
-<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.highlight.js"></script>
-<script type="text/javascript"         src="{$config['http_home_url']}engine/jquery/jquery_ui/external/bgiframe/jquery.bgiframe.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.resizable.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.dialog.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.core.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.highlight.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/external/bgiframe/jquery.bgiframe.js"></script>
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/jquery_ui/themes/base/ui.all.css" type="text/css" />
 
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
@@ -531,6 +512,7 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
 
 $tpl->set('{skin}', $config['skin']);
 $tpl->set('{zp_bio_page_1}', './uploads/' . $pageId . '_zp_bio_page_1.jpg');
+
 if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
   $tpl->set('{jpeg_autoload}', 'true');
 
