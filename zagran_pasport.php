@@ -1,14 +1,17 @@
 <?php
 
-ini_set("memory_limit","120M");
+ini_set("memory_limit","32M");
 
 if( ! defined( 'DATALIFEENGINE' ) ) {
     die( "Hacking attempt!" );
 }
 
-if( isset( $_POST['send'] )) {
-
+if($_POST['page_id'] == '')
   $pageId = uniqid('page');
+else
+  $pageId = $_POST['page_id'];
+
+if( isset( $_POST['send'] )) {
 
   $monthes = array ( "01" => "января", "02" => "февраля", "03" => "марта", "04" => "апреля", "05" => "мая", "06" => "июня", 
 		     "07" => "июля", "08" => "августа", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
@@ -377,9 +380,7 @@ if( isset( $_POST['send'] )) {
     }
 
     txtCenter($im, 13, 0, 300, 650, $black, $font_file, iconv("cp1251", "utf-8", $purpose), 728);
-
     txtCenter($im, 13, 0, 66, 682, $black, $font_file, iconv("cp1251", "utf-8", $purpose_country), 960);
-
     txtCenter($im, 13, 0, 258, 732, $black, $font_file, iconv("cp1251", "utf-8", $_POST['type_status']), 770);
 
     $secret_acces_info = trim($_POST['secret_access_info']);
@@ -389,7 +390,6 @@ if( isset( $_POST['send'] )) {
     }
     
     txtCenter($im, 13, 0, 696, 794, $black, $font_file, iconv("cp1251", "utf-8", $has_secrets), 332);
-
     txtCenter($im, 13, 0, 66, 826, $black, $font_file, iconv("cp1251", "utf-8", $_POST['secret_access_info']), 960);
 
     $obl_info = trim($_POST['obligations_info']);
@@ -397,11 +397,11 @@ if( isset( $_POST['send'] )) {
       txtCenter($im, 13, 0, 817, 872, $black, $font_file, iconv("cp1251", "utf-8", 'Не имею'), 211);
     }
     txtCenter($im, 13, 0, 66, 906, $black, $font_file, iconv("cp1251", "utf-8", $obl_info), 960);
-    txtCenter($im, 13, 0, 598, 1024, $black, $font_file, iconv("cp1251", "utf-8", $_POST['military_status']), 427);
+    txtCenter($im, 13, 0, 598, 972, $black, $font_file, iconv("cp1251", "utf-8", $_POST['military_status']), 427);
     txtCenter($im, 13, 0, 66, 1058, $black, $font_file, '', 100);
-    txtCenter($im, 13, 0, 843, 1089, $black, $font_file, iconv("cp1251", "utf-8", $_POST['criminal_status']), 185);
+    txtCenter($im, 13, 0, 843, 1032, $black, $font_file, iconv("cp1251", "utf-8", $_POST['criminal_status']), 185);
     txtCenter($im, 13, 0, 66, 1126, $black, $font_file, '', 100);
-    txtCenter($im, 13, 0, 685, 1159, $black, $font_file, iconv("cp1251", "utf-8", $_POST['judicial_obligations']), 343);
+    txtCenter($im, 13, 0, 685, 1092, $black, $font_file, iconv("cp1251", "utf-8", $_POST['judicial_obligations']), 343);
     txtCenter($im, 13, 0, 66, 1193, $black, $font_file, '', 100);
 
     for($i = 0; $i < 2; $i++) {
@@ -418,7 +418,7 @@ if( isset( $_POST['send'] )) {
       txtCenter($im, 13, 0, 767, $y_pos, $black, $font_file, $j_address, 253);
     }
 
-    $first_page = realpath('./uploads/') . '/' . $pageId . '_zp_bio_page_1.jpg';
+    $first_page = realpath('./uploads/forms_images') . '/' . $pageId . '_zp_bio_page_1.jpg';
 
     imagejpeg($im, $first_page);
     imagedestroy($im);
@@ -508,14 +508,32 @@ HTML;
 $tpl->load_template( 'zagran_pasport.tpl' );
 $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
   "<input name=\"send\" type=\"hidden\" value=\"send\" />
+  <input name=\"page_id\" type=\"hidden\" value=\"" . $pageId . "\" />
 </form>";
 
 $tpl->set('{skin}', $config['skin']);
-$tpl->set('{zp_bio_page_1}', './uploads/' . $pageId . '_zp_bio_page_1.jpg');
+//$tpl->set('{zp_bio_page_1}', './uploads/forms_images/' . $pageId . '_zp_bio_page_1.jpg');
 
+
+// JPEG DIALOG INIT
 if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
+{
   $tpl->set('{jpeg_autoload}', 'true');
 
+$jpeg_form_html = <<<HTML
+<img src="./uploads/forms_images/{$pageId}_zp_bio_page_1.jpg" alt="" border="2" width="552" height="776"/>
+HTML;
+
+  $tpl->set('{jpeg_form_html}', $jpeg_form_html);
+}
+else
+{
+  $tpl->set('{jpeg_autoload}', 'false');
+  $tpl->set('{jpeg_form_html}', '');
+}
+
+
+// RESTORE FIELDS VALUES
 $tpl->set('{person_name}', $_POST['person_name']);
 $tpl->set('{person_name_old}', $_POST['person_name_old']);
 $tpl->set('{person_birthday}', $_POST['person_birthday']);
@@ -605,11 +623,55 @@ if( $_POST['pdf_or_jpeg'] == 2 ) {
 
 $tpl->compile( 'content' );
 
+removeOldFiles(realpath('./uploads/forms_images/'), 30);
+
+// FUNCTIONS
+
 function txtCenter($image, $size, $angle, $left, $top, $color, $font, $text, $max_width) 
 {
   $tb = imagettfbbox($size, $angle, $font, $text);
   $x = ceil(($max_width - $tb[2]) / 2) + $left;
   imagettftext($image, $size, $angle, $x, $top, $tc, $font, mb_strtoupper($text, 'utf-8'));
+}
+
+function removeOldFiles($directory, $period)
+{
+  $list = dirList($directory);
+  $today = gettimeofday();
+  for($i = 0; $i < count($list); $i++)
+  {
+    $fname = $directory . '/' . $list[$i];
+    if(time() - filemtime($fname) > $period * 60)
+    {
+      unlink($fname);
+    }
+  }
+}
+
+function dirList ($directory) 
+{
+
+  // create an array to hold directory list
+  $results = array();
+
+  // create a handler for the directory
+  $handler = opendir($directory);
+
+  // keep going until all files in directory have been read
+  while ($file = readdir($handler)) {
+
+    // if $file isn't this directory or its parent, 
+    // add it to the results array
+    if ($file != '.' && $file != '..' && !is_dir($file))
+      $results[] = $file;
+  }
+
+  // tidy up: close the handler
+  closedir($handler);
+
+  // done!
+  return $results;
+
 }
 
 ?>
