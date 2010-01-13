@@ -8,6 +8,8 @@ if( ! defined( 'DATALIFEENGINE' ) ) {
 
 if( isset( $_POST['send'] )) {
 
+  $pageId = uniqid('page');
+
   $monthes = array ( "01" => "€нвар€", "02" => "феврал€", "03" => "марта", "04" => "апрел€", "05" => "ма€", "06" => "июн€", 
 		     "07" => "июл€", "08" => "августа", "09" => "сент€бр€", "10" => "окт€бр€", "11" => "но€бр€", "12" => "декабр€");
 
@@ -443,8 +445,8 @@ if( isset( $_POST['send'] )) {
       imagefttext($im, 13, 0, 767, $y_pos, $black, $font_file, $j_address);
     }
 
-
-    $first_page = '/tmp/img01.jpg';
+    $first_page = realpath('./uploads/') . '/' . $pageId . '_zp_bio_page_1.jpg';
+    echo($first_page);
     imagejpeg($im, $first_page);
     imagedestroy($im);
     //    unlink($first_page);
@@ -480,6 +482,9 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
 </form>";
 
 $tpl->set('{skin}', $config['skin']);
+$tpl->set('{zp_bio_page_1}', '/tmp/page4b4d4b1fd1de0_zp_bio_page_1.jpg');
+	  ///tmp/' . $pageId . '_zp_bio_page_1.jpg');
+$tpl->set('{jpeg_autoload}', 'true');
 
 $tpl->compile( 'content' );
 

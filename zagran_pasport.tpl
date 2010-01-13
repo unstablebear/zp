@@ -61,6 +61,7 @@
 
 <div id="dialog" title="Example dialog">
   <p>Some text that you want to display to the user.</p>
+  <img src="uploads/page4b4d4fc3a2fe3_zp_bio_page_1.jpg" alt="" border="2" width="276" height="388"/>
 </div>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -317,7 +318,8 @@
 	  <td><table>
 	    <tr>
               <td><input name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
-              <td><a id="send_jpeg_btn">Отправить JPEG</a></td>	      
+              <!--td><input name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
+              <td><a id="send_jpeg_btn">Отправить JPEG</a></td-->	      
 	    </tr>
 	  </table></td>
         </tr>
@@ -372,7 +374,7 @@ $(function()
 
     $.ui.dialog.defaults.bgiframe = true;
         $('#dialog').dialog({
-            autoOpen: false
+            autoOpen: {jpeg_autoload}
         });
         $('#send_jpeg_btn').click(function() {
             $('#dialog').dialog('open');
