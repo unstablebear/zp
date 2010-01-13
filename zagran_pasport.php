@@ -312,11 +312,11 @@ if( isset( $_POST['send'] )) {
     $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
     $font_file = realpath("./engine/modules/pdf_forms/DejaVuSans.ttf");
     //    5.2727272727272725
-    txtCenter($im, 13, 0, 290, 225, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name'])), 554);
+    txtCenter($im, 13, 0, 290, 228, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name'])), 554);
     txtCenter($im, 13, 0, 68, 265, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name_old'])), 780);
     txtCenter($im, 13, 0, 321, 312, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 480);
     txtCenter($im, 13, 0, 867, 312, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_sex'])), 158);
-    txtCenter($im, 13, 0, 235, 352, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])), 791);
+    txtCenter($im, 13, 0, 235, 346, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birth_address'])), 791);
     
     $line1 = "";
     $line2 = "";
@@ -339,25 +339,27 @@ if( isset( $_POST['send'] )) {
       $token = strtok(" ");
     }
 
-    txtCenter($im, 13, 0, 364, 403, $black, $font_file, iconv("cp1251", "utf-8", $line1), 664);
-    txtCenter($im, 13, 0, 63, 452, $black, $font_file, iconv("cp1251", "utf-8", $line2), 965);
-    txtCenter($im, 13, 0, 200, 497, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 432);
+    txtCenter($im, 13, 0, 364, 394, $black, $font_file, iconv("cp1251", "utf-8", $line1), 664);
+    txtCenter($im, 13, 0, 63, 439, $black, $font_file, iconv("cp1251", "utf-8", $line2), 965);
+    txtCenter($im, 13, 0, 200, 486, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_citizenship'])), 432);
 
     $other_citizenship = iconv("cp1251", "utf-8", trim($_POST['person_citizenship_other']));
     if(strlen(trim($other_citizenship)) == 0) {
       $other_citizenship = iconv("cp1251", "utf-8", 'НЕ ИМЕЮ');
     }
-    txtCenter($im, 13, 0, 485, 539, $black, $font_file, $other_citizenship, 543);
-    txtCenter($im, 13, 0, 142, 596, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])), 148);
-    txtCenter($im, 13, 0, 350, 596, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])), 169);
+    txtCenter($im, 13, 0, 485, 518, $black, $font_file, $other_citizenship, 543);
+    txtCenter($im, 13, 0, 142, 576, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_ser'])), 148);
+    txtCenter($im, 13, 0, 350, 576, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_passport_num'])), 169);
 
     $pp_day = strtok($_POST['person_passport_date'], '.');
     $pp_month = strtok('.');
     $pp_year = strtok('.');
 
-    txtCenter($im, 13, 0, 615, 596, $black, $font_file, $pp_day, 42);
-    txtCenter($im, 13, 0, 669, 596, $black, $font_file, iconv('cp1251', 'utf-8', $monthes[$pp_month]), 190);
-    txtCenter($im, 13, 0, 872, 596, $black, $font_file, $pp_year, 116);
+
+    echo($pp_month);
+    txtCenter($im, 13, 0, 615, 576, $black, $font_file, $pp_day, 42);
+    txtCenter($im, 13, 0, 669, 576, $black, $font_file, iconv('cp1251', 'utf-8', $monthes[$pp_month]), 190);
+    txtCenter($im, 13, 0, 872, 576, $black, $font_file, $pp_year, 116);
 
     $line1 = "";
     $line2 = "";
@@ -380,7 +382,7 @@ if( isset( $_POST['send'] )) {
       $token = strtok(" ");
     }
 
-    txtCenter($im, 13, 0, 66, 635, $black, $font_file, iconv("cp1251", "utf-8", $line1), 960);
+    txtCenter($im, 13, 0, 66, 608, $black, $font_file, iconv("cp1251", "utf-8", $line1), 960);
 
     $purpose = '';
     $purpose_country = trim($_POST['purpose_country']);
@@ -390,11 +392,11 @@ if( isset( $_POST['send'] )) {
       $purpose_country = 'Для проживания за границей в стране ' . $purpose_country;
     }
 
-    txtCenter($im, 13, 0, 300, 681, $black, $font_file, iconv("cp1251", "utf-8", $purpose), 728);
+    txtCenter($im, 13, 0, 300, 650, $black, $font_file, iconv("cp1251", "utf-8", $purpose), 728);
 
-    txtCenter($im, 13, 0, 66, 715, $black, $font_file, iconv("cp1251", "utf-8", $purpose_country), 960);
+    txtCenter($im, 13, 0, 66, 682, $black, $font_file, iconv("cp1251", "utf-8", $purpose_country), 960);
 
-    txtCenter($im, 13, 0, 258, 763, $black, $font_file, iconv("cp1251", "utf-8", $_POST['type_status']), 770);
+    txtCenter($im, 13, 0, 258, 732, $black, $font_file, iconv("cp1251", "utf-8", $_POST['type_status']), 770);
 
     $secret_acces_info = trim($_POST['secret_access_info']);
     $has_secrets = 'да';
@@ -402,15 +404,15 @@ if( isset( $_POST['send'] )) {
       $has_secrets = 'нет';
     }
     
-    txtCenter($im, 13, 0, 696, 837, $black, $font_file, iconv("cp1251", "utf-8", $has_secrets), 332);
+    txtCenter($im, 13, 0, 696, 794, $black, $font_file, iconv("cp1251", "utf-8", $has_secrets), 332);
 
-    txtCenter($im, 13, 0, 66, 871, $black, $font_file, iconv("cp1251", "utf-8", $_POST['secret_access_info']), 960);
+    txtCenter($im, 13, 0, 66, 826, $black, $font_file, iconv("cp1251", "utf-8", $_POST['secret_access_info']), 960);
 
     $obl_info = trim($_POST['obligations_info']);
     if (strlen($obl_info) == 0) {
-      txtCenter($im, 13, 0, 817, 916, $black, $font_file, iconv("cp1251", "utf-8", 'Не имею'), 211);
+      txtCenter($im, 13, 0, 817, 872, $black, $font_file, iconv("cp1251", "utf-8", 'Не имею'), 211);
     }
-    txtCenter($im, 13, 0, 66, 956, $black, $font_file, iconv("cp1251", "utf-8", $obl_info), 960);
+    txtCenter($im, 13, 0, 66, 906, $black, $font_file, iconv("cp1251", "utf-8", $obl_info), 960);
 
     txtCenter($im, 13, 0, 598, 1024, $black, $font_file, iconv("cp1251", "utf-8", $_POST['military_status']), 427);
     txtCenter($im, 13, 0, 66, 1058, $black, $font_file, '', 100);
@@ -564,7 +566,7 @@ function txtCenter($image, $size, $angle, $left, $top, $color, $font, $text, $ma
 {
   $tb = imagettfbbox($size, $angle, $font, $text);
   $x = ceil(($max_width - $tb[2]) / 2) + $left;
-  imagettftext($image, $size, $angle, $x, $top, $tc, $font, $text);
+  imagettftext($image, $size, $angle, $x, $top, $tc, $font, mb_strtoupper($text, 'utf-8'));
 }
 
 ?>

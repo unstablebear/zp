@@ -61,7 +61,8 @@
 
 <div id="dialog" title="Example dialog">
   <p>Some text that you want to display to the user.</p>
-  <img src="{zp_bio_page_1}" alt="" border="2" width="276" height="388"/>
+  <!--img src="{zp_bio_page_1}" alt="" border="2" width="276" height="388"/-->
+  <img src="{zp_bio_page_1}" alt="" border="2" width="1105" height="1553"/>
 </div>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -379,7 +380,7 @@ $(function()
         $('#send_jpeg_btn').click(function() {
             $('#dialog').dialog('open');
         });
-
+$('#dialog').dialog('option', 'width', 1200);
 
 });
 
