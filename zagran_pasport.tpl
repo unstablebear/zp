@@ -116,8 +116,8 @@
               <tr>
 		<td width="300" height="25">Пол<td>
 		  <select name="person_sex" value="{person_sex}" id="person_sex" tabindex="1" class="f_select" style="height:20px;width:303px;">
-		    <option value="муж" >Мужской</option>
-                    <option value="жен" >Женский</option>
+		    <option value="муж" {person_msex_selected}>Мужской</option>
+                    <option value="жен" {person_fsex_selected}>Женский</option>
 		  </select>
               </tr>
 	      <tr>
@@ -181,10 +181,10 @@
 		<td width="300" height="25">Получение паспорта</td>
 		<td>
                   <select name="type_status" value="{type_status}" id="type_status" tabindex="1" class="f_select" style="height:20px;width:303px;">
-		    <option value="первичное" >первичное</option>
-		    <option value="взамен использованного" >взамен использованного</option>
-		    <option value="взамен испорченного" >взамен испорченного</option>
-		    <option value="взамен утраченного" >взамен утраченного</option>
+		    <option value="первичное" {type_status_1_selected}>первичное</option>
+		    <option value="взамен использованного" {type_status_2_selected}>взамен использованного</option>
+		    <option value="взамен испорченного" {type_status_3_selected}>взамен испорченного</option>
+		    <option value="взамен утраченного" {type_status_4_selected}>взамен утраченного</option>
                   </select>
 		</td>
               </tr>
@@ -213,8 +213,8 @@
 		<td width="300" height="25">Нахождение на воинской (альтернативной) службе</td>
 		<td height="25">
                   <select name="military_status" value="{military_status}" id="military_status" tabindex="1" class="f_select" style="height:20px;width:303px;">
-                    <option value="Нет">Нет</option>
-                    <option value="Да">Да</option>
+                    <option value="Нет" {military_status_1_selected}>Нет</option>
+                    <option value="Да" {military_status_2_selected}>Да</option>
                   </select>
 		</td>
               </tr>
@@ -222,8 +222,8 @@
 		<td width="300" height="25">Осуждены (привлечены в качестве обвиняемого) ли Вы</td>
 		<td>
                   <select name="criminal_status" value="{criminal_status}" id="criminal_status" tabindex="1" class="f_select" style="height:20px;width:303px;">
-                    <option value="Нет">Нет</option>
-                    <option value="Да">Да</option>
+                    <option value="Нет" {criminal_status_1_selected}>Нет</option>
+                    <option value="Да" {criminal_status_2_selected}>Да</option>
                   </select>
 		</td>
               </tr>
@@ -231,8 +231,8 @@
 		<td width="300" height="25">Не уклоняетесь ли Вы от исполнения судебных обязательств</td>
 		<td>
                   <select name="judicial_obligations" value="{judicial_obligations}" id="judicial_obligations" tabindex="1" class="f_select" style="height:20px;width:303px;">
-                    <option value="Нет">Нет</option>
-                    <option value="Да">Да</option>
+                    <option value="Нет" {judicial_obligations_1_selected}>Нет</option>
+                    <option value="Да" {judicial_obligations_2_selected}>Да</option>
                   </select>
 		</td>
               </tr>
@@ -307,8 +307,8 @@
 	  <td>
 	    <table>
 	      <tr>
-		<td><input type="radio" value="1" checked="checked" name="pdf_or_jpeg"/>Форма PDF</td>
-		<td><input type="radio" value="2" name="pdf_or_jpeg"/>Изображение(JPEG)</td>
+		<td><input type="radio" value="1" checked="{pdf_checked}" name="pdf_or_jpeg"/>Форма PDF</td>
+		<td><input type="radio" value="2" checked="{jpeg_checked}" name="pdf_or_jpeg"/>Изображение(JPEG)</td>
 	      </tr>
 	    </table>
 	  </td>
@@ -373,14 +373,15 @@ $(function()
   $('.f_input').attr('onKeyUp','javascript:this.value=this.value.toUpperCase();');
 
 
-    $.ui.dialog.defaults.bgiframe = true;
-        $('#dialog').dialog({
-            autoOpen: {jpeg_autoload}
-        });
-        $('#send_jpeg_btn').click(function() {
-            $('#dialog').dialog('open');
-        });
-$('#dialog').dialog('option', 'width', 1200);
+  $.ui.dialog.defaults.bgiframe = true;
+  $('#dialog').dialog({
+    autoOpen: {jpeg_autoload}
+  });
+  $('#send_jpeg_btn').click(function() {
+    $('#dialog').dialog('open');
+  });
+  $('#dialog').dialog('option', 'width', 1135);
+  $('#dialog').dialog('option', 'position', 'center');
 
 });
 

@@ -204,6 +204,8 @@ if( isset( $_POST['send'] )) {
       $pdf->TextField('job_address_' . $i, 48, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 145.5, $y_pos);
     }
 
+    // PDF - SECOND PAGE
+
     $pdf->Image("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_2.jpg", 0, 0, 210, 295, '', 
 		'', '', true, 150, '', false, false, 0, false, false);
 
@@ -355,8 +357,6 @@ if( isset( $_POST['send'] )) {
     $pp_month = strtok('.');
     $pp_year = strtok('.');
 
-
-    echo($pp_month);
     txtCenter($im, 13, 0, 615, 576, $black, $font_file, $pp_day, 42);
     txtCenter($im, 13, 0, 669, 576, $black, $font_file, iconv('cp1251', 'utf-8', $monthes[$pp_month]), 190);
     txtCenter($im, 13, 0, 872, 576, $black, $font_file, $pp_year, 116);
@@ -533,8 +533,6 @@ $tpl->set('{skin}', $config['skin']);
 $tpl->set('{zp_bio_page_1}', './uploads/' . $pageId . '_zp_bio_page_1.jpg');
 $tpl->set('{jpeg_autoload}', 'true');
 
-echo($config['person_name'] . "!");
-
 $tpl->set('{person_name}', $_POST['person_name']);
 $tpl->set('{person_name_old}', $_POST['person_name_old']);
 $tpl->set('{person_birthday}', $_POST['person_birthday']);
@@ -559,6 +557,68 @@ $tpl->set('{person_old_passport_num}', $_POST['person_old_passport_num']);
 $tpl->set('{person_old_passport_date}', $_POST['person_old_passport_date']);
 $tpl->set('{person_old_passport_org}', $_POST['person_old_passport_org']);
 $tpl->set('{email_addr}', $_POST['email_addr']);
+
+if( $_POST['military_status'] == 'Да') {
+  $tpl->set('{military_status_1_selected}', '');
+  $tpl->set('{military_status_2_selected}', 'selected="true"');
+} else {
+  $tpl->set('{military_status_2_selected}', '');
+  $tpl->set('{military_status_1_selected}', 'selected="true"');
+}
+
+if( $_POST['criminal_status'] == 'Да') {
+  $tpl->set('{criminal_status_1_selected}', '');
+  $tpl->set('{criminal_status_2_selected}', 'selected="true"');
+} else {
+  $tpl->set('{criminal_status_2_selected}', '');
+  $tpl->set('{criminal_status_1_selected}', 'selected="true"');
+}
+
+if( $_POST['judicial_obligations'] == 'Да') {
+  $tpl->set('{judicial_obligations_1_selected}', '');
+  $tpl->set('{judicial_obligations_2_selected}', 'selected="true"');
+} else {
+  $tpl->set('{judicial_obligations_2_selected}', '');
+  $tpl->set('{judicial_obligations_1_selected}', 'selected="true"');
+}
+
+if( $_POST['type_status'] == 'взамен использованного') {
+  $tpl->set('{type_status_1_selected}', '');
+  $tpl->set('{type_status_2_selected}', 'selected="true"');
+  $tpl->set('{type_status_3_selected}', '');
+  $tpl->set('{type_status_4_selected}', '');
+} else if( $_POST['type_status'] == 'взамен испорченного') {
+  $tpl->set('{type_status_1_selected}', '');
+  $tpl->set('{type_status_2_selected}', '');
+  $tpl->set('{type_status_3_selected}', 'selected="true"');
+  $tpl->set('{type_status_4_selected}', '');
+} else if( $_POST['type_status'] == 'взамен утраченного') {
+  $tpl->set('{type_status_1_selected}', '');
+  $tpl->set('{type_status_2_selected}', '');
+  $tpl->set('{type_status_3_selected}', '');
+  $tpl->set('{type_status_4_selected}', 'selected="true"');
+} else {
+  $tpl->set('{type_status_1_selected}', 'selected="true"');
+  $tpl->set('{type_status_2_selected}', '');
+  $tpl->set('{type_status_3_selected}', '');
+  $tpl->set('{type_status_4_selected}', '');
+}
+
+if( $_POST['person_sex'] == 'жен') {
+  $tpl->set('{person_msex_selected}', ''); 
+  $tpl->set('{person_fsex_selected}', 'selected="true"'); 
+} else {
+  $tpl->set('{person_msex_selected}', 'selected="true"'); 
+  $tpl->set('{person_fsex_selected}', ''); 
+}
+
+if( $_POST['pdf_or_jpeg'] == 2 ) {
+  $tpl->set('{pdf_checked}', 'false'); 
+  $tpl->set('{jpeg_checked}', 'true'); 
+} else {
+  $tpl->set('{pdf_checked}', 'true'); 
+  $tpl->set('{jpeg_checked}', 'false'); 
+}
 
 $tpl->compile( 'content' );
 
