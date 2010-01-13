@@ -531,7 +531,8 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
 
 $tpl->set('{skin}', $config['skin']);
 $tpl->set('{zp_bio_page_1}', './uploads/' . $pageId . '_zp_bio_page_1.jpg');
-$tpl->set('{jpeg_autoload}', 'true');
+if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
+  $tpl->set('{jpeg_autoload}', 'true');
 
 $tpl->set('{person_name}', $_POST['person_name']);
 $tpl->set('{person_name_old}', $_POST['person_name_old']);
