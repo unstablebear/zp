@@ -505,6 +505,8 @@ $js = <<<HTML
 
 HTML;
 
+
+
 $tpl->load_template( 'zagran_pasport.tpl' );
 $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
   "<input name=\"send\" type=\"hidden\" value=\"send\" />
@@ -626,7 +628,7 @@ for($i = 0; $i < 10; $i++) {
   $j_name = $_POST['job_name_' . $i];
   $j_address = $_POST['job_address_' . $i];
 
-  echo('!' . $j_date_to . $j_date_to . $j_name . $j_address . '!');
+  //  echo('!' . $j_date_to . $j_date_to . $j_name . $j_address . '!');
 
   if(strlen($j_date_to) + strlen($j_date_to) + strlen($j_name) + strlen($j_address) > 0)
   {
@@ -639,7 +641,7 @@ for($i = 0; $i < 10; $i++) {
   
 }
 
-echo($job_tbl_rows);
+//echo($job_tbl_rows);
 
 $tpl->set('{job_tbl_rows}', $job_tbl_rows);
 $tpl->set('{skin}', $config['skin']);
