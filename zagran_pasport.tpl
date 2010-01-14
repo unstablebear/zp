@@ -1,60 +1,57 @@
 
 <script type="text/JavaScript">
-   function addRowToJobTable() {
+
+  function addRowToJobTable() {
    
-   var newRow = document.getElementById("job_tbl").insertRow(-1);
-   var idx = newRow.rowIndex - 2;
+    var newRow = document.getElementById("job_tbl").insertRow(-1);
+    var idx = newRow.rowIndex - 2;
 
-   var oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
-   $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
+    var oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
+    $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
     
-   oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
-   $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
+    oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
+    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
     
-   oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" class="f_input" style="width:213px;"/>';   
+    oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:213px;"/>';   
 
-   oCell = newRow.insertCell(-1);
-   oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" class="f_input" style="width:211px;"/>';   
+    oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" id="job_address_' + idx  + '" class="f_input" style="width:211px;"/>';   
 
-   oCell = newRow.insertCell(-1);
-   oCell.className = "f_input";
-   oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;" onclick="removeRow(this, 0);"/>';   
+    oCell = newRow.insertCell(-1);
+    oCell.className = "f_input";
+    oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;" onclick="removeRow(this, 0);"/>';   
 
-   if(idx == 0) {
-     var today = new Date();
-     today.setFullYear(today.getFullYear() - 10);
-     $('#job_date_from_0').val((today.getMonth() + 1) + '.' + today.getFullYear());
-   }
+    if(idx == 0) {
+      var today = new Date();
+      today.setFullYear(today.getFullYear() - 10);
+      $('#job_date_from_0').val((today.getMonth() + 1) + '.' + today.getFullYear());
+    }
+  }
 
- }
-
-   function removeRow(src, tbl_name_idx) {
-     var tbl_name = '';
-     if(tbl_name_idx == 0) {
-       tbl_name = 'job_tbl';
-     } else {
-       tbl_name = 'child_tbl';
+  function removeRow(src, tbl_name_idx) {
+    var tbl_name = '';
+    if(tbl_name_idx == 0) {
+      tbl_name = 'job_tbl';
+    } else {
+      tbl_name = 'child_tbl';
+    }
+    var oRow = src.parentNode.parentNode;  
+    var allRows = oRow.parentNode.getElementsByTagName('tr');     
+    document.getElementById(tbl_name).deleteRow(oRow.rowIndex);
+    var idx = 0;
+    for(var i = 0; i < allRows.length; i++) {
+       var cInp = allRows[i].getElementsByTagName('input');
+       if(cInp.length > 0) {
+         for(var j = 0; j < cInp.length; j++) {
+	     var i_name = cInp[j].getAttribute('name');
+	     cInp[j].setAttribute('name', i_name.substr(0, i_name.lastIndexOf('_')) + '_' + idx);
+         }
+	 idx++;
+       }
      }
-
-     var oRow = src.parentNode.parentNode;  
-     var allRows = oRow.parentNode.getElementsByTagName('tr');     
-     document.getElementById(tbl_name).deleteRow(oRow.rowIndex);
-
-     var idx = 0;
-     for(var i = 0; i < allRows.length; i++) {
-        var cInp = allRows[i].getElementsByTagName('input');
-	if(cInp.length > 0) {
-	  for(var j = 0; j < cInp.length; j++) {
-	    var i_name = cInp[j].getAttribute('name');
-	    cInp[j].setAttribute('name', i_name.substr(0, i_name.lastIndexOf('_')) + '_' + idx);
-	  }
-	  idx++;
-	}
-      }
-
    }
 
 </script>
@@ -92,7 +89,7 @@
 	  <td width="600" align="left" valign="top">
 	    <table width="600" border="0" cellspacing="0" cellpadding="0">
 	      <tr>
-		<td>Ф.И.О. (полностью в именительном падеже)</td>
+		<td style="height:18px;">Ф.И.О. (полностью в именительном падеже)</td>
 		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" value="{person_name}"/></td>
 	      </tr>
 	      <tr>
@@ -226,7 +223,7 @@
 		</td>
               </tr>
               <tr>
-		<td width="300" height="25">Не уклоняетесь ли Вы от исполнения судебных обязательств</td>
+		<td width="300" height="25" >Не уклоняетесь ли Вы от исполнения судебных обязательств</td>
 		<td>
                   <select name="judicial_obligations" value="{judicial_obligations}" id="judicial_obligations" tabindex="1" class="f_select" style="height:20px;width:303px;">
                     <option value="Нет" {judicial_obligations_1_selected}>Нет</option>
@@ -344,32 +341,32 @@
 $(function()
 {
 
-  $('#person_birthday').datePicker({
+/*  $('#person_birthday').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });
+  });*/
   $('#person_birthday').attr('style','text-align:center;');
 
-  $('#person_passport_date').datePicker({
+/*  $('#person_passport_date').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });
+  });*/
   $('#person_passport_date').attr('style','text-align:center;');
 
-  $('#person_old_passport_date').datePicker({
+/*  $('#person_old_passport_date').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });
+  });*/
   $('#person_old_passport_date').attr('style','text-align:center;');
 
   $('.f_input').attr('onKeyUp','javascript:this.value=this.value.toUpperCase();');
-
+  $('#job_tbl .f_input').attr('onKeyUp','');
 
   $.ui.dialog.defaults.bgiframe = true;
   $('#dialog').dialog({
@@ -380,6 +377,16 @@ $(function()
   });
   $('#dialog').dialog('option', 'width', 570);
   $('#dialog').dialog('option', 'position', ['top', 'center']);
+
+  var job_tbl_data = [{job_tbl_rows}];
+  for(var i = 0; i < job_tbl_data.length / 4; i++) {
+  	addRowToJobTable();
+//	alert('#job_name_'      + i);
+	$('#job_date_from_' + i).val(job_tbl_data[i * 4]);
+	$('#job_date_to_'   + i).val(job_tbl_data[i * 4 + 1]);
+	$('#job_name_'      + i).val(job_tbl_data[i * 4 + 2]);
+	$('#job_address_'   + i).val(job_tbl_data[i * 4 + 3]);
+  }
 
 });
 

@@ -410,7 +410,7 @@ if( isset( $_POST['send'] )) {
       $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
       $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
 
-      $y_pos = 1387 + $i * 102;
+      $y_pos = 1307 + $i * 102;
 
       txtCenter($im, 13, 0, 71, $y_pos, $black, $font_file, $j_date_from, 75);
       txtCenter($im, 13, 0, 153, $y_pos, $black, $font_file, $j_date_to, 75);
@@ -511,9 +511,7 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
   <input name=\"page_id\" type=\"hidden\" value=\"" . $pageId . "\" />
 </form>";
 
-$tpl->set('{skin}', $config['skin']);
 //$tpl->set('{zp_bio_page_1}', './uploads/forms_images/' . $pageId . '_zp_bio_page_1.jpg');
-
 
 // JPEG DIALOG INIT
 if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
@@ -620,6 +618,31 @@ if( $_POST['pdf_or_jpeg'] == 2 ) {
   $tpl->set('{pdf_checked}', 'true'); 
   $tpl->set('{jpeg_checked}', 'false'); 
 }
+
+$job_tbl_rows = "";
+for($i = 0; $i < 10; $i++) {
+  $j_date_from = $_POST['job_date_from_' . $i];
+  $j_date_to = $_POST['job_date_to_' . $i];
+  $j_name = $_POST['job_name_' . $i];
+  $j_address = $_POST['job_address_' . $i];
+
+  echo('!' . $j_date_to . $j_date_to . $j_name . $j_address . '!');
+
+  if(strlen($j_date_to) + strlen($j_date_to) + strlen($j_name) + strlen($j_address) > 0)
+  {
+    if(strlen($job_tbl_rows) > 0)
+      $job_tbl_rows .= ', ';
+
+    $job_tbl_rows .= '"' . $j_date_from . '", "' . $j_date_to . '", "' . $j_name . '", "' . $j_address . '"';
+    
+  }
+  
+}
+
+echo($job_tbl_rows);
+
+$tpl->set('{job_tbl_rows}', $job_tbl_rows);
+$tpl->set('{skin}', $config['skin']);
 
 $tpl->compile( 'content' );
 
