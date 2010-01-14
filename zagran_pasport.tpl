@@ -7,22 +7,28 @@
     var idx = newRow.rowIndex - 2;
 
     var oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
+    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;"/></div>';
     $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
     
-    oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;"/></div>';
-    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
     
     oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:213px;"/>';   
+    oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;"/></div>';
+    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
+
+    
+    oCell = newRow.insertCell(-1);
+    oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:210px;padding: 1px 1px 1px 1px;border: 1;"/>';   
+
 
     oCell = newRow.insertCell(-1);
-    oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" id="job_address_' + idx  + '" class="f_input" style="width:211px;"/>';   
+    oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" id="job_address_' + idx  + '" class="f_input" style="width:209px;padding: 1px 1px 1px 1px;border: 1;"/>';   
+
 
     oCell = newRow.insertCell(-1);
+
     oCell.className = "f_input";
-    oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;" onclick="removeRow(this, 0);"/>';   
+    oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;padding: 0px 0px;border: 1;" onclick="removeRow(this, 0);"/>';   
+
 
     if(idx == 0) {
       var today = new Date();
@@ -258,21 +264,21 @@
 	      </tr>
 	      <tr>
 	        <td colspan="2">
-		  <table width="100%"  border="1" cellspacing="0" cellpadding="0">
+		  <table style="width:100px;" border="1" cellspacing="0" cellpadding="0">
 		    <tr>
 		      <td id="tbl_row">
-			<table id="job_tbl" width="100%" border="0"  cellspacing="0" cellpadding="0">
-			  <tr>
+			<table id="job_tbl" style="width:590px;table-layout: fixed;" border="0"  cellspacing="0" cellpadding="0">
+			  <tr cellpadding="0">
 			    <td colspan="2" class="f_input" style="width:144px;"><center><strong>ћес€ц и год</strong></center></td>
-			    <td colspan="2" class="f_input" style="width:439px;"></td>
-			    <td colspan="2" class="f_input" style="width:17px;"></td>
+			    <td colspan="2" class="f_input" style="width:423px;"></td>
+			    <td class="f_input" style="width:17px;"></td>
 			  </tr>
 			  <tr>
-			    <td class="f_input" style="width:72px;"><center><strong>поступ.</strong></center></td>
-			    <td class="f_input" style="width:72px;"><center><strong>увольн.</strong></center></td>
-			    <td class="f_input" style="width:218px;"><center><strong>ћесто работы и должность</strong></center></td>
-			    <td class="f_input" style="width:217px;"><center><strong>јдрес предпри€ти€</strong></center></td>
-			    <td class="f_input" style="width:17px;"></td>
+			    <td class="f_input" style="width:70px;padding: 1px 1px 1px 1px;" ><center><strong>поступ.</strong></center></td>
+			    <td class="f_input" style="width:71px;padding: 1px 1px 1px 1px;"><center><strong>увольн.</strong></center></td>
+			    <td class="f_input" style="width:204px;padding: 1px 1px 1px 1px;"><center><strong>ћесто работы и должность</strong></center></td>
+			    <td class="f_input" style="width:203px;padding: 1px 1px 1px 1px;"><center><strong>јдрес предпри€ти€</strong></center></td>
+			    <td class="f_input" style="width:17px;padding: 1px 1px 1px 1px;"></td>
 			  </tr>
 			</table>
 		      </td>
