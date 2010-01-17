@@ -551,7 +551,7 @@ $js = <<<HTML
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.dialog.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.core.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.highlight.js"></script>
-<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/external/bgiframe/jquery.bgiframe.js"></script>
+<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/external/bgiframe/jquery.bgiframe.pack.js"></script>
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/jquery_ui/themes/base/ui.all.css" type="text/css" />
 
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
