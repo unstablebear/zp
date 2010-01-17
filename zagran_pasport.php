@@ -546,8 +546,8 @@ $js = <<<HTML
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery.datePicker-2.1.2.js"></script>
 
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.core.js"></script> 
-<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.draggable.js"></script>
-<script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.resizable.js"></script>
+<!--script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.draggable.js"></script-->
+<!--script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.resizable.js"></script-->
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/ui.dialog.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.core.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/jquery/jquery_ui/ui/effects.highlight.js"></script>
@@ -574,8 +574,12 @@ if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
   $tpl->set('{jpeg_autoload}', 'true');
 
 $jpeg_form_html = <<<HTML
-<!--img src="./uploads/forms_images/{$pageId}_zp_bio_page_1.jpg" alt="" border="2" width="552" height="776"/-->
-<img src="./uploads/forms_images/{$pageId}_zp_bio_page_2.jpg" alt="" border="2" width="552" height="776"/>
+<table>
+<tr>
+<td><img src="./uploads/forms_images/{$pageId}_zp_bio_page_1.jpg" alt="" border="2" width="276" height="388"/></td>
+<td><img src="./uploads/forms_images/{$pageId}_zp_bio_page_2.jpg" alt="" border="2" width="276" height="388"/></td>
+</tr>
+</table>
 HTML;
 
   $tpl->set('{jpeg_form_html}', $jpeg_form_html);

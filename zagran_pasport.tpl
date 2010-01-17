@@ -17,8 +17,6 @@
 
     $('#job_date_from_' + idx).attr('onchange', 'trimJobDateVal(this)');
 
-    
-
 //    $('#job_date_from_' + idx).attr('style','text-align:center;');
 //    $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
     
@@ -425,7 +423,7 @@ $(function()
   $('#send_jpeg_btn').click(function() {
     $('#dialog').dialog('open');
   });
-  $('#dialog').dialog('option', 'width', 570);
+  $('#dialog').dialog('option', 'width', 590);
   $('#dialog').dialog('option', 'position', ['top', 'center']);
 
   // восстановление значений полей таблицы работ после сабмита
