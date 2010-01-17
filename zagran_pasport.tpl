@@ -1,8 +1,4 @@
 
-<div id="dialog" title="Заявление о выдаче загранпаспорта нового поколения" >
-  {jpeg_form_html}
-</div>
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20" align="left" valign="top"><img src="{THEME}/images/dlet_abl01.gif" width="20" height="30" alt="" /></td>
@@ -303,6 +299,7 @@ $(function()
   $('#person_old_passport_date').attr('style','text-align:center;');
 
   $.ui.dialog.defaults.bgiframe = true;
+
   $('#dialog').dialog({
     autoOpen: {jpeg_autoload}
   });
@@ -311,6 +308,24 @@ $(function()
   });
   $('#dialog').dialog('option', 'width', 590);
   $('#dialog').dialog('option', 'position', ['top', 'center']);
+
+  $('#job_free_period_dialog').dialog({
+    autoOpen: false,
+    buttons: {
+      "Отмена": function() {
+        $(this).dialog("close");
+      },
+      "Oк": function() {
+var idx = $('#job_free_period_dialog').attr('name').substr(1);
+$('#job_name_' + idx).val('ВРЕМЕННО НЕ РАБОТАЛ');
+$('#job_address_' + idx).val($('#job_free_period_address').val());
+$(this).dialog("close");
+      }
+    }
+  });
+  $('#job_free_period_dialog').dialog('option', 'width', 400);
+  $('#job_free_period_dialog').dialog('option', 'height', 140);
+  $('#job_free_period_dialog').dialog('option', 'position', ['top', 'center']);
 
   // восстановление значений полей таблицы работ после сабмита
   var job_tbl_data = [{job_tbl_rows}];
@@ -325,4 +340,12 @@ $(function()
 });
 
 </script>
+
+<div id="dialog" title="Заявление о выдаче загранпаспорта нового поколения" >
+  {jpeg_form_html}
+</div>
+
+<div id="job_free_period_dialog" title="" >
+  <input style="width:365px;" id="job_free_period_address" type="text" class="f_input"/>
+</div>
 

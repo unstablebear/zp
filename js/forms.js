@@ -1,10 +1,17 @@
+function trimJobDateVal(t)
+{
+	if(t.value.length > 7)
+		t.value = t.value.substr(3, 8);
+}
+
+
 function addRowToJobTable(skin) {
    
 	var newRow = document.getElementById("job_tbl").insertRow(-1);
 	var idx = newRow.rowIndex - 2;
 
 	var oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/></div>';
+	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);checkForFreePeriod(' + idx + ');"/></div>';
 	$('#job_date_from_' + idx).datePicker({
 			startDate: '01.01.1900',
 				endDate: '31.12.2200',
@@ -12,17 +19,18 @@ function addRowToJobTable(skin) {
 				clickInput:true
 				});
 
-	$('#job_date_from_' + idx).attr('onchange', 'trimJobDateVal(this);checkForFreePeriod(' + idx + ');');
+	//	$('#job_date_from_' + idx).attr('onchange', 'trimJobDateVal(this);');
+	//checkForFreePeriod(' + idx + ');');
 
 	oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/></div>';
+	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);"/></div>';
 	$('#job_date_to_' + idx).datePicker({
 			startDate: '01.01.1900',
 				endDate: '31.12.2200',
 				createButton:false,
 				clickInput:true
 				});
-	$('#job_date_to_' + idx).attr('onchange', 'trimJobDateVal(this);');
+	//	$('#job_date_to_' + idx).attr('onchange', 'trimJobDateVal(this);');
 
 	oCell = newRow.insertCell(-1);
 	oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:210px;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/>';   
@@ -78,14 +86,12 @@ function checkForFreePeriod(idx)
 	{
 		$('#job_date_from_' + idx).val(last_period_end);
 		$('#job_date_to_' + idx).val(new_period_start);
+		$('#ui-dialog-title-job_free_period_dialog').html('”кажите где вы проживали в период с ' + 
+								  last_period_end + ' по ' + new_period_start);
+		$('#job_free_period_dialog').attr('name', 'n' + idx);
+		$('#job_free_period_dialog').dialog('open');
 	}
 	//	alert(lpe_month + ' ' + nps_month + ' ' + (nps_month - lpe_month) + ' ' + lpe_year + ' ' + nps_year);
-}
-
-function trimJobDateVal(t)
-{
-	if(t.value.length > 7)
-		t.value = t.value.substr(3, 8);
 }
 
 function removeRow(src, tbl_name_idx) {
