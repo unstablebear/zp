@@ -318,7 +318,7 @@
 		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить PDF" /></td-->
 	  <td><table>
 	    <tr>
-              <td style="width: 100px; height:25px;"><input style="width: 100px; height: 25px;" name="send_jpeg" type="image" class="bbcodes_poll" alt="Отправить PDF" /></td>	       
+              <td style="width: 100px; height:25px;"><input style="width: 100px; height: 25px;" name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
               <!--td><input name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
               <td><a id="send_jpeg_btn">Отправить JPEG</a></td-->	      
 	    </tr>

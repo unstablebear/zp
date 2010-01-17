@@ -410,15 +410,18 @@ if( isset( $_POST['send'] )) {
       $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
       $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
 
-      $y_pos = 1307 + $i * 102;
+      $y_pos = 1297 + $i * 95;
 
       txtCenter($im, 13, 0, 71, $y_pos, $black, $font_file, $j_date_from, 75);
       txtCenter($im, 13, 0, 153, $y_pos, $black, $font_file, $j_date_to, 75);
-      txtCenter($im, 13, 0, 527, $y_pos, $black, $font_file, $j_name, 527);
-      txtCenter($im, 13, 0, 767, $y_pos, $black, $font_file, $j_address, 253);
+      txtCenter($im, 13, 0, 235, $y_pos, $black, $font_file, wrap(13, 0, $font_file, $j_name, 527), 527);
+      txtCenter($im, 13, 0, 767, $y_pos, $black, $font_file, wrap(13, 0, $font_file, $j_address, 253), 253);
     }
 
     $first_page = realpath('./uploads/forms_images') . '/' . $pageId . '_zp_bio_page_1.jpg';
+
+    if(file_exists($first_page))
+      unlink($first_page);
 
     imagejpeg($im, $first_page);
     imagedestroy($im);
@@ -441,11 +444,6 @@ if( isset( $_POST['send'] )) {
       $pdf->TextField('job_address_' . $i, 42, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 149, $y_pos);
     }
 
-    $pdf->TextField('kadr_chief_1', 9, 6, array(), array('v'=>'', 'q'=>1), 12.5, 181);
-    $pdf->TextField('kadr_chief_2', 26, 6, array(), array('v'=>'', 'q'=>1), 23.5, 181);
-    $pdf->TextField('kadr_chief_3', 11, 6, array(), array('v'=>'', 'q'=>1), 55.5, 181);
-    $pdf->TextField('kadr_chief_4', 119, 6, array(), array('v'=>'', 'q'=>1), 73.5, 181);
-
     $pdf->TextField('person_old_passport_ser', 36, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 
 								     'q'=>1), 74.5, 194.3);
 
@@ -466,16 +464,6 @@ if( isset( $_POST['send'] )) {
     $pdf->TextField('pop_date_4', 119, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 
 							 'q'=>1), 73.5, 201.4);
 
-    $pdf->TextField('today_1', 9, 5, array(), array('v'=>'', 'q'=>1), 12.5, 230.7);
-    $pdf->TextField('today_2', 26, 5, array(), array('v'=>'', 'q'=>1), 23.5, 230.7);
-    $pdf->TextField('today_3', 11, 5, array(), array('v'=>'', 'q'=>1), 55.5, 230.7);
-
-    $pdf->TextField('giving_date_1', 9, 5, array(), array('v'=>'', 'q'=>1), 53.5, 239.3);
-    $pdf->TextField('giving_date_2', 25, 5, array(), array('v'=>'', 'q'=>1), 64.5, 239.3);
-    $pdf->TextField('giving_date_3', 11, 5, array(), array('v'=>'', 'q'=>1), 94.5, 239.3);
-
-    $pdf->TextField('reg_number', 55, 5, array(), array('v'=>'', 'q'=>1), 51, 245.3);
-    
     $second_page = realpath('./uploads/') . '/' . $pageId . '_zp_bio_page_2.jpg';
     imagejpeg($im, $second_page);
     imagedestroy($im);*/
@@ -657,6 +645,26 @@ function txtCenter($image, $size, $angle, $left, $top, $color, $font, $text, $ma
   $tb = imagettfbbox($size, $angle, $font, $text);
   $x = ceil(($max_width - $tb[2]) / 2) + $left;
   imagettftext($image, $size, $angle, $x, $top, $tc, $font, mb_strtoupper($text, 'utf-8'));
+}
+
+function wrap($fontSize, $angle, $fontFace, $string, $width){
+   
+  $ret = "";
+   
+  $arr = explode(' ', $string);
+   
+  foreach ( $arr as $word ){
+   
+    $teststring = $ret.' '.$word;
+    $testbox = imagettfbbox($fontSize, $angle, $fontFace, $teststring);
+    if ( $testbox[2] > $width ){
+      $ret.=($ret==""?"":"\n").$word;
+    } else {
+      $ret.=($ret==""?"":' ').$word;
+    }
+  }
+   
+  return $ret;
 }
 
 function removeOldFiles($directory, $period)
