@@ -8,12 +8,30 @@
 
     var oCell = newRow.insertCell(-1);
     oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/></div>';
-    $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
+    $('#job_date_from_' + idx).datePicker({
+      startDate: '01.01.1900',
+      endDate: '31.12.2200',
+      createButton:false,
+      clickInput:true
+    });
+
+    $('#job_date_from_' + idx).attr('onchange', 'trimJobDateVal(this)');
+
+    
+
+//    $('#job_date_from_' + idx).attr('style','text-align:center;');
+//    $('#job_date_from_' + idx).mask("99.9999", {placeholder:" "});
     
     
     oCell = newRow.insertCell(-1);
     oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/></div>';
-    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
+    $('#job_date_to_' + idx).datePicker({
+      startDate: '01.01.1900',
+      endDate: '31.12.2200',
+      createButton:false,
+      clickInput:true
+    });
+//    $('#job_date_to_' + idx).mask("99.9999", {placeholder:" "});
 
     
     oCell = newRow.insertCell(-1);
@@ -29,12 +47,20 @@
     oCell.className = "f_input";
     oCell.innerHTML = '<img class="delete" src="templates/{skin}/dleimages/minus_fav.gif" alt="уд." style="width:16px;padding: 0px 0px;border: 1;" onclick="removeRow(this, 0);" />';   
 
-
     if(idx == 0) {
       var today = new Date();
       today.setFullYear(today.getFullYear() - 10);
-      $('#job_date_from_0').val((today.getMonth() + 1) + '.' + today.getFullYear());
+      var tdy = (today.getMonth() + 1) + '.' + today.getFullYear()
+      if(tdy.length < 7)
+        tdy = '0' + tdy;
+      $('#job_date_from_0').val(tdy);
     }
+  }
+
+  function trimJobDateVal(t)
+  {
+    if(t.value.length > 7)
+      t.value = t.value.substr(3, 8);
   }
 
   function removeRow(src, tbl_name_idx) {
@@ -61,9 +87,31 @@
    }
 
   function fieldToUpperCase(f) {
-//    alert("1");
     f.value = f.value.toUpperCase();
   }
+
+ function IsValidDate(Day,Mn,Yr){
+    var DateVal = Mn + "/" + Day + "/" + Yr;
+    var dt = new Date(DateVal);
+
+    if(dt.getDate()!=Day){
+        alert('Invalid Date');
+        return(false);
+        }
+    else if(dt.getMonth()!=Mn-1){
+    //this is for the purpose JavaScript starts the month from 0
+
+        alert('Invalid Date');
+        return(false);
+        }
+    else if(dt.getFullYear()!=Yr){
+        alert('Invalid Date');
+        return(false);
+        }
+        
+    return(true);
+ }
+
 
 </script>
 
@@ -307,8 +355,8 @@
 	  <td>
 	    <table>
 	      <tr>
-		<td ><input type="radio" value="1" checked="{pdf_checked}" name="pdf_or_jpeg"/>Форма PDF</td>
-		<td ><input type="radio" value="2" checked="{jpeg_checked}" name="pdf_or_jpeg"/>Изображение(JPEG)</td>
+		<td ><input type="radio" value="1" {pdf_checked} name="pdf_or_jpeg"/>Форма PDF</td>
+		<td ><input type="radio" value="2" {jpeg_checked} name="pdf_or_jpeg"/>Изображение(JPEG)</td>
 	      </tr>
 	    </table>
 	  </td>
@@ -318,7 +366,7 @@
 		     src="{THEME}/images/dlet_bttn_submit.gif" alt="Отправить PDF" /></td-->
 	  <td><table>
 	    <tr>
-              <td style="width: 100px; height:25px;"><input style="width: 100px; height: 25px;" name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
+              <td ><input name="send_jpeg" type="submit" class="bbcodes_poll" value="Печать" /></td>
               <!--td><input name="send_jpeg" type="image" class="bbcodes" alt="Отправить PDF" /></td>	       
               <td><a id="send_jpeg_btn">Отправить JPEG</a></td-->	      
 	    </tr>
@@ -346,35 +394,29 @@
 $(function()
 {
 
-/*  $('#person_birthday').datePicker({
+  $('#person_birthday').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });*/
+  });
   $('#person_birthday').attr('style','text-align:center;');
 
-/*  $('#person_passport_date').datePicker({
+  $('#person_passport_date').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });*/
+  });
   $('#person_passport_date').attr('style','text-align:center;');
 
-/*  $('#person_old_passport_date').datePicker({
+  $('#person_old_passport_date').datePicker({
     startDate: '01.01.1900',
     endDate: '31.12.2200',
     createButton:false,
     clickInput:true
-  });*/
+  });
   $('#person_old_passport_date').attr('style','text-align:center;');
-
-//  $('.f_input').attr('onkeyup', 
-//'alert("1");');
-//'fieldToUpperCase(this);');
-//'javascript:this.value=this.value.touppercase()');
-//  $('#job_tbl .f_input').attr('onKeyUp','');
 
   $.ui.dialog.defaults.bgiframe = true;
   $('#dialog').dialog({
@@ -386,10 +428,10 @@ $(function()
   $('#dialog').dialog('option', 'width', 570);
   $('#dialog').dialog('option', 'position', ['top', 'center']);
 
+  // восстановление значений полей таблицы работ после сабмита
   var job_tbl_data = [{job_tbl_rows}];
   for(var i = 0; i < job_tbl_data.length / 4; i++) {
   	addRowToJobTable();
-//	alert('#job_name_'      + i);
 	$('#job_date_from_' + i).val(job_tbl_data[i * 4]);
 	$('#job_date_to_'   + i).val(job_tbl_data[i * 4 + 1]);
 	$('#job_name_'      + i).val(job_tbl_data[i * 4 + 2]);

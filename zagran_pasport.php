@@ -233,7 +233,7 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('pop_date_1', 9, 5, array(), array('v'=>$pop_day, 'q'=>1), 12.5, 201.4);
     $pdf->TextField('pop_date_2', 26, 5, array(), array('v'=>iconv("cp1251", "utf-8", $pop_month), 'q'=>1), 23.5, 201.4);
-    $pdf->TextField('pop_date_3', 9, 5, array(), array('v'=>$pop_year, 'q'=>1), 56.5, 201.4);
+    $pdf->TextField('pop_date_3', 11, 5, array(), array('v'=>$pop_year), 55.5, 201.4);
     $pdf->TextField('pop_date_4', 119, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 
 							 'q'=>1), 73.5, 201.4);
     $pdf->TextField('today_1', 9, 5, array(), array('v'=>'', 'q'=>1), 12.5, 230.7);
@@ -242,11 +242,11 @@ if( isset( $_POST['send'] )) {
 
     $pdf->TextField('giving_date_1', 9, 5, array(), array('v'=>'', 'q'=>1), 53.5, 239.3);
     $pdf->TextField('giving_date_2', 25, 5, array(), array('v'=>'', 'q'=>1), 64.5, 239.3);
-    $pdf->TextField('giving_date_3', 11, 5, array(), array('v'=>'', 'q'=>1), 94.5, 239.3);
+    $pdf->TextField('giving_date_3', 9, 5, array(), array('v'=>'', 'q'=>1), 95.5, 239.3);
 
     $pdf->TextField('reg_number', 55, 5, array(), array('v'=>'', 'q'=>1), 51, 245.3);
 
-    $filename = "anketa.pdf";
+    $filename = "zp_bio.pdf";
 
     if($_POST['email_addr']) {
 
@@ -470,6 +470,71 @@ if( isset( $_POST['send'] )) {
     imagejpeg($im, $second_page);
     imagedestroy($im);
 
+    if($_POST['email_addr']) {
+
+      $to = $_POST['email_addr'];
+      $from = "bot@zagranpasport.ru";
+      $host = $config['smtp_host'];
+      $username = $config['smtp_user'];
+      $password = $config['smtp_pass'];
+
+      $message = iconv("cp1251", "utf-8", "Здравствуйте. \r\nАнкета на загранпаспорт во вложении. Спасибо за использвание нашего сервиса. \r\nhttp://zagranpassport.com/");
+      $subject = iconv("cp1251", "utf-8", "Анкета на загранпаспорт");
+
+      $separator = md5(time());
+      
+      $eol = PHP_EOL;
+      
+      // encode data (puts attachment in proper format)
+      $first_page_f = fopen($first_page,"rb");
+      $fp_data = fread($first_page_f, filesize($first_page));
+      fclose($first_page_f);
+      $attachment_page_1 = chunk_split(base64_encode($fp_data));
+
+      $second_page_f = fopen($second_page,"rb");
+      $sp_data = fread($second_page_f, filesize($second_page));
+      fclose($second_page_f);
+      $attachment_page_2 = chunk_split(base64_encode($sp_data));
+      
+      // main header (multipart mandatory)
+      $headers = "From: ".$from.$eol;
+      $headers .= "MIME-Version: 1.0".$eol;
+      $headers .= "Content-Type: multipart/mixed; boundary=\"".$separator."\"".$eol.$eol;
+      $headers .= "Content-Transfer-Encoding: 7bit".$eol;
+      $headers .= "This is a MIME encoded message.".$eol.$eol;
+      
+      // message
+      $headers .= "--".$separator.$eol;
+      $headers .= "Content-Type: text/html; charset=\"UTF-8\"".$eol;
+      $headers .= "Content-Transfer-Encoding: 8bit".$eol.$eol;
+      $headers .= $message.$eol.$eol;
+      
+      // attachment 1
+      $headers .= "--".$separator.$eol;
+      $headers .= "Content-Type: application/octet-stream; name=\"zp_bio_p1.jpg\"".$eol;
+      $headers .= "Content-Transfer-Encoding: base64".$eol;
+      $headers .= "Content-Disposition: attachment".$eol.$eol;
+      $headers .= $attachment_page_1.$eol.$eol;
+      $headers .= "--".$separator.$eol;
+
+      // attachment 2
+      $headers .= "Content-Type: application/octet-stream; name=\"zp_bio_p2.jpg\"".$eol;
+      $headers .= "Content-Transfer-Encoding: base64".$eol;
+      $headers .= "Content-Disposition: attachment".$eol.$eol;
+      $headers .= $attachment_page_2.$eol.$eol;
+      $headers .= "--".$separator."--";
+
+      // send message
+      $ok = mail($to, $subject, "", $headers);
+
+      /*      if ($ok) { 
+	echo "<p>mail sent to $to!</p>"; 
+      } else { 
+	echo "<p>mail could not be sent!</p>"; 
+	}*/
+
+    }
+
   }
      
  }
@@ -491,11 +556,9 @@ $js = <<<HTML
 
 <link rel="stylesheet" href="{$config['http_home_url']}engine/jquery/datePicker.css" type="text/css" />
 
-<script src="{$config['http_home_url']}engine/jquery/jquery.maskedinput-1.2.2.min.js" type="text/javascript"></script>
+<!--script src="{$config['http_home_url']}engine/jquery/jquery.maskedinput-1.2.2.min.js" type="text/javascript"></script-->
 
 HTML;
-
-
 
 $tpl->load_template( 'zagran_pasport.tpl' );
 $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"\" action=\"\">" . $tpl->copy_template .
@@ -605,11 +668,11 @@ if( $_POST['person_sex'] == 'жен') {
 }
 
 if( $_POST['pdf_or_jpeg'] == 2 ) {
-  $tpl->set('{pdf_checked}', 'false'); 
-  $tpl->set('{jpeg_checked}', 'true'); 
+  $tpl->set('{pdf_checked}', ''); 
+  $tpl->set('{jpeg_checked}', 'checked="true"'); 
 } else {
-  $tpl->set('{pdf_checked}', 'true'); 
-  $tpl->set('{jpeg_checked}', 'false'); 
+  $tpl->set('{pdf_checked}', 'checked="true"'); 
+  $tpl->set('{jpeg_checked}', ''); 
 }
 
 $job_tbl_rows = "";
