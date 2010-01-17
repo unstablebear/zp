@@ -9,8 +9,8 @@ rm -rf /var/www/engine/modules/pdf_forms
 cp -a ./pdf_forms /var/www/engine/modules
 #cp ./jquery-1.3.2.min.js /var/www/engine
 #cp ./jquery.datePicker-2.1.2.js /var/www/engine
-rm -rf /var/www/engine/jquery
-cp -R ./jquery /var/www/engine
+rm -rf /var/www/engine/js
+cp -R ./js /var/www/engine
 
 rm -rf /var/www/uploads/forms_images
 mkdir /var/www/uploads/forms_images
