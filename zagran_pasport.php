@@ -553,9 +553,8 @@ $js = <<<HTML
 <script type="text/javascript" src="{$config['http_home_url']}engine/js/jquery_ui/ui/effects.highlight.js"></script>
 <script type="text/javascript" src="{$config['http_home_url']}engine/js/jquery_ui/external/bgiframe/jquery.bgiframe.pack.js"></script>
 <link rel="stylesheet" href="{$config['http_home_url']}engine/js/jquery_ui/themes/base/ui.all.css" type="text/css" />
-
 <link rel="stylesheet" href="{$config['http_home_url']}engine/js/datePicker.css" type="text/css" />
-
+<script type="text/javascript" src="{$config['http_home_url']}engine/js/forms.js"></script>
 <!--script src="{$config['http_home_url']}engine/js/jquery.maskedinput-1.2.2.min.js" type="text/javascript"></script-->
 
 HTML;
