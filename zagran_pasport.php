@@ -298,9 +298,11 @@ if( isset( $_POST['send'] )) {
 
   } else {
     
-    $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
+    // FIRST JPEG PAGE
     $font_file = realpath("./engine/modules/pdf_forms/DejaVuSans.ttf");
-    //    5.2727272727272725
+
+    $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_1.jpg");
+
     txtCenter($im, 13, 0, 290, 228, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name'])), 554);
     txtCenter($im, 13, 0, 68, 265, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_name_old'])), 780);
     txtCenter($im, 13, 0, 321, 312, $black, $font_file, iconv("cp1251", "utf-8", trim($_POST['person_birthday'])), 480);
@@ -425,9 +427,9 @@ if( isset( $_POST['send'] )) {
 
     imagejpeg($im, $first_page);
     imagedestroy($im);
-    //    unlink($first_page);
 
-    /*$im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_2.jpg");
+    // SECOND JPEG PAGE
+    $im = @imagecreatefromjpeg("{$config['http_home_url']}/engine/modules/pdf_forms/zp_form_2.jpg");
 
     for($i = 2; $i < 10; $i++) {
       $j_date_from = iconv('cp1251', 'utf-8', $_POST['job_date_from_' . $i]);
@@ -435,20 +437,17 @@ if( isset( $_POST['send'] )) {
       $j_name = iconv('cp1251', 'utf-8', $_POST['job_name_' . $i]);
       $j_address = iconv('cp1251', 'utf-8', $_POST['job_address_' . $i]);
 
-      $y_pos = 25.3 + ($i - 2) * 18.2;
+      $y_pos = 143 + ($i - 2) * 96;
 
-      $pdf->TextField('job_date_from_' . $i, 14.5, 8, array(), array('v'=>$j_date_from, 'q'=>1), 11, $y_pos);
-      $pdf->TextField('job_date_to_' . $i, 14.5, 8, array(), array('v'=>$j_date_to, 'q'=>1), 26.5, $y_pos);
-      $pdf->TextField('job_name_' . $i, 106, 17, array(), array('v'=>$j_name, 'q'=>1, 'ff'=>4096), 
-		      42, $y_pos);
-      $pdf->TextField('job_address_' . $i, 42, 17, array(), array('v'=>$j_address, 'q'=>1, 'ff'=>4096), 149, $y_pos);
+      txtCenter($im, 13, 0, 58, $y_pos, $black, $font_file, $j_date_from, 76);
+      txtCenter($im, 13, 0, 140, $y_pos, $black, $font_file, $j_date_to, 76);
+      txtCenter($im, 13, 0, 222, $y_pos, $black, $font_file, wrap(13, 0, $font_file, $j_name, 559), 559);
+      txtCenter($im, 13, 0, 786, $y_pos, $black, $font_file, wrap(13, 0, $font_file, $j_address, 222), 222);
+
     }
 
-    $pdf->TextField('person_old_passport_ser', 36, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 
-								     'q'=>1), 74.5, 194.3);
-
-    $pdf->TextField('person_old_passport_num', 40, 6, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 
-								     'q'=>1), 122, 194.3);
+    txtCenter($im, 13, 0, 393, 1046, $black, $font_file, iconv("cp1251", "utf-8", $_POST['person_old_passport_ser']), 190);
+    txtCenter($im, 13, 0, 643, 1046, $black, $font_file, iconv("cp1251", "utf-8", $_POST['person_old_passport_num']), 211);
 
     $pop_day = strtok($_POST['person_old_passport_date'], '.');
     $pop_month = strtok('.');
@@ -458,15 +457,18 @@ if( isset( $_POST['send'] )) {
       $pop_year = '20';
     }
 
-    $pdf->TextField('pop_date_1', 9, 5, array(), array('v'=>$pop_day, 'q'=>1), 12.5, 201.4);
-    $pdf->TextField('pop_date_2', 26, 5, array(), array('v'=>iconv("cp1251", "utf-8", $pop_month), 'q'=>1), 23.5, 201.4);
-    $pdf->TextField('pop_date_3', 9, 5, array(), array('v'=>$pop_year, 'q'=>1), 56.5, 201.4);
-    $pdf->TextField('pop_date_4', 119, 5, array(), array('v'=>iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 
-							 'q'=>1), 73.5, 201.4);
+    txtCenter($im, 13, 0, 66, 1078, $black, $font_file, $pop_day, 48);
+    txtCenter($im, 13, 0, 124, 1078, $black, $font_file, iconv("cp1251", "utf-8", $monthes[$pop_month]), 137);
+    txtCenter($im, 13, 0, 298, 1078, $black, $font_file, $pop_year, 48);
+    txtCenter($im, 13, 0, 388, 1078, $black, $font_file, iconv("cp1251", "utf-8", $_POST['person_old_passport_org']), 628);
 
-    $second_page = realpath('./uploads/') . '/' . $pageId . '_zp_bio_page_2.jpg';
+    $second_page = realpath('./uploads/forms_images') . '/' . $pageId . '_zp_bio_page_2.jpg';
+
+    if(file_exists($second_page))
+      unlink($second_page);
+
     imagejpeg($im, $second_page);
-    imagedestroy($im);*/
+    imagedestroy($im);
 
   }
      
@@ -509,7 +511,8 @@ if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
   $tpl->set('{jpeg_autoload}', 'true');
 
 $jpeg_form_html = <<<HTML
-<img src="./uploads/forms_images/{$pageId}_zp_bio_page_1.jpg" alt="" border="2" width="552" height="776"/>
+<!--img src="./uploads/forms_images/{$pageId}_zp_bio_page_1.jpg" alt="" border="2" width="552" height="776"/-->
+<img src="./uploads/forms_images/{$pageId}_zp_bio_page_2.jpg" alt="" border="2" width="552" height="776"/>
 HTML;
 
   $tpl->set('{jpeg_form_html}', $jpeg_form_html);
