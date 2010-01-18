@@ -1,4 +1,3 @@
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="20" align="left" valign="top"><img src="{THEME}/images/dlet_abl01.gif" width="20" height="30" alt="" /></td>
@@ -32,8 +31,10 @@
 		<td><input type="text" tabindex="1" maxlength="35" name="person_name" class="f_input" value="{person_name}" onblur="fieldToUpperCase(this);" onkeyup="fieldToUpperCase(this);"/></td>
 	      </tr>
 	      <tr>
-	        <td><br/></td>
+		<td></td>
+	        <td><label style="color:red;">{person_name_requred}</label></td>
 	      </tr>
+	      <tr><td><br/></td></tr>
 	      <tr><td colspan="2" ><strong>Если ранее имели другие фамилии</strong></td></tr>
 	      <tr>
 		<td width="300" height="25" >Фамилия, когда меняли и где</td>
@@ -47,6 +48,10 @@
 		<td width="300" height="25" >Дата рождения</td>
 		<td><input type="text" tabindex="1" id="person_birthday" name="person_birthday" value="{person_birthday}" class="f_input" maxlength="10" onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);' ></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_birthday_requred}</label></td>
+	      </tr>
               <tr>
 		<td width="300" height="25" >Пол<td>
 		  <select name="person_sex" value="{person_sex}" id="person_sex" tabindex="1" class="f_select" style="height:20px;width:303px;">
@@ -59,14 +64,26 @@
 		<td><input type="text" tabindex="1" id="person_birth_address" name="person_birth_address" value="{person_birth_address}" class="f_input" maxlength="70" onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);'></td>
 	      </tr>
 	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_birth_address_requred}</label></td>
+	      </tr>
+	      <tr>
 		<td width="300" height="25" >Место жительства (регистрации)</td>
 		<td><input type="text" tabindex="1" id="person_address" name="person_address" value="{person_address}" class="f_input"
 			    maxlength="70"  onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);'></td>
+	      </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_address_requred}</label></td>
 	      </tr>
               <tr>
 		<td width="300" height="25" >Гражданство</td>
 		<td><input type="text" tabindex="1" id="person_citizenship" name="person_citizenship" value="{person_citizenship}" class="f_input" maxlength="30" onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);' ></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_citizenship_requred}</label></td>
+	      </tr>
 	      <tr>
 	        <td><br/></td>
 	      </tr>
@@ -83,18 +100,34 @@
 		<td width="300" height="25" >Серия</td>
 		<td><input type="text" tabindex="1" id="person_passport_ser" name="person_passport_ser" value="{person_passport_ser}" class="f_input" maxlength="4"  onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);'></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_passport_ser_requred}</label></td>
+	      </tr>
               <tr>
 		<td width="300" height="25" >Номер</td>
 		<td><input type="text" tabindex="1" id="person_passport_num" name="person_passport_num" value="{person_passport_num}" class="f_input" maxlength="6"  onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);'></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_passport_num_requred}</label></td>
+	      </tr>
               <tr>
 		<td width="300" height="25" >Дата выдачи</td>
 		<td><input type="text" tabindex="1" id="person_passport_date" name="person_passport_date" value="{person_passport_date}" class="f_input" maxlength="10"  onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);'></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_passport_date_requred}</label></td>
+	      </tr>
               <tr>
 		<td width="300" height="25" >Кем выдан</td>
 		<td><input type="text" tabindex="1" id="person_passport_org" name="person_passport_org" value="{person_passport_org}" class="f_input" maxlength="100" onblur="fieldToUpperCase(this);" onkeyup='return fieldToUpperCase(this);' ></td>
               </tr>
+	      <tr>
+		<td></td>
+	        <td><label style="color:red;">{person_passport_org_requred}</label></td>
+	      </tr>
 	      <tr>
 	        <td><br/></td>
 	      </tr>

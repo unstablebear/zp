@@ -11,12 +11,76 @@ if($_POST['page_id'] == '')
 else
   $pageId = $_POST['page_id'];
 
+$form_valid = true;
 if( isset( $_POST['send'] )) {
+
+  if( !$_POST['person_name'] ) {
+    $tpl->set('{person_name_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_name_requred}', '');
+  }
+
+  if( !$_POST['person_birthday'] ) {
+    $tpl->set('{person_birthday_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_birthday_requred}', '');
+  }
+
+  if( !$_POST['person_birth_address'] ) {
+    $tpl->set('{person_birth_address_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_birth_address_requred}', '');
+  }
+
+  if( !$_POST['person_address'] ) {
+    $tpl->set('{person_address_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_address_requred}', '');
+  }
+
+  if( !$_POST['person_citizenship'] ) {
+    $tpl->set('{person_citizenship_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_citizenship_requred}', '');
+  }
+
+  if( !$_POST['person_passport_ser'] ) {
+    $tpl->set('{person_passport_ser_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_passport_ser_requred}', '');
+  }
+
+  if( !$_POST['person_passport_num'] ) {
+    $tpl->set('{person_passport_num_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_passport_num_requred}', '');
+  }
+
+  if( !$_POST['person_passport_date'] ) {
+    $tpl->set('{person_passport_date_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_passport_date_requred}', '');
+  }
+
+  if( !$_POST['person_passport_org'] ) {
+    $tpl->set('{person_passport_org_requred}', 'Необходимо ввести значение');
+    $form_valid = false;
+  } else {
+    $tpl->set('{person_passport_org_requred}', '');
+  }
 
   $monthes = array ( "01" => "января", "02" => "февраля", "03" => "марта", "04" => "апреля", "05" => "мая", "06" => "июня", 
 		     "07" => "июля", "08" => "августа", "09" => "сентября", "10" => "октября", "11" => "ноября", "12" => "декабря");
 
-  if( $_POST['pdf_or_jpeg'] == 1 ) {
+  if( $_POST['pdf_or_jpeg'] == 1 && $form_valid) {
 
     require_once ENGINE_DIR . '/modules/tcpdf/config/lang/eng.php';
     require_once ENGINE_DIR . '/modules/tcpdf/tcpdf.php';
@@ -296,7 +360,7 @@ if( isset( $_POST['send'] )) {
       $pdfdoc = $pdf->Output($filename, "I");
     }
 
-  } else {
+  } else if($form_valid) {
     
     // FIRST JPEG PAGE
     $font_file = realpath("./engine/modules/pdf_forms/DejaVuSans.ttf");
@@ -537,7 +601,17 @@ if( isset( $_POST['send'] )) {
 
   }
      
- }
+} else {
+  $tpl->set('{person_name_requred}', '');
+  $tpl->set('{person_birthday_requred}', '');
+  $tpl->set('{person_birth_address_requred}', '');
+  $tpl->set('{person_address_requred}', '');
+  $tpl->set('{person_citizenship_requred}', '');
+  $tpl->set('{person_passport_ser_requred}', '');
+  $tpl->set('{person_passport_num_requred}', '');
+  $tpl->set('{person_passport_date_requred}', '');
+  $tpl->set('{person_passport_org_requred}', '');
+}
 
 $js = <<<HTML
 
@@ -568,7 +642,7 @@ $tpl->copy_template = $js . "<form method=\"post\" name=\"sendmail\" onsubmit=\"
 //$tpl->set('{zp_bio_page_1}', './uploads/forms_images/' . $pageId . '_zp_bio_page_1.jpg');
 
 // JPEG DIALOG INIT
-if (isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
+if ( $form_valid && isset( $_POST['send'] ) && $_POST['pdf_or_jpeg'] == 2)
 {
   $tpl->set('{jpeg_autoload}', 'true');
 
