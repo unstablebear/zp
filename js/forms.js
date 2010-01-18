@@ -11,7 +11,7 @@ function addRowToJobTable(skin) {
 	var idx = newRow.rowIndex - 2;
 
 	var oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);checkForFreePeriod(' + idx + ');"/></div>';
+	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_from_' + idx + '" name="job_date_from_' + idx  + '" class="f_input" style="width:70px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onblur="return fieldToUpperCase(this);" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);checkForFreePeriod(' + idx + ');"/></div>';
 	$('#job_date_from_' + idx).datePicker({
 			startDate: '01.01.1900',
 				endDate: '31.12.2200',
@@ -23,7 +23,7 @@ function addRowToJobTable(skin) {
 	//checkForFreePeriod(' + idx + ');');
 
 	oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);"/></div>';
+	oCell.innerHTML = '<div class="date_input_6"><input type="text" id="job_date_to_' + idx + '" name="job_date_to_' + idx  + '" class="f_input" style="width:71px;text-align:center;padding: 1px 1px 1px 1px;border: 1;" onblur="return fieldToUpperCase(this);" onkeyup="return fieldToUpperCase(this);" onchange="trimJobDateVal(this);"/></div>';
 	$('#job_date_to_' + idx).datePicker({
 			startDate: '01.01.1900',
 				endDate: '31.12.2200',
@@ -33,11 +33,11 @@ function addRowToJobTable(skin) {
 	//	$('#job_date_to_' + idx).attr('onchange', 'trimJobDateVal(this);');
 
 	oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:210px;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/>';   
+	oCell.innerHTML = '<input type="text" name="job_name_' + idx  + '" id="job_name_' + idx  + '" class="f_input" style="width:210px;padding: 1px 1px 1px 1px;border: 1;" onblur="return fieldToUpperCase(this);" onkeyup="return fieldToUpperCase(this);"/>';   
 
 
 	oCell = newRow.insertCell(-1);
-	oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" id="job_address_' + idx  + '" class="f_input" style="width:209px;padding: 1px 1px 1px 1px;border: 1;" onkeyup="return fieldToUpperCase(this);"/>';   
+	oCell.innerHTML = '<input type="text" name="job_address_' + idx  + '" id="job_address_' + idx  + '" class="f_input" style="width:209px;padding: 1px 1px 1px 1px;border: 1;" onblur="return fieldToUpperCase(this);" onkeyup="return fieldToUpperCase(this);"/>';   
 
 	oCell = newRow.insertCell(-1);
 
